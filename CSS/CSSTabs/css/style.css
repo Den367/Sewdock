@@ -1,0 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+	background: #999;  
+}
+#page-wrap {
+  width: 960px; 
+  margin: 100px auto;
+}

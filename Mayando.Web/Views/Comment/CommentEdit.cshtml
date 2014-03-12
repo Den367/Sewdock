@@ -1,0 +1,54 @@
+﻿@using Mayando.Web.Extensions
+@using Mayando.Web.Properties
+@model Mayando.Web.Models.Comment
+
+@{Layout = null;}
+
+<div id="commenteditpage">
+
+    @using (Html.BeginCommentsEditForm()) { 
+       
+   
+        @Html.Hidden("returnUrl", value: Request.Url.PathAndQuery)
+        @Html.ValidationSummary("The item could not be saved. Please correct any errors and try again.")
+        <fieldset>
+            <legend>Comment</legend>
+            <p>
+                <label for="AuthorName" class="required">Author's Name:</label>
+                @Html.TextBox("AuthorName", Model.AuthorName ?? string.Empty)
+                @Html.ValidationMessage("AuthorName", "*")
+            </p>
+            <p>
+                <label for="AuthorEmail" class="optional">Author's Email:</label>
+                @Html.TextBox("AuthorEmail", Model.AuthorEmail ?? string.Empty)
+                @Html.ValidationMessage("AuthorEmail", "*")
+            </p>
+            <p>
+                <label for="AuthorUrl" class="optional">Author's URL:</label>
+                @Html.TextBox("AuthorUrl", Model.AuthorUrl ?? string.Empty)
+                @Html.ValidationMessage("AuthorUrl", "*")
+            </p>
+            <p>
+                <label for="DatePublished" class="required">Date Published:</label>
+                @Html.TextBox("DatePublished", Model.DatePublished.ToEditString())
+                @Html.ValidationMessage("DatePublished", "*")
+            </p>
+          
+            <p>
+                <label for="Text" class="required">Text:</label>
+                @Html.TextArea("Text", Model.Text, 8, 80, null)
+                @Html.ValidationMessage("Text", "*")
+            </p>
+            <p>
+             <label class="control-label" for="CaptchaPicture" id="captcha">
+                @Html.TextBox("Captcha", Model.Captcha, new {@readonly="readonly",@overflow="scroll"})
+            </label>
+                @Html.TextBox("UserInputCaptcha", Model.UserInputCaptcha)
+                @Html.ValidationMessage("UserInputCaptcha", "*")
+            </p>
+            <p>
+                <input type="submit" value="@Resources.PhotoCommentsAddComment" />
+            </p>
+        </fieldset>
+      } 
+</div>

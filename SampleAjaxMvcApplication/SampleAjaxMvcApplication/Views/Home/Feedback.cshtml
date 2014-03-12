@@ -1,0 +1,51 @@
+﻿@model SampleAjaxMvcApplication.Models.FeedbackModel
+@{
+	ViewBag.Title = "Feedback";
+}
+<h2>
+	Feedback</h2>
+@using (Ajax.BeginForm(
+		"feedback",
+		"home",
+		new AjaxOptions
+		{
+			HttpMethod = "post",
+			UpdateTargetId = "target",
+			LoadingElementId = "sendingProgress",
+			InsertionMode= InsertionMode.Replace
+		}))
+{
+	@Html.ValidationSummary(true)
+	<fieldset>
+		<legend>FeedbackModel</legend>
+		<div class="editor-label">
+			@Html.LabelFor(model => model.UserName)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.UserName)
+			@Html.ValidationMessageFor(model => model.UserName)
+		</div>
+		<div class="editor-label">
+			@Html.LabelFor(model => model.Email)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.Email)
+			@Html.ValidationMessageFor(model => model.Email)
+		</div>
+		<div class="editor-label">
+			@Html.LabelFor(model => model.MessageText)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.MessageText)
+			@Html.ValidationMessageFor(model => model.MessageText)
+		</div>
+		<p class="">
+			<input type="submit" value="Create" />
+			<span id="sendingProgress" style="display: none;">ждите, идет отправка сообщения...
+				<img src='@Href("~/Content/Images/ajax_loader_big.gif")' alt="Ждите" />
+			</span>
+		</p>
+		<p id="target">
+		</p>
+	</fieldset>
+}

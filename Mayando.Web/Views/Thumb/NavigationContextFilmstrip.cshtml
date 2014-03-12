@@ -1,0 +1,69 @@
+﻿@model Mayando.Web.ViewModels.EmbroNavigationViewModel
+@using JelleDruyts.Web.Mvc.Paging
+
+
+@* <div id="searchcontainer">
+                @using (Html.BeginPhotosSearchForm()) { 
+                    <div style="float: left;">
+                        @Html.TextBox("SearchText", string.Empty, new { @class = "search-box" })
+                        <input type="submit" value="@Resources.SearchSubmit" />
+                    </div>
+                    <div style="clear: right; margin-bottom: 5px;"></div>
+                 } 
+            </div>*@
+<div class="pager">
+    @{
+        var nav = Model.NavigationContext;
+
+        Html.Pager(nav.PageSize, nav.PageNumber, nav.TotalItemCount, new { criteria = nav.Criteria }); }
+</div>
+<div class="navigation-filmstrip">
+    @{Html.RenderPartial("ListEmbros", Model.NavigationContext);}
+
+</div>
+
+
+
+<style type="text/css">
+    #svg-el-blur
+    {
+        height: 10px;
+        width: 100%;
+    }
+
+        #svg-el-blur text
+        {
+            fill: green;
+            filter: url(#blur-effect-1);
+            font: 50px sans-serif;
+        }
+
+    svg text:hover
+    {
+        fill: green;
+        filter: url(#blur-effect-1);
+        font: 50px sans-serif;
+    }
+
+    svg polyline:hover
+    {
+        filter: url(#blur-effect-2);
+    }
+
+    svg g:hover
+    {
+        opacity: 0.5;
+        fill: none;
+        pointer-events: all;
+    }
+
+    .lt-ie9 #svg-el-blur text
+    {
+        color: green;
+    }
+    ins .selected {
+        
+    }
+</style>
+
+

@@ -1,0 +1,50 @@
+
+@using Mayando.Web.Extensions
+@using Mayando.Web.Infrastructure
+@using Mayando.Web.Properties
+@model Mayando.Web.ViewModels.EmbroDetailsViewModel
+           
+@{ Layout = null; }
+
+@if (Model != null)
+{<ins>
+   
+        @Html.Raw(@Html.ActionLink(Resources.EmbroDownloadButtonText, ActionName.Download, "embro", null, new { @id = Model.Id, @class = "btn" }))
+   
+    </ins>
+    <ins>
+
+        @Html.ActionLink(
+        Resources.ButtonAnimateText,           // linkText
+        "JsonEmbroideryCoords",         // action
+        "Embro",     // controller
+        new { @id = Model.Id },                 // routeValues
+        new { @id = "startStitchEmulationButton", @class = "btn" } // htmlAttributes
+         )
+    </ins>
+
+    <div id="embro-detail">
+        @Html.Raw(Model.Svg)
+    </div>
+}
+<script type="text/javascript">     
+    $(function() {
+        var json = @Html.Raw(Model.Json);
+        if(!window.Embro)
+            window.Embro = {};                
+        if(window.Embro.Json)
+        {
+            for(var key in json)
+                window.Embro.Json[key] = json[key];
+        }
+        else
+            window.Embro.Json = json;       
+    });
+    
+</script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/EmbroDetailsImage.js")" defer></script>
+
+
+
+

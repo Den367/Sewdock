@@ -1,0 +1,347 @@
+
+/*  Print Styles - 1 of 12 Microsoft Internet Explorer Design Templates */
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	HTML TAGS
+	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+body {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#4d4d4d;
+	}
+
+p, li {
+	font-size:.8em;
+	line-height:150%;
+	}
+	
+a img {
+	border:none;
+	}
+
+/* HEADINGS */
+	
+h1,h2,h3,h4,h5,h6 {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#000;
+	margin:30px 0;
+	}
+
+h1 {
+	font-size:1.4em;
+	}
+
+h1.first {
+	margin-top:0;
+	}
+	
+h2 {
+	font-size:1em;
+	}
+
+h3 {
+	font-size:.9em;
+	}
+	
+h4 {
+	font-size:.8em;
+	}
+	
+h5 {
+	font-size:.7em;
+	}
+	
+h6 {
+	font-size:.6em;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 FORMS
+	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+fieldset {
+	border:1px solid #0f5793;
+	padding:10px 20px;
+	margin:15px 0;
+	clear:both;
+	}
+
+fieldset fieldset {
+	margin:10px 0;
+	width:90%;
+	}
+	
+legend {
+	color:#0f5793;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-weight:bold;
+	font-size:1.2em;
+	padding-bottom:15px;
+	}
+
+fieldset fieldset legend {
+	font-size:1em;
+	}
+	
+input,
+textarea,
+select {
+	display:block;
+	margin-bottom:15px;
+	vertical-align:top;
+	padding:5px;
+	color:#666666;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:.9em;
+	}
+
+label {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-weight:bold;
+	font-size:.8em;
+	font-weight:bold;
+	color:#000;
+	display:block;
+	}
+	
+.checkbox {
+	border:1px solid #d0dcf0;
+	margin:10px 0;
+	padding:6px 6px 0 6px;
+	}	
+	
+.checkbox input {	
+	margin-right:16px;
+	margin-bottom:6px;
+	}
+
+input.button-big {
+	color:#0f5793;
+	font-weight:bold;
+	padding:6px 22px;
+	display:inline;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 LINKS
+	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+a:link {
+	color:#0f5793;
+	text-decoration:underline;
+	}
+
+a:visited {
+	color:#207f85;
+	text-decoration:underline;
+	}
+
+a:hover {
+	text-decoration:none;
+	}
+
+a:active {
+	text-decoration:underline overline;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 LOGO
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.logo a:link,
+.logo a:visited {
+	text-decoration:none;
+	color:#891305;
+	}
+
+.logo {
+	font-family:"Arial-Narrow", Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:1.3em;
+	margin-bottom:20px;
+	border-bottom:1px solid #FAB64C;
+	padding-bottom:20px;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 MAIN NAV
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.nav-main {
+	display:none;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 SIDE NAV
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.content-side a:link,
+.content-side a:visited {
+	text-decoration:none;
+	}
+	
+.content-side a:hover {
+	text-decoration:underline;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 LOGIN
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.nav-login {
+	display:none;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 FOOTER
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.nav-footer ul {
+	display:none;
+	}
+
+.copyright {
+	border-top:1px solid #FAB64C;
+	margin-top:30px;
+	padding-top:15px;
+	color:#666;
+	font-size:.75em;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 PHOTOS & CAPTIONS
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.photo img {
+	display:block;
+	}
+	
+.photo .caption {
+	text-align:right;
+	color:#6d717a;
+	font-size:.8em;
+	padding:15px;
+	border:1px solid #b3b3b3;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 TWO-COLUMN SECTION
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.two-column-container {
+	width:100%;
+	position:relative;
+	}
+	
+.two-column-1 {
+	float:left;
+	width:47%;
+	}
+	
+.two-column-2 {
+	float:right;
+	width:47%;
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 DATA TABLES
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+table.data-table {
+	border-top:1px solid #4478c8;
+	border-left:1px solid #4478c8;
+	font-size:.8em;
+	}
+
+table.data-table caption{
+	color:#FFF;
+	padding:20px 10px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	text-align:left;
+	border:1px solid #4478c8;
+	border-bottom:none;
+	}
+
+table.data-table td,
+table.data-table th{
+	padding:6px 10px;
+	}
+	
+table.data-table th{
+	color:#4478c8;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	border-bottom:1px solid #4478c8;
+	border-right:1px solid #4478c8;
+	text-align:left;
+	}
+	
+table.data-table td{
+	border-bottom:1px solid #4478c8;
+	border-right:1px solid #4478c8;
+	}
+
+table.data-table tr.row-alternating td{
+	}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 
+	 MISC STYLES
+	 	 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.none {
+	display:none;
+	}
+
+.clear {
+	clear:both;
+	font-size:1px;
+	margin:0;
+	padding:0;
+	}
+
+.align-left {
+	float:left;
+	margin:0 20px 15px 0;
+	}
+
+.align-right {
+	float:right;
+	margin:0 0 15px 20px;
+	}
+
+.align-middle {
+	vertical-align:middle;
+	}
+	
+.inline {
+	display:inline;
+	}
+
+.no-margin {
+	margin:0;
+	}

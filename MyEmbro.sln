@@ -1,0 +1,130 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{E38CC194-CA64-435B-BCF7-D39F8098D20B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{68B1B65E-D2E9-45B6-B48D-26BF6A70D105}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{FF77A239-5BA6-4F1B-B80E-D35C934D3CA1}"
+	ProjectSection(SolutionItems) = preProject
+		References\FlickrNet.chm = References\FlickrNet.chm
+		References\FlickrNet.dll = References\FlickrNet.dll
+		References\FlickrNet.xml = References\FlickrNet.xml
+		References\JelleDruyts.Mollom.Client.chm = References\JelleDruyts.Mollom.Client.chm
+		References\JelleDruyts.Mollom.Client.dll = References\JelleDruyts.Mollom.Client.dll
+		References\JelleDruyts.Mollom.Client.xml = References\JelleDruyts.Mollom.Client.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DA53C40-F774-4802-9621-96356BE023C4}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		Mayando.snk = Mayando.snk
+		MyEmbro.vsmdi = MyEmbro.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{DB098CA1-1662-4110-9C9F-16A65BE0800C}"
+	ProjectSection(SolutionItems) = preProject
+		Deployment\db-aspnet.sql = Deployment\db-aspnet.sql
+		Deployment\db-mayando-schema-upgrade-1.0-1.1.sql = Deployment\db-mayando-schema-upgrade-1.0-1.1.sql
+		Deployment\db-mayando-schema.sql = Deployment\db-mayando-schema.sql
+		Deployment\db-mayando-user.sql = Deployment\db-mayando-user.sql
+		Deployment\license.txt = Deployment\license.txt
+		Deployment\manifest.xml = Deployment\manifest.xml
+		Deployment\parameters.xml = Deployment\parameters.xml
+		Deployment\readme.txt = Deployment\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{8C3A9D0F-7C92-45EC-A4E5-C3156E63E4A8}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Mayando-Icon.png = Resources\Mayando-Icon.png
+		Resources\Mayando-Icon.psd = Resources\Mayando-Icon.psd
+		Resources\Mayando-Logo-Medium-Square.png = Resources\Mayando-Logo-Medium-Square.png
+		Resources\Mayando-Logo-Medium.png = Resources\Mayando-Logo-Medium.png
+		Resources\Mayando-Logo.gif = Resources\Mayando-Logo.gif
+		Resources\Mayando-Logo.png = Resources\Mayando-Logo.png
+		Resources\Mayando-Logo.psd = Resources\Mayando-Logo.psd
+		Resources\Mayando-Screenshot-Administration.png = Resources\Mayando-Screenshot-Administration.png
+		Resources\Mayando-Screenshot-Galleries.png = Resources\Mayando-Screenshot-Galleries.png
+		Resources\Mayando-Screenshot-PhotoDetails.png = Resources\Mayando-Screenshot-PhotoDetails.png
+		Resources\Mayando-Screenshot-PhotoList.png = Resources\Mayando-Screenshot-PhotoList.png
+		Resources\MayandoWikiFlickrAuthenticationSucceeded.txt = Resources\MayandoWikiFlickrAuthenticationSucceeded.txt
+		Resources\MayandoWikiHomepage.txt = Resources\MayandoWikiHomepage.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JelleDruyts.Web.Mvc", "JelleDruyts.Web.Mvc\JelleDruyts.Web.Mvc.csproj", "{E0B9C0AA-E402-442C-B3D4-111514F684C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayando.ProviderModel", "Mayando.ProviderModel\Mayando.ProviderModel.csproj", "{498536C0-F9C8-4813-9900-76F3505859CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayando.Web", "Mayando.Web\Mayando.Web.csproj", "{775F56B8-91D0-4E31-BCBD-5CD41E0B8A37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayando.Web.Tests", "Mayando.Web.Tests\Mayando.Web.Tests.csproj", "{A59FAAA3-AEA9-44B1-9DBB-7A6BB57E43FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayando.ServiceModel", "Mayando.ServiceModel\Mayando.ServiceModel.csproj", "{155C20FC-EAD9-4E7E-983E-D96B960BF2BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayando.Client", "Mayando.Client\Mayando.Client.csproj", "{27C4EC3A-5DAE-41BB-88F9-663860AE0AEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbroideryFile", "..\denism\CustomSource\embroideryReader150-source\PesFile\EmbroideryFile.csproj", "{66EF662E-F52C-4104-9C15-A14266D8F3B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DstTestProject", "DstTestProject\DstTestProject.csproj", "{92530D91-0F17-49E2-998D-3028D3A6BB78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingToolkit.QRCode", "packages\MessagingToolkit.QRCode.1.3.0\lib\MessagingToolkit.QRCode_Source\MessagingToolkit.QRCode.csproj", "{8F305C7A-6F12-4218-B647-B4EC5B9CE63C}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = MyEmbro.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0B9C0AA-E402-442C-B3D4-111514F684C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B9C0AA-E402-442C-B3D4-111514F684C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B9C0AA-E402-442C-B3D4-111514F684C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B9C0AA-E402-442C-B3D4-111514F684C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{498536C0-F9C8-4813-9900-76F3505859CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{498536C0-F9C8-4813-9900-76F3505859CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{498536C0-F9C8-4813-9900-76F3505859CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{498536C0-F9C8-4813-9900-76F3505859CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775F56B8-91D0-4E31-BCBD-5CD41E0B8A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775F56B8-91D0-4E31-BCBD-5CD41E0B8A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775F56B8-91D0-4E31-BCBD-5CD41E0B8A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775F56B8-91D0-4E31-BCBD-5CD41E0B8A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59FAAA3-AEA9-44B1-9DBB-7A6BB57E43FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59FAAA3-AEA9-44B1-9DBB-7A6BB57E43FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59FAAA3-AEA9-44B1-9DBB-7A6BB57E43FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59FAAA3-AEA9-44B1-9DBB-7A6BB57E43FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{155C20FC-EAD9-4E7E-983E-D96B960BF2BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{155C20FC-EAD9-4E7E-983E-D96B960BF2BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{155C20FC-EAD9-4E7E-983E-D96B960BF2BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{155C20FC-EAD9-4E7E-983E-D96B960BF2BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C4EC3A-5DAE-41BB-88F9-663860AE0AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C4EC3A-5DAE-41BB-88F9-663860AE0AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C4EC3A-5DAE-41BB-88F9-663860AE0AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C4EC3A-5DAE-41BB-88F9-663860AE0AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66EF662E-F52C-4104-9C15-A14266D8F3B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66EF662E-F52C-4104-9C15-A14266D8F3B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66EF662E-F52C-4104-9C15-A14266D8F3B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66EF662E-F52C-4104-9C15-A14266D8F3B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92530D91-0F17-49E2-998D-3028D3A6BB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92530D91-0F17-49E2-998D-3028D3A6BB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92530D91-0F17-49E2-998D-3028D3A6BB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92530D91-0F17-49E2-998D-3028D3A6BB78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F305C7A-6F12-4218-B647-B4EC5B9CE63C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F305C7A-6F12-4218-B647-B4EC5B9CE63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F305C7A-6F12-4218-B647-B4EC5B9CE63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F305C7A-6F12-4218-B647-B4EC5B9CE63C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E0B9C0AA-E402-442C-B3D4-111514F684C9} = {E38CC194-CA64-435B-BCF7-D39F8098D20B}
+		{498536C0-F9C8-4813-9900-76F3505859CF} = {E38CC194-CA64-435B-BCF7-D39F8098D20B}
+		{775F56B8-91D0-4E31-BCBD-5CD41E0B8A37} = {E38CC194-CA64-435B-BCF7-D39F8098D20B}
+		{155C20FC-EAD9-4E7E-983E-D96B960BF2BE} = {E38CC194-CA64-435B-BCF7-D39F8098D20B}
+		{27C4EC3A-5DAE-41BB-88F9-663860AE0AEC} = {E38CC194-CA64-435B-BCF7-D39F8098D20B}
+		{A59FAAA3-AEA9-44B1-9DBB-7A6BB57E43FB} = {68B1B65E-D2E9-45B6-B48D-26BF6A70D105}
+	EndGlobalSection
+EndGlobal

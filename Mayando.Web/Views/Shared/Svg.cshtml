@@ -1,0 +1,65 @@
+﻿@model EmbroideryFile.EmbroideryData
+
+<fieldset>
+    <legend>EmbroideryData</legend>
+
+    <div class="display-label">DesignName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DesignName)
+    </div>
+
+    <div class="display-label">Width</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Width)
+    </div>
+
+    <div class="display-label">Height</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Height)
+    </div>
+
+    <div class="display-label">Xmin</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Xmin)
+    </div>
+
+    <div class="display-label">Ymin</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ymin)
+    </div>
+
+    <div class="display-label">Xmax</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Xmax)
+    </div>
+
+    <div class="display-label">Ymax</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ymax)
+    </div>
+
+    <div class="display-label">TotalStitchCount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalStitchCount)
+    </div>
+
+    <div class="display-label">ColorChangeCount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ColorChangeCount)
+    </div>
+
+    <div class="display-label">StitchBlockCount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StitchBlockCount)
+    </div>
+
+    <div class="display-label">JumpsBlocksCount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.JumpsBlocksCount)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

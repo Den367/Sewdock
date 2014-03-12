@@ -1,0 +1,18 @@
+﻿@model Mayando.Web.Infrastructure.EmbroNavigationContext
+@using Mayando.Web.Extensions
+@using Mayando.Web.Infrastructure
+
+@{ Layout = null;}
+@if (null != Model.Embros && Model.TotalItemCount > 0)
+{     	    
+    <div class="navigation-filmstrip">
+        @foreach (var embro in Model.Embros)
+        {                                       
+            <ins class="@((Model.CurrentEmbroID == embro.Id) ? "selected" : string.Empty)">
+                @{ Html.RenderPartial(PartialViewName.EmbroThumbnail, embro); }
+            </ins>
+        }
+
+    </div>
+}
+

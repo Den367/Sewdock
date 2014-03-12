@@ -1,0 +1,23 @@
+<MSDeploy.iisApp>
+
+  <!-- Install the Mayando web application in IIS. -->
+  <iisApp path="Mayando" />
+
+  <!-- Install the ASP.NET Application Services schema.
+       Note: this script (aspnet.sql) calls a few stored procedures that
+       cannot be run inside a transaction, so we disable transactions. -->
+  <dbfullsql path="db-aspnet.sql" transacted="false" />
+
+  <!-- Create the database user which the application will use to connect with.
+       Note: this script could run in a transaction but warnings occur
+       if you mix transaction modes on the same database so we'll also
+       disable transactions here for consistency. -->
+  <dbfullsql path="db-mayando-user.sql" transacted="false" />
+
+  <!-- Install the Mayando schema.
+       Note: this script could run in a transaction but warnings occur
+       if you mix transaction modes on the same database so we'll also
+       disable transactions here for consistency. -->
+  <dbfullsql path="db-mayando-schema.sql" transacted="false" />
+
+</MSDeploy.iisApp>

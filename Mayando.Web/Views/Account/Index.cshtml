@@ -1,0 +1,22 @@
+﻿@using Mayando.Web.Infrastructure
+@using Mayando.Web.Properties
+@model Mayando.Web.Models.SiteData
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+@section TitleContent
+{
+    @Html.Encode(Resources.LogOnAccountInformation)
+
+}
+@section MainContent
+{
+  <div id="contactindexpage">
+    <h2>@Html.Encode(Resources.AccountLogOn) </h2>
+    @{Html.RenderPartial("LogOn", new  Mayando.Web.Models.LogOnModel()); }
+</div>  
+
+}

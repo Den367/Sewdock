@@ -1,0 +1,27 @@
+﻿@model Mayando.Web.ViewModels.EmbroDetailsViewModel
+
+@using Mayando.Web.Extensions           
+@using Mayando.Web.Infrastructure
+@using Mayando.Web.Properties
+
+@{Layout = null;}
+
+<div id="photo-text">
+                @if (Model.Article != null){ Html.Raw(Model.Article);}
+            </div>
+            <div id="photo-details">
+                <div id="photo-dates">                    
+                    <span>@Html.Raw(Html.DateTimeText(Model.Created, DateTimeDisplayType.PhotoTaken))</span> |
+                </div>
+              
+                <div id="photo-tags">
+                    @Html.Raw(Html.ActionLinkTagsIndex(Resources.PhotoTags))  &raquo;
+                    @if (Model.TagList != null)
+                    {
+                        foreach (var tag in Model.TagList)
+                        {
+                            <span class="photo-tag">@Html.Raw(Html.ActionLinkTag(tag))</span>
+                        }
+                    }
+                </div>
+            </div>

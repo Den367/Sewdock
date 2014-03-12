@@ -1,0 +1,33 @@
+﻿@model Mayando.Web.Models.Comment
+@using Mayando.Web.Extensions
+@using Mayando.Web.Infrastructure
+@using JelleDruyts.Web.Mvc
+@using Mayando.Web.Properties
+@{
+    Layout = null;
+    }
+<div id="@Model.Id" class="comment @(Model.AuthorIsOwner ? " comment-owner" : string.Empty)" >
+    @if (User.IsAdministrator() || Model.AuthorIsOwner) {Html.ActionLink(Resources.ButtonDeleteText, "Delete", new {@id = Model.Id, @returnUrl = Request.Url.PathAndQuery}, new {@class = "btn"});}
+    <div class="comment-title">
+        @(
+    Resources.PhotoCommentsBy)
+        <span class="comment-author">@Html.Raw(Html.Link(Model.AuthorUrl, Model.AuthorName, true)) </span>
+        <span class="comment-date">@Html.DateTimeText(Model.DatePublished, DateTimeDisplayType.CommentPublished)</span>
+        @* @if (Page.User.CanSeeAdministratorContent()) { 
+                                    @Html.ActionLinkCommentEdit("Edit", Model.Id, this.Context.Request.RawUrl, "admin")
+                                    @Html.ActionLinkCommentDelete("Delete", Model.Id, this.Context.Request.RawUrl, "admin")
+                                     } *@
+    </div>
+    <div class="comment-content">
+        <div class="comment-gravatar">
+            <img src="@Url.Gravatar(Model.AuthorEmail, 60, Url.ThemedContent("~/content/anonymous.png"))" height="60" width="60" alt="Gravatar" />
+        </div>
+
+        {
+            <div  style="position: absolute; top: 600px; left: 320px;">
+      
+            </div>
+        }
+        <div class="comment-text">@Html.EncodeWithLineBreaks(Model.Text)</div>
+    </div>
+</div>

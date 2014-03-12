@@ -1,0 +1,616 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MayandoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="MayandoModelStoreContainer">
+          <EntitySet Name="Comment" EntityType="MayandoModel.Store.Comment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Gallery" EntityType="MayandoModel.Store.Gallery" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GalleryTag" EntityType="MayandoModel.Store.GalleryTag" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Log" EntityType="MayandoModel.Store.Log" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Menu" EntityType="MayandoModel.Store.Menu" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Page" EntityType="MayandoModel.Store.Page" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Photo" EntityType="MayandoModel.Store.Photo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PhotoTag" EntityType="MayandoModel.Store.PhotoTag" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Setting" EntityType="MayandoModel.Store.Setting" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tag" EntityType="MayandoModel.Store.Tag" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Comment_Photo" Association="MayandoModel.Store.FK_Comment_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gallery_Photo" Association="MayandoModel.Store.FK_Gallery_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Gallery" EntitySet="Gallery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GalleryTag_Gallery" Association="MayandoModel.Store.FK_GalleryTag_Gallery">
+            <End Role="Gallery" EntitySet="Gallery" />
+            <End Role="GalleryTag" EntitySet="GalleryTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GalleryTag_Tag" Association="MayandoModel.Store.FK_GalleryTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="GalleryTag" EntitySet="GalleryTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_Photo" Association="MayandoModel.Store.FK_Page_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParentGallery_Gallery" Association="MayandoModel.Store.FK_ParentGallery_Gallery">
+            <End Role="Gallery" EntitySet="Gallery" />
+            <End Role="Gallery1" EntitySet="Gallery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhotoTag_Photo" Association="MayandoModel.Store.FK_PhotoTag_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="PhotoTag" EntitySet="PhotoTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhotoTag_Tag" Association="MayandoModel.Store.FK_PhotoTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="PhotoTag" EntitySet="PhotoTag" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PhotoId" Type="int" Nullable="false" />
+          <Property Name="ExternalId" Type="nvarchar(max)" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AuthorIsOwner" Type="bit" Nullable="false" />
+          <Property Name="AuthorName" Type="nvarchar(max)" />
+          <Property Name="AuthorEmail" Type="nvarchar(max)" />
+          <Property Name="AuthorUrl" Type="nvarchar(max)" />
+          <Property Name="DatePublished" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParentGalleryId" Type="int" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="CoverPhotoId" Type="int" />
+          <Property Name="Slug" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="GalleryTag">
+          <Key>
+            <PropertyRef Name="GalleryId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="GalleryId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Detail" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="OpenInNewWindow" Type="bit" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ToolTip" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PhotoId" Type="int" />
+          <Property Name="HidePhotoText" Type="bit" Nullable="false" />
+          <Property Name="HidePhotoComments" Type="bit" Nullable="false" />
+          <Property Name="ShowContactForm" Type="bit" Nullable="false" />
+          <Property Name="Slug" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ExternalId" Type="nvarchar(max)" />
+          <Property Name="ExternalUrl" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="UrlLarge" Type="nvarchar(max)" />
+          <Property Name="UrlNormal" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UrlSmall" Type="nvarchar(max)" />
+          <Property Name="UrlThumbnail" Type="nvarchar(max)" />
+          <Property Name="UrlThumbnailSquare" Type="nvarchar(max)" />
+          <Property Name="DateTaken" Type="datetime" />
+          <Property Name="DatePublished" Type="datetime" Nullable="false" />
+          <Property Name="Hidden" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhotoTag">
+          <Key>
+            <PropertyRef Name="PhotoId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="PhotoId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Scope" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Scope" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserVisible" Type="bit" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comment_Photo">
+          <End Role="Photo" Type="MayandoModel.Store.Photo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comment" Type="MayandoModel.Store.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gallery_Photo">
+          <End Role="Photo" Type="MayandoModel.Store.Photo" Multiplicity="0..1" />
+          <End Role="Gallery" Type="MayandoModel.Store.Gallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gallery">
+              <PropertyRef Name="CoverPhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GalleryTag_Gallery">
+          <End Role="Gallery" Type="MayandoModel.Store.Gallery" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GalleryTag" Type="MayandoModel.Store.GalleryTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gallery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GalleryTag">
+              <PropertyRef Name="GalleryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GalleryTag_Tag">
+          <End Role="Tag" Type="MayandoModel.Store.Tag" Multiplicity="1" />
+          <End Role="GalleryTag" Type="MayandoModel.Store.GalleryTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GalleryTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Page_Photo">
+          <End Role="Photo" Type="MayandoModel.Store.Photo" Multiplicity="0..1" />
+          <End Role="Page" Type="MayandoModel.Store.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParentGallery_Gallery">
+          <End Role="Gallery" Type="MayandoModel.Store.Gallery" Multiplicity="0..1" />
+          <End Role="Gallery1" Type="MayandoModel.Store.Gallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gallery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gallery1">
+              <PropertyRef Name="ParentGalleryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhotoTag_Photo">
+          <End Role="Photo" Type="MayandoModel.Store.Photo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhotoTag" Type="MayandoModel.Store.PhotoTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhotoTag">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhotoTag_Tag">
+          <End Role="Tag" Type="MayandoModel.Store.Tag" Multiplicity="1" />
+          <End Role="PhotoTag" Type="MayandoModel.Store.PhotoTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhotoTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MayandoModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="MayandoContext">
+          <EntitySet Name="Comments" EntityType="MayandoModel.Comment" />
+          <EntitySet Name="Menus" EntityType="MayandoModel.Menu" />
+          <EntitySet Name="Pages" EntityType="MayandoModel.Page" />
+          <EntitySet Name="Photos" EntityType="MayandoModel.Photo" />
+          <EntitySet Name="Settings" EntityType="MayandoModel.Setting" />
+          <EntitySet Name="Tags" EntityType="MayandoModel.Tag" />
+          <AssociationSet Name="FK_Comment_Photo" Association="MayandoModel.FK_Comment_Photo">
+            <End Role="Photo" EntitySet="Photos" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_Photo" Association="MayandoModel.FK_Page_Photo">
+            <End Role="Photo" EntitySet="Photos" />
+            <End Role="Page" EntitySet="Pages" />
+          </AssociationSet>
+          <AssociationSet Name="PhotoTag" Association="MayandoModel.PhotoTag">
+            <End Role="Photo" EntitySet="Photos" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+          <EntitySet Name="Galleries" EntityType="MayandoModel.Gallery" />
+          <AssociationSet Name="FK_Gallery_Photo" Association="MayandoModel.FK_Gallery_Photo">
+            <End Role="Photo" EntitySet="Photos" />
+            <End Role="Gallery" EntitySet="Galleries" /></AssociationSet>
+          <AssociationSet Name="GalleryTag" Association="MayandoModel.GalleryTag">
+            <End Role="Gallery" EntitySet="Galleries" />
+            <End Role="Tag" EntitySet="Tags" /></AssociationSet>
+          <EntitySet Name="Logs" EntityType="MayandoModel.Log" />
+          <AssociationSet Name="FK_ParentGallery_Gallery" Association="MayandoModel.FK_ParentGallery_Gallery">
+            <End Role="Gallery" EntitySet="Galleries" />
+            <End Role="Gallery1" EntitySet="Galleries" /></AssociationSet></EntityContainer>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ExternalId" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AuthorIsOwner" Type="Boolean" Nullable="false" />
+          <Property Name="AuthorName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AuthorEmail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AuthorUrl" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DatePublishedUtc" Type="DateTime" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
+          <NavigationProperty Name="Photo" Relationship="MayandoModel.FK_Comment_Photo" FromRole="Comment" ToRole="Photo" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="OpenInNewWindow" Type="Boolean" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ToolTip" Type="String" Nullable="true" /></EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="HidePhotoText" Type="Boolean" Nullable="false" />
+          <Property Name="HidePhotoComments" Type="Boolean" Nullable="false" />
+          <Property Name="ShowContactForm" Type="Boolean" Nullable="false" />
+          <Property Name="Slug" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Photo" Relationship="MayandoModel.FK_Page_Photo" FromRole="Page" ToRole="Photo" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ExternalId" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UrlLarge" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UrlNormal" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UrlSmall" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UrlThumbnail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UrlThumbnailSquare" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DateTakenUtc" Type="DateTime" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Public" />
+          <Property Name="DatePublishedUtc" Type="DateTime" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
+          <NavigationProperty Name="Comments" Relationship="MayandoModel.FK_Comment_Photo" FromRole="Photo" ToRole="Comment" />
+          <NavigationProperty Name="Pages" Relationship="MayandoModel.FK_Page_Photo" FromRole="Photo" ToRole="Page" />
+          <NavigationProperty Name="Tags" Relationship="MayandoModel.PhotoTag" FromRole="Photo" ToRole="Tag" />
+          <NavigationProperty Name="GalleriesWithPhotoAsCover" Relationship="MayandoModel.FK_Gallery_Photo" FromRole="Photo" ToRole="Gallery" />
+          <Property Name="ExternalUrl" Type="String" Nullable="true" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" /></EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Scope" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Scope" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UserVisible" Type="Boolean" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Photos" Relationship="MayandoModel.PhotoTag" FromRole="Tag" ToRole="Photo" />
+          <NavigationProperty Name="Galleries" Relationship="MayandoModel.GalleryTag" FromRole="Tag" ToRole="Gallery" /></EntityType>
+        <Association Name="FK_Comment_Photo">
+          <End Role="Photo" Type="MayandoModel.Photo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comment" Type="MayandoModel.Comment" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Page_Photo">
+          <End Role="Photo" Type="MayandoModel.Photo" Multiplicity="0..1" />
+          <End Role="Page" Type="MayandoModel.Page" Multiplicity="*" />
+        </Association>
+        <Association Name="PhotoTag">
+          <End Role="Photo" Type="MayandoModel.Photo" Multiplicity="*" />
+          <End Role="Tag" Type="MayandoModel.Tag" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Slug" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="CoverPhoto" Relationship="MayandoModel.FK_Gallery_Photo" FromRole="Gallery" ToRole="Photo" />
+          <NavigationProperty Name="Tags" Relationship="MayandoModel.GalleryTag" FromRole="Gallery" ToRole="Tag" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChildGalleries" Relationship="MayandoModel.FK_ParentGallery_Gallery" FromRole="Gallery" ToRole="Gallery1" />
+          <NavigationProperty Name="ParentGallery" Relationship="MayandoModel.FK_ParentGallery_Gallery" FromRole="Gallery1" ToRole="Gallery" /></EntityType>
+        <Association Name="FK_Gallery_Photo">
+          <End Type="MayandoModel.Photo" Role="Photo" Multiplicity="0..1" />
+          <End Type="MayandoModel.Gallery" Role="Gallery" Multiplicity="*" /></Association>
+        <Association Name="GalleryTag">
+          <End Type="MayandoModel.Gallery" Role="Gallery" Multiplicity="*" />
+          <End Type="MayandoModel.Tag" Role="Tag" Multiplicity="*" /></Association>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TimeUtc" Type="DateTime" Nullable="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" />
+          <Property Name="Detail" Type="String" Nullable="true" /></EntityType>
+        <Association Name="FK_ParentGallery_Gallery">
+          <End Type="MayandoModel.Gallery" Role="Gallery" Multiplicity="0..1" />
+          <End Type="MayandoModel.Gallery" Role="Gallery1" Multiplicity="*" /></Association></Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="MayandoModelStoreContainer" CdmEntityContainer="MayandoContext">
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Comment)">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="AuthorIsOwner" ColumnName="AuthorIsOwner" />
+                <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+                <ScalarProperty Name="AuthorEmail" ColumnName="AuthorEmail" />
+                <ScalarProperty Name="AuthorUrl" ColumnName="AuthorUrl" />
+                <ScalarProperty Name="DatePublishedUtc" ColumnName="DatePublished" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Menu)">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="ToolTip" ColumnName="ToolTip" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="OpenInNewWindow" ColumnName="OpenInNewWindow" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Page)">
+              <MappingFragment StoreEntitySet="Page">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="HidePhotoText" ColumnName="HidePhotoText" />
+                <ScalarProperty Name="HidePhotoComments" ColumnName="HidePhotoComments" />
+                <ScalarProperty Name="ShowContactForm" ColumnName="ShowContactForm" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photos">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Photo)">
+              <MappingFragment StoreEntitySet="Photo">
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+                <ScalarProperty Name="ExternalUrl" ColumnName="ExternalUrl" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="UrlLarge" ColumnName="UrlLarge" />
+                <ScalarProperty Name="UrlNormal" ColumnName="UrlNormal" />
+                <ScalarProperty Name="UrlSmall" ColumnName="UrlSmall" />
+                <ScalarProperty Name="UrlThumbnail" ColumnName="UrlThumbnail" />
+                <ScalarProperty Name="UrlThumbnailSquare" ColumnName="UrlThumbnailSquare" />
+                <ScalarProperty Name="DateTakenUtc" ColumnName="DateTaken" />
+                <ScalarProperty Name="DatePublishedUtc" ColumnName="DatePublished" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Setting)">
+              <MappingFragment StoreEntitySet="Setting">
+                <ScalarProperty Name="Scope" ColumnName="Scope" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserVisible" ColumnName="UserVisible" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Tag)">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Comment_Photo" TypeName="MayandoModel.FK_Comment_Photo" StoreEntitySet="Comment">
+            <EndProperty Name="Photo">
+              <ScalarProperty Name="Id" ColumnName="PhotoId" />
+            </EndProperty>
+            <EndProperty Name="Comment">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Page_Photo" TypeName="MayandoModel.FK_Page_Photo" StoreEntitySet="Page">
+            <EndProperty Name="Photo">
+              <ScalarProperty Name="Id" ColumnName="PhotoId" />
+            </EndProperty>
+            <EndProperty Name="Page">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <Condition ColumnName="PhotoId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PhotoTag" TypeName="MayandoModel.PhotoTag" StoreEntitySet="PhotoTag">
+            <EndProperty Name="Photo">
+              <ScalarProperty Name="Id" ColumnName="PhotoId" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="Id" ColumnName="TagId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Galleries">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Gallery)">
+              <MappingFragment StoreEntitySet="Gallery">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="FK_Gallery_Photo" TypeName="MayandoModel.FK_Gallery_Photo" StoreEntitySet="Gallery">
+            <EndProperty Name="Gallery">
+              <ScalarProperty Name="Id" ColumnName="Id" /></EndProperty>
+            <EndProperty Name="Photo">
+              <ScalarProperty Name="Id" ColumnName="CoverPhotoId" /></EndProperty>
+            <Condition ColumnName="CoverPhotoId" IsNull="false" /></AssociationSetMapping>
+          <AssociationSetMapping Name="GalleryTag" TypeName="MayandoModel.GalleryTag" StoreEntitySet="GalleryTag">
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="Id" ColumnName="TagId" /></EndProperty>
+            <EndProperty Name="Gallery">
+              <ScalarProperty Name="Id" ColumnName="GalleryId" /></EndProperty></AssociationSetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="IsTypeOf(MayandoModel.Log)">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="TimeUtc" ColumnName="Time" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="FK_ParentGallery_Gallery" TypeName="MayandoModel.FK_ParentGallery_Gallery" StoreEntitySet="Gallery">
+            <EndProperty Name="Gallery1">
+              <ScalarProperty Name="Id" ColumnName="Id" /></EndProperty>
+            <EndProperty Name="Gallery">
+              <ScalarProperty Name="Id" ColumnName="ParentGalleryId" /></EndProperty>
+            <Condition ColumnName="ParentGalleryId" IsNull="false" /></AssociationSetMapping></EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="MayandoModel">
+        <EntityTypeShape EntityType="MayandoModel.Comment" Width="1.5" PointX="3" PointY="8.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayandoModel.Menu" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayandoModel.Page" Width="1.5" PointX="3" PointY="5.25" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayandoModel.Photo" Width="1.5" PointX="0.75" PointY="5.25" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayandoModel.Setting" Width="1.5" PointX="2.75" PointY="0.75" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayandoModel.Tag" Width="1.5" PointX="5.25" PointY="8.75" Height="1.7879850260416674" IsExpanded="true" />
+        <AssociationConnector Association="MayandoModel.FK_Comment_Photo" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.826650390625" />
+          <ConnectorPoint PointX="3" PointY="8.826650390625" /></AssociationConnector>
+        <AssociationConnector Association="MayandoModel.FK_Page_Photo" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.5285953776041667" />
+          <ConnectorPoint PointX="3" PointY="6.5285953776041667" /></AssociationConnector>
+        <AssociationConnector Association="MayandoModel.PhotoTag" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.1535953776041659" />
+          <ConnectorPoint PointX="6" PointY="8.1535953776041659" />
+          <ConnectorPoint PointX="6" PointY="8.75" /></AssociationConnector>
+        <EntityTypeShape EntityType="MayandoModel.Gallery" Width="1.5" PointX="3" PointY="12" Height="2.1725878906249996" />
+        <AssociationConnector Association="MayandoModel.FK_Gallery_Photo" >
+          <ConnectorPoint PointX="1.5" PointY="9.15330078125" />
+          <ConnectorPoint PointX="1.5" PointY="13.0862939453125" />
+          <ConnectorPoint PointX="3" PointY="13.0862939453125" /></AssociationConnector>
+        <AssociationConnector Association="MayandoModel.GalleryTag" >
+          <ConnectorPoint PointX="4.5" PointY="13.0862939453125" />
+          <ConnectorPoint PointX="6" PointY="13.0862939453125" />
+          <ConnectorPoint PointX="6" PointY="10.537985026041667" />
+          </AssociationConnector>
+        <EntityTypeShape EntityType="MayandoModel.Log" Width="1.5" PointX="4.75" PointY="0.75" Height="1.9802864583333333" />
+        <AssociationConnector Association="MayandoModel.FK_ParentGallery_Gallery" /></Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

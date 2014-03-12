@@ -1,0 +1,33 @@
+<%@ Master Language="C#" Inherits="Mayando.Web.Infrastructure.SiteViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server">Welcome</asp:ContentPlaceHolder> - <%= Html.Encode(MasterModel.SiteData.Settings.Title)%>
+    </title>
+    <% Html.RenderPartial(PartialViewName.HtmlHeaders, MasterModel); %>
+    <link href="<%= Url.ThemedContent("~/content/Slideshow.css") %>" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(duration=.2)" />
+    <script src="<%= Url.Content("~/Scripts/Slideshow.js") %>" type="text/javascript"></script>
+</head>
+<body onload="slideshowInitialize(<%= MasterModel.SlideshowDelay %>, '<%= MasterModel.SlideshowNextUrl %>');">
+    <div class="page slideshow">
+        <div id="header">
+            <div id="title">
+                <h1><%= Html.Link(MasterModel.SiteData.HomepageUrl, MasterModel.SiteData.Settings.Title)%></h1>
+                <h2><asp:ContentPlaceHolder ID="HeaderSubtitleContent" runat="server"><%= Html.Encode(MasterModel.SiteData.Settings.Subtitle) %></asp:ContentPlaceHolder></h2>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div id="main">
+            <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
+            <div class="pageflash"><%= MasterModel.PageFlash%></div>
+            <% } %>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div id="footer">
+            <%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
+        </div>
+    </div>
+</body>
+</html>

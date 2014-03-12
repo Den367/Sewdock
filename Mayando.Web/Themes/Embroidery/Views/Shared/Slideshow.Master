@@ -1,0 +1,58 @@
+<%@ Master Language="C#" Inherits="Mayando.Web.Infrastructure.SiteViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server">Welcome</asp:ContentPlaceHolder> - <%= Html.Encode(MasterModel.SiteData.Settings.Title) %>
+    </title>
+    <% Html.RenderPartial(PartialViewName.HtmlHeaders, MasterModel); %>
+    <link href="<%= Url.ThemedContent("~/content/Slideshow.css") %>" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(duration=.2)" />
+    <script src="<%= Url.Content("~/Scripts/Slideshow.js") %>" type="text/javascript"></script>
+</head>
+<body onload="slideshowInitialize(<%= MasterModel.SlideshowDelay %>, '<%= MasterModel.SlideshowNextUrl %>');">
+<div class="none"><a href="#maincontent">skip to the main content area of this page</a></div>
+<div class="logo logo-inner"><%= Html.Link(MasterModel.SiteData.HomepageUrl, MasterModel.SiteData.Settings.Title)%></div>
+<div class="header-container">
+  <div class="nav-main">
+    <ul>
+      <li><asp:ContentPlaceHolder ID="HeaderSubtitleContent" runat="server" /></li>
+    </ul>
+  </div>
+</div>
+<div class="header-bottom"></div>
+<div class="content-container">
+  <div class="content-main"><a name="maincontent" id="maincontent"></a>
+
+    <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
+    <div class="pageflash"><%= MasterModel.PageFlash%></div>
+    <% } %>
+    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+  </div>
+
+  <div class="content-side">
+    <p><a href="<%= Url.FeedPhotos() %>"><img src="<%= Url.ThemedContent("~/Content/images/rss.png") %>" alt="RSS" /></a></p>
+    <div id="searchcontainer">
+        <% using (Html.BeginPhotosSearchForm()) { %>
+            <div>
+                <%= Html.TextBox("SearchText", string.Empty, new { @class = "search-box" })%>
+                <input type="submit" value="<%= Resources.SearchSubmit %>" />
+            </div>
+        <% } %>
+    </div>
+    <p></p>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="footer-container">
+  <div class="nav-footer">
+    <ul>
+    <% foreach (var menu in MasterModel.SiteData.Menus) { %>
+        <li><%= Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow) %></li>
+    <% } %>
+    </ul>
+  </div>
+  <div class="copyright"><%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %></div>
+</div>
+</body>
+</html>

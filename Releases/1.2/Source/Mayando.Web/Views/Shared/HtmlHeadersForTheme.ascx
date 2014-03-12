@@ -1,0 +1,2 @@
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Mayando.Web.ViewModels.MasterViewModel>" %>
+<%-- This is a placeholder user control that can be overridden by themes to include more HTML headers in all pages. --%>

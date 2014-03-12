@@ -1,0 +1,16 @@
+﻿@using Mayando.Web.Infrastructure
+@using Mayando.Web.Properties
+@{
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+@section TitleContent{@Html.Encode(Resources.ContactTitle)}
+
+
+
+@section MainContent{
+  <div id="contactindexpage">
+    <h2>@Html.Encode(Resources.ContactTitle) </h2>
+    @{ Html.RenderPartial("ContactForm", null); }
+</div>  
+}

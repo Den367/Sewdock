@@ -1,0 +1,279 @@
+﻿@using Mayando.Web.Extensions
+@using Mayando.Web.Properties
+@using JelleDruyts.Web.Mvc
+@using Mayando.Web.Infrastructure
+
+@model Mayando.Web.ViewModels.QrcodeFormViewModel
+<html>
+<script src="@Url.Content("~/Scripts/OpenLayers.js")" type="text/javascript" ></script>
+<script src="@Url.Content("~/Scripts/LoadOpenStreet.js")"  type="text/javascript" > </script>
+<script type="text/javascript">
+
+    function OnCompleteGetQrImageUrl(s) {
+        var data = eval(s); // this will convert your json string to a javascript object
+        var responseText = JSON.parse(data['responseText']);
+
+        $('#stitched-qrcode-png').attr('src', GetQrUrl(responseText));
+
+    }
+
+    function GetQrUrl(params) {
+        var pathArray = window.location.href.split('/');
+        var protocol = pathArray[0];
+        var host = pathArray[2];
+        var sitename = pathArray[3];
+        var url = protocol + '//' + host + '/' + sitename + '/qrcode/GetQrPng?text=' + params.Text + '&width=' + params.Width + '&height=' + params.Height;
+        return url;
+
+    }
+
+
+    function OnFailure(request, error) {
+
+        alert(error);
+    }
+</script>
+
+<head>
+    <meta charset='UTF-8'>
+
+
+    <style>
+        .tabs
+        {
+            position: relative;
+            min-height: 560px; /* This part sucks */
+            clear: both;
+            margin: 5px 0;
+            min-width: 560px;
+        }
+
+        .tab
+        {
+            float: left;
+        }
+
+            .tab label.tab-caption
+            {
+                display: inline-block;
+                float: none;
+                font-family: Verdana, Geneva, sans-serif;
+                font-size: 8pt;
+                background: #ddd;
+                padding: 10px;
+                border: 1px solid #aaa;
+                margin-left: 4px;
+                position: relative;
+                left: 1px;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+            }
+
+        label.tab-caption:hover
+        {
+            background-color: gray;
+            color: #eee;
+        }
+
+        label.tab-caption:visited
+        {
+            background-color: lightgray;
+            font-synthesis: weight;
+        }
+
+        .tab [type=radio]
+        {
+            display: none;
+        }
+
+        .content
+        {
+            position: absolute;
+            top: 32px;
+            left: 0;
+            background: white;
+            right: 0;
+            bottom: 0;
+            margin: 3px;
+            padding: 2px;
+            border: 1px solid #ccc;
+            width: 500px;
+            height: 420px;
+        }
+
+        [type=radio]:checked ~ label
+        {
+            background: white;
+            border-bottom: 1px solid white;
+            border-top-left-radius: 1px;
+            border-top-right-radius: 5px;
+            z-index: 2;
+        }
+
+            [type=radio]:checked ~ label div#map
+            {
+                visibility: visible;
+            }
+
+
+            [type=radio]:checked ~ label ~ .content
+            {
+                z-index: 1;
+            }
+
+
+        textarea[id=Email]
+        {
+            max-width: 600px;
+            max-height: 240px;
+        }
+
+
+        .qrcode-form
+        {
+            display: inline-block;
+            min-width: 600px;
+            height: 550px;
+        }
+
+        div.content > table, table td
+        {
+            border-collapse: collapse;
+            border: none;
+            border-color: white;
+        }
+
+        #LongURL, #Text
+        {
+            width: 460px;
+            margin: 16px;
+            max-width: 465px;
+            max-height: 390px;
+        }
+
+        #Notes
+        {
+            max-width: 500px;
+            max-height: 140px;
+        }
+
+        .view-qrcode
+        {
+            position: relative;
+            padding-top: 40px;
+            top: 150px;
+            width: 50%;
+        }
+
+        #main
+        {
+            min-width: 640px;
+        }
+
+        .generate
+        {
+            margin-top: 40px;
+            height: 40px;
+        }
+
+        .field td
+        {
+            width: 220px;
+        }
+
+        .tabvisible
+        {
+            visibility: visible;
+        }
+
+        .tabinvisible
+        {
+            visibility: hidden;
+        }
+    </style>
+
+</head>
+<body onload="GetMap()">
+    <h1>@Resources.QRCodeEmbroGenName</h1>
+    @using (Ajax.BeginForm("QrcodeView", new AjaxOptions
+{
+
+    OnComplete = "OnCompleteGetQrImageUrl",
+    OnFailure = "OnFailure",
+    HttpMethod = "POST",
+    UpdateTargetId = "view-qrcode"
+}))
+    {
+        <div id="qrcode-form">
+            @Html.ValidationSummary(Resources.ValidationSummaryGenericTitle)
+            <div class="tabs">
+
+                <div class="tab">
+                    <input type="radio" id="tab-1" name="FormKind" value="Location" checked="checked">
+                    <label class="tab-caption" for="tab-1">@Resources.TabQRCodeLocation</label>
+                    <div class="content">
+                        <p style="position: absolute; top: 200px; left: 10px; z-index: 1;">
+                            <label for="Longitude" class="required">@Resources.LongitudeText</label>
+                            @Html.TextBox("Longitude", Model.Longitude)
+                            @Html.ValidationMessage("Longitude", Resources.IncorrectNumberValue)
+                            <label for="Latitude" class="required">@Resources.LatitudeText</label>
+                            @Html.TextBox("Latitude", Model.Latitude)
+                            @Html.ValidationMessage("Latitude", Resources.IncorrectNumberValue)
+                        </p>
+
+                        @{Html.RenderPartial(PartialViewName.OpenStreetMap);}
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="radio" id="tab-4" name="FormKind" value="Text">
+                    <label class="tab-caption" for="tab-4">@Resources.TabQRcodeText</label>
+                    <div class="content" style="">
+                        @Html.TextArea("Text", string.Empty, 20, 160, null)@Html.ValidationMessage("Text", "*")
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="radio" id="tab-2" name="FormKind" value="vCard">
+                    <label class="tab-caption" for="tab-2">VCARD</label>
+                    <div class="content">
+                        <table class="field">
+                            <tr>
+                                <td>
+                                    <label for="Name" class="required">@Resources.QRCodeVCARDNameLabel</label>@Html.TextBox("Name", Model.Name)@Html.ValidationMessage("Name", "*")</td>
+                                <td>
+                                    <label for="Surname" class="required">@Resources.QRCodeVCARDSurnameLabel</label>@Html.TextBox("Surname")@Html.ValidationMessage("Surname", "*")</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Organization">@Resources.QRCodeVCARDOrganizationLabel</label>@Html.TextBox("Organization")@Html.ValidationMessage("Organization", "*")</td>
+                                <td>
+                                    <label for="Phone">@Resources.QRCodeVCARDPhoneLabel</label>@Html.TextBox("Phone")@Html.ValidationMessage("Phone", "*") </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Address">@Resources.QRCodeVCARDAddressLabel</label>@Html.TextBox("Address")@Html.ValidationMessage("Address", "*")      </td>
+                                <td>
+                                    <label for="SiteURL">@Resources.QRCodeVCARDsiteURLLabel</label>@Html.TextBox("SiteURL")@Html.ValidationMessage("SiteURL", "*")                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label for="Notes">@Resources.QRCodeVCARDNotesLabel</label>@Html.TextArea("Notes", string.Empty, 2, 10, null)@Html.ValidationMessage("Notes", "*")    </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="radio" id="tab-3" name="FormKind" value="Url">
+                    <label class="tab-caption" for="tab-3">Url</label>
+                    <div class="content">
+                        @Html.TextBox("LongURL")@Html.ValidationMessage("LongURL", "*")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @Html.ValidationSummary();                    
+        <input type="submit" value="Generate" class="btn tabs-stacked" />        
+    }
+    <span id="view-qrcode" class="view-qrcode">@{Html.RenderPartial(PartialViewName.QrcodeView, Model.QrCodeText);}</span>
+</body>
+</html>

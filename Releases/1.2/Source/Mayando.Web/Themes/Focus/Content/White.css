@@ -1,0 +1,79 @@
+/* COLOR 1
+----------------------------------------------------------*/
+
+body
+{
+    background-color: #ffffff;
+}
+
+table th
+{
+    color: #ffffff;
+}
+
+/* COLOR 2
+----------------------------------------------------------*/
+
+#header, #footer,
+.comment-owner, .comment-title,
+.photo-tag, .photo-tag a, .photo-tag a:link, .photo-tag a:visited, .photo-tag a:hover, .photo-tag a:active,
+.photo-size, .photo-size a, .photo-size a:link, .photo-size a:visited, .photo-size a:hover, .photo-size a:active
+{
+    background-color: #cccccc;
+}
+
+/* COLOR 3
+----------------------------------------------------------*/
+
+#photo-image-display, .comment, .comment-title
+.photo-tag, .photo-tag a, .photo-tag a:link, .photo-tag a:visited, .photo-tag a:hover, .photo-tag a:active,
+.photo-size, .photo-size a, .photo-size a:link, .photo-size a:visited, .photo-size a:hover, .photo-size a:active
+{
+    border-color: #888888;
+}
+
+#photo-details,
+.photo-tag, .photo-tag a, .photo-tag a:link, .photo-tag a:visited, .photo-tag a:hover, .photo-tag a:active,
+.photo-size, .photo-size a, .photo-size a:link, .photo-size a:visited, .photo-size a:hover, .photo-size a:active
+{
+    color: #888888;
+}
+
+/* COLOR 4
+----------------------------------------------------------*/
+
+#header, #footer
+{
+    border-color: #666666;
+}
+
+body, #footer a, legend, a:link, a:visited, a:hover, a:active, #header a, #header h2
+{
+    color: #666666;
+}
+
+/* COLOR 5
+----------------------------------------------------------*/
+
+table th, table tfoot
+{
+    background-color: #222222;
+}
+
+table, table td, table th, fieldset
+{
+    border-color: #222222;
+}
+
+h2, h3, h4, h5, h6
+{
+    color: #222222;
+}
+
+/* COLOR 6
+----------------------------------------------------------*/
+
+#header h1, #header h1 a, #header a:hover, #header li.selected a
+{
+    color: #000000;
+}

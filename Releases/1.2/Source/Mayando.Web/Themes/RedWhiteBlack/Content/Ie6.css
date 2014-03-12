@@ -1,0 +1,25 @@
+/* IE 6 is really very bad at CSS. We don't waste any time fixing, we just make the layout degrade gracefully instead */
+
+/* Make sure #menu gets hasLayout otherwise the floated list items won't render */
+#menu {
+  zoom: 1;
+} 
+
+/* no min or max width support so make it a fixed size instead of elastic */
+body {
+  width: 760px;
+}
+
+/* Forget png fix, ie6 just gets nothing. */
+#title img {
+  display: none;
+}
+
+#title h1 {
+  background: none;
+  padding-left: 1em;
+}
+
+ul#menu {
+  background: none;
+}

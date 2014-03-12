@@ -1,0 +1,74 @@
+<%@ Master Language="C#" Inherits="Mayando.Web.Infrastructure.SiteViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server">Welcome</asp:ContentPlaceHolder> - <%= Html.Encode(MasterModel.SiteData.Settings.Title) %>
+    </title>
+    <% Html.RenderPartial(PartialViewName.HtmlHeaders, MasterModel); %>
+</head>
+<body>
+<div class="none"><a href="#maincontent">skip to the main content area of this page</a></div>
+<div class="logo logo-inner"><%= Html.Link(MasterModel.SiteData.HomepageUrl, MasterModel.SiteData.Settings.Title)%></div>
+<div class="header-container">
+  <div class="nav-main">
+    <ul>
+    <% foreach (var menu in MasterModel.SiteData.Menus) { %>
+        <li class="<%= menu.Selected ? "active" : string.Empty %>"><span class="<%= menu.Selected ? "active" : string.Empty %>"></span><%= Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip) %></li>
+    <% } %>
+    </ul>
+  </div>
+  <div class="nav-login">
+    <ul>
+       <li class="first"><% Html.RenderPartial(PartialViewName.LogOnUserControl); %></li>
+    </ul>
+  </div>
+</div>
+<div class="header-bottom"></div>
+<div class="content-container">
+  <div class="content-main"><a name="maincontent" id="maincontent"></a>
+
+    <% if (Page.User.CanSeeAdministratorContent()) { %>
+    <div id="admincontainer">
+        <%= Html.ActionLinkAdminIndex("Site Administration")%> |
+        <%= Html.ActionLinkAccountLogOff("Log Off")%>
+        <%= Html.ActionLinkAccountChangePassword("Change Password")%> |
+        <%= Html.ActionLinkPhotoCreate("Create EmbroideryItem")%>
+        <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
+        <%= Html.ActionLinkPageCreate("Create Page")%> |
+        <asp:ContentPlaceHolder ID="AdminLinks" runat="server" />
+    </div>
+    <% } %>
+    <%= Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle)) %>
+    <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
+    <div class="pageflash"><%= MasterModel.PageFlash%></div>
+    <% } %>
+    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+  </div>
+
+  <div class="content-side">
+    <p><a href="<%= Url.FeedPhotos() %>"><img src="<%= Url.ThemedContent("~/Content/images/rss.png") %>" alt="RSS" /></a></p>
+    <div id="searchcontainer">
+        <% using (Html.BeginPhotosSearchForm()) { %>
+            <div>
+                <%= Html.TextBox("SearchText", string.Empty, new { @class = "search-box" })%>
+                <input type="submit" value="<%= Resources.SearchSubmit %>" />
+            </div>
+        <% } %>
+    </div>
+    <p></p>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="footer-container">
+  <div class="nav-footer">
+    <ul>
+    <% foreach (var menu in MasterModel.SiteData.Menus) { %>
+        <li><%= Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow) %></li>
+    <% } %>
+    </ul>
+  </div>
+  <div class="copyright"><%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿@using Mayando.Web.Infrastructure
+@using Mayando.Web.Models
+@model IPagedList<Mayando.Web.Models.Comment>
+           
+@{ Layout = null; }
+
+@if (Model != null)
+{
+    Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount);
+           Html.RenderPartial("List", Model);
+
+}
+ @{Html.RenderPartial("CommentEdit",new Comment());}
