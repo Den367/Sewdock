@@ -1,0 +1,282 @@
+! Mayando
+
+Contents:
+
+1. [#Introduction]
+1.1. [#Hosting Photos]
+1.2. [#Features]
+1.3. [#What's New]
+
+2. [#Installing Mayando]
+2.1. [#Microsoft Web Application Gallery]
+2.2. [#Manual Installation]
+2.3. [#Upgrading]
+
+3. [#Extending Mayando]
+3.1. [#Creating Themes]
+3.2. [#Creating EmbroideryItem Providers]
+3.3. [#Creating Anti-Spam Providers]
+3.4. [#Adding Languages]
+
+!! {anchor:Introduction}1. Introduction
+
+Mayando is a full-featured photo blogging application that you can use to showcase your photos online. It's written in [url:ASP.NET MVC|http://www.asp.net/mvc] but I'm only mentioning that because it's otherwise invisible :-)
+
+The most recent information can be found on the Mayando homepage at [url:http://mayando.codeplex.com].
+
+A live demo site can be seen at [url:http://mayando.druyts.net], and obviously my personal photoblog at [url:http://photography.druyts.net] is also powered by Mayando!
+
+!!! {anchor:Hosting Photos}1.1. Hosting Photos
+
+Because actually hosting photos and making sure they are displayed quickly to your visitors (i.e. that they are downloaded rapidly) is a problem that has been solved well by many online services (e.g. Flickr), this application does not typically host the photos itself but is instead configured to display the photos from an external website (such as Flickr in the example). This saves you the cost in hosting disk space and download limits while providing a seamlessly integrated experience to your visitors. You only need a web server that supports .NET Framework 3.5 SP1 as the runtime and SQL Server 2005 or higher as a database engine.
+
+!!! {anchor:Features}1.2. Features
+
+Mayando supports the following features:
+
+!!!! Photos
+
+Obviously, you can display photos. Again, these are hosted on an external website and merely displayed through your photo blog. But you can have as many photos as you want, and the user can navigate through them in lots of different ways. For example: by date taken, by date published, by tag, by title, or simply by searching anywhere in the photo's title, tags, description and comments). You can also start a slideshow to display these photos.
+
+!!!! Pages
+
+You can also configure pages to show richly formatted text to the visitor, such as contact information, how they can order prints or what your artistic vision is.
+
+!!!! Contact Form
+
+Your visitors can leave you messages through a contact form. Your email address is never shown to them, but their message will be sent to you behind the scenes. You can also configure pages to show the contact form instead of having a separate page just for that.
+
+!!!! Comments
+
+Your visitors can leave comments on your photos and pages (if you allow so). If you wish, you can get notified by email if new comments are posted.
+
+!!!! Tags
+
+Photos can have tags associated with them, which makes it easier to search and group photos. Users can also navigate photos by tags.
+
+!!!! Galleries
+
+Based on these tags, you can create galleries that automatically display all photos with a given set of tags (e.g. a gallery for Portraits or Landscapes). You can even group galleries into a hierarchy to make them easier to navigate.
+
+!!!! Syndication Feeds
+
+Mayando exposes RSS and Atom feeds with the latest photos and the latest comments. This way, you and your visitors can use an RSS Reader to automatically be notified when new photos are added or when new comments are posted.
+
+!!!! EmbroideryItem Providers
+
+The photos that should be displayed in your website are synchronized with the external website through a photo provider. This is a flexible model that allows many online services to work with Mayando. Most providers should be able to synchronize not only the photos themselves and their titles and descriptions, but also their tags and comments.
+
+Currently, only a photo provider for [url:Flickr|http://www.flickr.com] is foreseen. You can get a free account (with some restrictions) which should be sufficient for most users.
+
+!!!! Anti-Spam Providers
+
+To minimze or even eliminate the amount of comment spam on your website, you can also configure an anti-spam provider to verify any comment or contact form message before posting it. Likewise as with hosting photos, the problem of attacking spam has already been solved by a number of existing websites, so Mayando will connect to a configurable provider to check for spam.
+
+Currently, only an anti-spam provider for [url:Mollom|http://mollom.com] is foreseen. You can get a free account (with some restrictions) which should be sufficient for most users.
+
+!!!! Crisp And Clean
+
+The URL's in Mayando are always very simple and clean so they can easily be memorized and you can navigate to any item directly. It's pretty clear where the following URL's lead, don't you agree?
+
+* /photos/tagged/portrait
+* /photos/published/2009/7/18
+* /galleries/titled/portraits
+
+The default themes are also very lightweight, simple and clean. There are no fancy effects or complicated user interfaces, instead we tried to aim for the simplest effective solution that makes the photos themselves stand out most - without any distractions from the surrounding site itself. In that sense, it's perhaps very "Web 1.0"-like, but that's a personal preference. If you want to have a highly interactive "Web 2.0" website with all sorts of dynamic updates and fancy effects, you're very welcome to create a custom theme (and don't forget to share it with the community!).
+
+!!!! Multi-Language
+
+Mayando automatically detects the visitor's preferred language (as sent by the browser) and translates all static content (not photo titles, descriptions, comments, ...) if the language is supported. Currently, English and Dutch are supported but it is fairly easy to support other languages.
+
+!!! {anchor:What's New}1.3. What's New
+
+!!!! v1.2 (July 2010)
+* Dates on photos are now hyperlinks to other photos taken or published on the same date.
+* The Flickr photo provider no longer synchronizes machine tags (because they are not intended to be displayed).
+* You can now configure the photo provider to synchronize automatically at regular intervals (e.g. every 60 minutes).
+* You can also use a command-line client application (or if you're a developer, a client API) to remotely trigger a photo provider synchronization through the use of a new Service API.
+* You can now filter the event log by severity.
+* Mayando is now compatible with ASP.NET "medium trust" hosting providers.
+* You can now disable distributed transactions (in the AppSettings.config file) if your hosting provider does not allow them. Note that this can cause data loss and/or corruption so only change this if you accept the risks associated with disabling transactions.
+
+!!!! v1.1 (November 2009)
+
+* You can now browse to a random photo at "/photos/random".
+* You can now group galleries in a hierarchy by assigning a parent gallery.
+* You can now hide photos (e.g. so they can be used for pages but don't show up in the regular photo collection).
+* You can now see a slideshow of photos.
+* You can now make changes to a site in "demo mode" if you actually log on as the real administrator. Previously, the entire site was read-only even to logged on administrators.
+* You can now see a filmstrip of photos before and after the current photo.
+* You can now create user-defined settings that can be used in custom or modified visual themes to show additional information on pages.
+
+!!!! v1.0 (August 2009)
+
+* Initial release
+
+!! {anchor:Installing Mayando}2. Installing Mayando
+
+There are two ways of installing Mayando:
+
+* Installation via the Microsoft Web Application Gallery
+* Manual installation
+
+If you have already installed a previous version of Mayando, you can easily upgrade it as well.
+
+Important to note is that regardless of how you install it, you need to create a wildcard script map if you want to host the application in a version of Internet Information Services that is older than IIS 7.0. For more information on how to set this up, see [url:http://www.asp.net/learn/mvc/tutorial-08-cs.aspx].
+
+!!! {anchor:Microsoft Web Application Gallery}2.1. Microsoft Web Application Gallery
+
+You can use the Web Application Gallery to make it really easy to install Mayando. The Web Application Gallery actually plugs in to Internet Information Services (IIS) to provide a user interface to walk you through the installation.
+
+You can either install the application directly from the online gallery or you can point the Web Platform Installer's Deployment Tool to the zip file that you downloaded and it will start the installation process.
+
+[image:Install Mayando using the Microsoft Web Platform Installer|http://www.microsoft.com/web/media/badge/install_using_webpi_btn.png|http://www.microsoft.com/web/gallery/Mayando.aspx]
+
+For more information, see [url:http://www.microsoft.com/web/].
+
+!!! {anchor:Manual Installation}2.2. Manual Installation
+
+If you want to install Mayando onto Internet Information Services (IIS) yourself then you need to perform two steps: creating the database and creating the website.
+
+!!!! Setting up the database
+
+To set up the database, you first have to create a new database in SQL Server 2005 or higher (e.g. "Mayando"). Then you have to execute the SQL scripts contained in the zip file that you downloaded in the target database. Before executing the scripts, however, you will have to edit them as discussed below.
+
+!!!!! db-aspnet.sql
+
+* Replace {DBNAME} with the name of your database (e.g. Mayando).
+
+!!!!! db-mayando-schema.sql
+
+* Replace {DBNAME} with the name of your database (e.g. Mayando).
+* Replace {TABLEPREFIX} with the optional (unique) prefix for all database tables; use when multiple application instances are installed in the same database. Remove the {TABLEPREFIX} text everywhere if you don't need a table prefix.
+
+!!!!! db-mayando-user.sql
+
+* Replace {DBNAME} with the name of your database (e.g. Mayando).
+* Replace {DBUSER} with the database user name used to access your database from the application.
+* Replace {DBPASSWORD} with the database password used to access your database from the application.
+
+!!!! Creating the website
+
+To create the website, you need to copy the files from the Mayando directory of the zip file to a directory on the web server (interactively or through FTP) and set up a new IIS web site for that directory. Then, you will have to edit the following configuration files:
+
+!!!!! AppSettings.config
+
+If you are using a table prefix (see above), enter it as the value of the application setting named TablePrefix, e.g. <add key="TablePrefix" value="MyPrefix" />
+
+!!!!! ConnectionStrings.config
+
+Set the two connection strings to correctly connect to your database. The "ApplicationServices" connection string is a regular connection string, whereas the "MayandoContext" connection string is for the Entity Framework and contains additional information. The actual "provider connection string" inside it should be the same as the "ApplicationServices" however.
+
+Example for a regular SQL Server connection (make sure the connectionString attribute is all on one line):
+
+{code:xml}
+<add name="ApplicationServices" providerName="System.Data.SqlClient"
+     connectionString="Data Source=localhost;uid=MayandoUser;pwd=MayandoPassword;
+Initial Catalog=Mayando;MultipleActiveResultSets=True" />
+
+<add name="MayandoContext" providerName="System.Data.EntityClient"
+     connectionString="metadata=res://*/Models.MayandoModel.csdl|
+res://*/Models.MayandoModel.ssdl|res://*/Models.MayandoModel.msl;
+provider=System.Data.SqlClient;provider connection string=
+&quot;Data Source=localhost;uid=MayandoUser;pwd=MayandoPassword;
+Initial Catalog=Mayando;MultipleActiveResultSets=True&quot;" />
+{code:xml}
+
+Example for a local SQL Server Express database called "App_Data\Mayando.mdf" (make sure the connectionString attribute is all on one line):
+
+{code:xml}
+<add name="ApplicationServices" providerName="System.Data.SqlClient"
+     connectionString="Data Source=.\SQLEXPRESS;
+AttachDbFilename=|DataDirectory|\Mayando.mdf;Integrated Security=True;
+User Instance=True;MultipleActiveResultSets=True" />
+
+<add name="MayandoContext" providerName="System.Data.EntityClient"
+     connectionString="metadata=res://*/Models.MayandoModel.csdl|
+res://*/Models.MayandoModel.ssdl|res://*/Models.MayandoModel.msl;
+provider=System.Data.SqlClient;provider connection string=&quot;
+Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Mayando.mdf;
+Integrated Security=True;User Instance=True;
+MultipleActiveResultSets=True&quot;" />
+{code:xml}
+
+!!!!! Web.config
+
+If multiple application instances are installed in the same database, then you should configure a unique application name used by the ASP.NET providers. Change the "applicationName" attribute for all the providers by searching for applicationName="Mayando" and replacing the "Mayando" part.
+
+!!! {anchor:Upgrading}2.3. Upgrading
+
+To upgrade from a previous version of Mayando, you should simply replace all the website files with their new versions.
+
+Depending on the upgrade version, you must also upgrade the database schema by executing the provided upgrade script on your database (take care to replace the necessary placeholders as discussed above):
+* For an upgrade from v1.0 to v1.1, modify and execute the "db-mayando-schema-upgrade-1.0-1.1.sql" script.
+* For an upgrade from v1.1 to v1.2, no database upgrade is needed.
+
+!! {anchor:Extending Mayando}3. Extending Mayando
+
+There are three ways you can extend Mayando:
+
+* Creating themes
+* Creating photo providers
+* Creating anti-spam providers
+
+The most common option will probably be creating custom themes, so that you can completely change the layout of your website to your liking. This can be done by anyone with knowledge of HTML and CSS.
+
+Creating providers involves developing a .NET class library (assembly) that contains the implementation of certain interfaces defined in the "Mayando.ProviderModel.dll" assembly.
+
+If you want to do the rest of the world a favor, please share your custom themes and/or providers so that they can be released with a next version of the application. Either post them directly on the [url:discussion forums|http://mayando.codeplex.com/Thread/List.aspx] or contact us to get added as a contributor to the project so you can directly check in your changes.
+
+!!! {anchor:Creating Themes}3.1. Creating Themes
+
+Mayando supports different visual themes, so you can easily change the entire look of your website. It comes with a few default themes built in, but it's also fairly easy to create custom themes.
+
+To get started, create a new directory named after your theme in the "Themes" directory. Beneath that, you need to have one or two additional directories: one named "Content", which holds static content files such as images and Cascading Style Sheet (CSS) files, and one named "Views", which holds the actual HTML code for all different pages (views). This Views directory must have a correct Web.config file to make it work, you can just copy it from any of the built-in themes. Once the directory has been created, it automatically shows up in the website's administration page.
+
+The general way custom themes work is that they overwrite any file in the regular directory tree of the application, so changing the Theme.css file in the Content directory will change the "themeable" part of the CSS for the site. If you start changing the Site.Master file or any of the .aspx or .ascx files, you can even change the entire layout and resulting HTML code for the website. To see how this works, take a look at the built-in themes.
+
+So in the most simple case, a custom theme can be built just by changing the Theme.css file, which can already change lots of things like colors and even some layout. In that case, you don't even need the Views directory but you can just put a Theme.css file inside the Content directory and change all elements in there.
+
+For more advanced scenarios, the best way to start modifying your site's layout is to overwrite the Site.Master file to completely change the way the site is built up. It's best to start from the built-in theme that most closely matches what you're trying to build and then modify or replace the HTML elements to your needs. If you want even more control over the HTML that is generated, you can even modify the actual HTML for different elements of the page by copying any file beneath the root View directory to your theme's View directory and changing it there. E.g. to change the way a photo is displayed, copy the /Views/Shared/PhotoDetailsImage.ascx file to /Themes/YourTheme/Views/Shared and modify it as you please.
+
+Some basic guidelines for modifying the files beneath the Views directory (note that there is no comprehensive documentation since the possibilities are near unlimited - if you're stuck somewhere just let us know through the Mayando home page):
+
+* If you're not a developer, ignore everything in between the <% and %> tags, which control how the HTML elements get built up. All the other markup is regular HTML code you can freely change.
+* If you are a developer, everything between the <% %> tags is C# code that works against the "model" of the page or control. So you can really go wild and do anything you want in there.
+* To link to any item in the /Content directory, use the following syntax (note that the tilde [~] represents the site's root path on your web server): <%= Url.Content("~/content/Site.css") %>
+* To link to any item in the /Content directory, while allowing it to be overwritten by a theme, use the following syntax (i.e. using ThemedContent instead of just Url). If the file exists in the current theme's directory, that one is used; otherwise the default file is used: <%= Url.ThemedContent("~/content/Theme.css") %>
+
+!!! {anchor:Creating EmbroideryItem Providers}3.2. Creating EmbroideryItem Providers
+
+If you want to allow Mayando to synchronize with other photo hosting websites, you can implement a custom photo provider. This is done by creating a new .NET class library which contains an implementation of the IPhotoProvider interface found in the "Mayando.ProviderModel.dll" assembly. You also need to decorate your type with the PhotoProviderAttribute to provide additional metadata to the application. By simply copying the assembly into the "bin" directory of the website, the provider will become available automatically.
+
+As an example, this is the class declaration for the Flickr photo provider:
+
+{code:c#}
+[PhotoProvider("Flickr", "Retrieves photos from Flickr.",
+    "http://www.flickr.com/services/api")]
+public class FlickrPhotoProvider : IPhotoProvider
+{code:c#}
+
+For additional information, see the XML comments in the "Mayando.ProviderModel" project and look at the implementation of the existing photo providers.
+
+!!! {anchor:Creating Anti-Spam Providers}3.3. Creating Anti-Spam Providers
+
+If you want to allow Mayando to check for spam with other services, you can implement a custom anti-spam provider. Similarly as with the photo providers, you have to create a class that implements the IAntiSpamProvider interface and decorate it with the AntiSpamProviderAttribute.
+
+As an example, this is the class declaration for the Mollom anti-spam provider:
+
+{code:c#}
+[AntiSpamProvider("Mollom", "Checks comments for spam with Mollom.",
+    "http://mollom.com")]
+public class MollomAntiSpamProvider : IAntiSpamProvider
+{code:c#}
+
+For additional information, see the XML comments in the "Mayando.ProviderModel" project and look at the implementation of the existing anti-spam providers.
+
+!!! {anchor:Adding Languages}3.4. Adding Languages
+
+Mayando automatically detects the visitor's preferred language. Currently, only English and Dutch are supported but if you want to add other languages, this is what you can do (there aren't many strings to be translated so don't worry, it's not that much effort):
+
+* Contact us through the [url:discussion forums|http://mayando.codeplex.com/Thread/List.aspx] to request the strings to be translated so you can send the translated version back and we'll incorporate them.
+* If you're a developer, simply add a resource file for your language to the Mayando.Web project in the Properties folder and translate all strings from the main resource file (Resources.resx) into your language. It will automatically build as a satellite assembly which you can deploy in the website's bin directory.

@@ -1,0 +1,643 @@
+﻿
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset label
+{
+    display: block;
+}
+
+fieldset label.inline
+{
+    display: inline;
+}
+
+fieldset.inline
+{
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+input[type="text"], input[type="password"]
+{
+    width: 400px;
+    border: 1px solid #cccccc;
+}
+
+input[type="text"].short, input[type="password"].short
+{
+    width: 20px;
+}
+
+input.search-box
+{
+    width: 120px;
+}
+
+label.required
+{
+    font-weight: bold;
+}
+
+label.optional
+{
+    font-style: italic;
+}
+
+.field-validation-error
+{
+    color: #ff0000;
+    vertical-align: top;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.error
+{
+    color: Red;
+}
+
+/* PAGER
+----------------------------------------------------------*/
+.pager
+{
+    margin: 8px 3px;
+    padding: 8px;
+    border: dashed 1px #dddddd;
+}
+
+.pager .disabled
+{
+    border: 1px solid #bbbbbb;
+    color: #888888;
+    margin-top: 4px;
+    padding: 3px;
+    text-align: center;
+}
+
+.pager .current
+{
+    background-color: #bbbbbb;
+    color: #333333;
+    border: solid 1px #333333;
+    font-weight: bold;
+    margin-top: 4px;
+    padding: 3px 5px;
+    text-align: center;
+}
+
+.pager span span, .pager span a
+{
+    margin: 4px 3px;
+}
+
+.pager a, .pager a:link, .pager a:visited, .pager a:hover, .pager a:active
+{
+    padding: 3px;
+    border: 1px solid #aaa;
+    color: #DDDDDD !important;
+    display: block;
+    position: relative;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #151515;
+}
+
+.pager .pageinfo
+{
+    margin-left: 8px;
+}
+
+.pager .pagesizes
+{
+    float: right;
+}
+
+/* ADMIN
+----------------------------------------------------------*/
+
+#admincontainer
+{
+    background-color: #A0A0A0;
+    padding: 10px 10px;
+    margin: 10px 10px 10px 10px;
+            -webkit-border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+}
+
+#admincontainer a, #admincontainer a:link,    a.admin, a.admin:link, a.admin:visited
+{
+        background-color: #E5E5E5;
+    border-radius: 8px 16px 4px 6px;
+    color: #505961;
+    font-weight: bold;
+    line-height: 2.8em;
+    padding: 5px 5px;
+    text-decoration: none;
+    border: solid 1px silver;
+    text-decoration: none;
+}
+
+#admincontainer a:hover,  a.admin:hover
+{
+        background-color: white;
+    
+}
+
+#admincontainer  #admincontainer a:active,  a.admin:active
+{
+      background-color: rgb(FF,FF,FF);
+      border: solid 2px gray;
+}
+
+
+ a.admin:visited
+{
+        background-color: #050505;
+   
+}
+
+table#admindashboard, table#admindashboard tr td
+{
+    border: none;
+    padding: 0;
+}
+
+table#admindashboard tr td
+{
+    width: 200px;
+    padding-right: 5px;
+}
+
+/* NAVIGATION
+----------------------------------------------------------*/
+
+.navigationcontainer
+{
+    border: dashed 1px #dddddd;
+    padding: 5px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+}
+
+.navigationcontainer table, .navigationcontainer tr, .navigationcontainer td
+{
+    border: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.navigationcontainer table
+{
+    width: 100%;
+}
+
+.navigation-previous
+{
+    text-align: left;
+    width: 10%;
+}
+
+.navigation-context
+{
+    width: 100%;
+}
+
+.navigation-next
+{
+    text-align: right;
+    width: 10%;
+}
+
+.navigation-overview
+{
+    margin-bottom: 5px;
+}
+
+.navigation-slideshow img
+{
+    vertical-align: middle;
+    border: none;
+}
+
+.navigation-filmstrip
+{
+    margin-top: 5px;
+    position:relative;
+    padding-top: 100px; 
+}
+
+.navigation-filmstrip-previous
+{
+    width: 50%;
+    text-align: right;
+}
+
+.navigation-filmstrip-current
+{
+    width: 40px;
+}
+
+.navigation-filmstrip-next
+{
+ /*  width: 50%;
+    text-align: center;
+    position:relative;
+    padding-top: 100px;
+    display:inline; */
+}
+
+.navigation-filmstrip img
+{
+    max-width: 35px;
+}
+
+/* PHOTOS
+----------------------------------------------------------*/
+
+#photocontainer
+{
+}
+
+#photo-image
+{
+}
+
+#photo-image a, #photo-image a:link, #photo-image a:visited, #photo-image a:hover, #photo-image a:active
+{
+}
+
+#photo-image-display
+{
+    border: none;
+}
+
+#photo-text
+{
+    margin: 10px 0 10px 0;
+}
+
+#photo-details
+{
+    font-size: smaller;
+}
+
+#photo-dates
+{
+}
+
+#photo-sizes
+{
+    display: inline;
+}
+
+.photo-size
+{
+}
+
+.photo-size a, .photo-size a:link, .photo-size a:visited, .photo-size a:hover, .photo-size a:active
+{
+    background-color: #eeeeee;
+    color: #888888;
+    border: solid 1px #bbbbbb;
+    text-align: center;
+    padding: 2px;
+    text-decoration: none;
+}
+
+.photo-size-l
+{
+}
+.photo-size-m
+{
+}
+.photo-size-s
+{
+}
+
+.photo-thumbnail
+{
+
+    display:block;
+}
+
+.photo-thumbnail a, .photo-thumbnail a:link, .photo-thumbnail a:visited, .photo-thumbnail a:hover, .photo-thumbnail a:active
+{
+    text-decoration: none;
+}
+
+/* TAGS
+----------------------------------------------------------*/
+
+#photo-tags
+{
+    display: inline;
+}
+
+.photo-tag
+{
+    border: solid 1px #EFEFEF;
+    white-space: nowrap;
+    background-color: #e8eef4;
+    padding: 2px;
+    line-height: 35px;
+    text-transform: lowercase;
+}
+
+.photo-tag a, .photo-tag a:link, .photo-tag a:visited, .photo-tag a:hover, .photo-tag a:active
+{
+    color: #EFEFEF;
+    text-decoration: none;
+}
+
+.photo-tag-1
+{
+    font-size: small;
+}
+
+.photo-tag-2
+{
+    font-size: medium;
+}
+
+.photo-tag-3
+{
+    font-size: large;
+    border-width: 2px;
+}
+
+.photo-tag-4
+{
+    font-size: x-large;
+    border-width: 3px;
+}
+
+.photo-tag-5
+{
+    font-size: xx-large;
+    border-width: 4px;
+}
+
+/* COMMENTS
+----------------------------------------------------------*/
+
+#commentscontainer
+{
+}
+
+#comment-list
+{
+}
+
+#comment-list ul
+{
+    padding-left: 0;
+    margin-left: 0;
+}
+
+#comment-list ul li
+{
+    list-style: none;
+}
+
+.comment
+{
+    border: solid 1px #e8eef4;
+    margin: 0 0 15px 0px;
+}
+
+.comment-owner
+{
+    background-color: #ffffaa;
+}
+
+.comment-title
+{
+    padding: 2px 2px 2px 20px;
+    background: #e8eef4 url("quotes.gif") no-repeat 0 0;
+}
+
+.comment-content
+{
+    min-height: 60px;
+    padding: 5px;
+}
+
+.comment-gravatar
+{
+    float: left;
+    clear: both;
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.comment-text
+{
+    vertical-align: top;
+    padding-left: 70px;
+}
+
+#comment-form
+{
+}
+
+/* PAGES
+----------------------------------------------------------*/
+
+#page-text
+{
+}
+
+/* MISC
+----------------------------------------------------------*/
+
+.help
+{
+    color: #ffffff;
+    background-color: #EFEFEF;
+    font-size: smaller;
+    border: solid 1px black;
+    cursor: help;
+    padding: 2px;
+}
+
+.helptext
+{
+    margin-top: 5px;
+    font-size: smaller;
+    font-style: italic;
+}
+
+.pageflash
+{
+    background-color: #909090;
+    border: solid 1px #EFEFEF;
+    color: #EFEFEF;
+    padding: 5px;
+    margin: 10px 0px;
+}
+
+.clear
+{
+    clear: both;
+}
+
+pre
+{
+    padding: 5px;
+    border: solid 1px #888888;
+}
+
+/* TABLES & LISTS
+----------------------------------------------------------*/
+
+table td
+{
+    vertical-align: top;
+}
+
+table.list, table.list td
+{
+    border: none;
+}
+
+table.list td
+{
+    padding: 5px;
+}
+
+.listitem
+{
+}
+
+.listitem-title
+{
+    font-weight: bold;
+    font-size: larger;
+}
+
+.listitem-content
+{
+}
+
+.listitem-content p
+{
+    margin: 5px 0 0 0;
+}
+
+.listitem-footer
+{
+    font-style: italic;
+    font-size: smaller;
+    margin-top: 5px;
+}
+
+.linklist
+{
+    margin: 8px 0;
+    padding: 8px;
+    border: dashed 1px #dddddd;
+}
+
+.linklist span
+{
+    background-color: #bbbbbb;
+    color: #333333;
+    border: solid 1px #333333;
+    padding: 3px 5px;
+    text-align: center;
+}
+
+.linklist a, .linklist a:link, .linklist a:visited, .linklist a:hover, .linklist a:active
+{
+    background-color: #eeeeee;
+    color: #888888;
+    border: solid 1px #bbbbbb;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.breadcrumb
+{
+}
+
+.breadcrumb-current
+{
+    background-color: #bbbbbb;
+    color: #333333;
+    border: solid 1px #333333;
+    margin-top: 4px;
+    padding: 3px 5px;
+    text-align: center;
+}
+
+.breadcrumb-parent a, .breadcrumb-parent a:link, .breadcrumb-parent a:visited, .breadcrumb-parent a:hover, .breadcrumb-parent a:active
+{
+    background-color: #eeeeee;
+    color: #888888;
+    border: solid 1px #bbbbbb;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* LOGS
+----------------------------------------------------------*/
+
+.log-error
+{
+    background-color: #cc0000;
+    color: #ffffff;
+}
+
+.log-warning
+{
+    background-color: #ffbb00;
+}
+
+.log-information
+{
+}
+
+.log-detail
+{
+    margin-left: 20px;
+}
+/* SVG
+
+svg:hover 
+{
+     background-image: 
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><linearGradient id='gradient'><stop offset='10%' stop-color='%23F00'/><stop offset='90%' stop-color='%23fcc'/> </linearGradient><rect fill='url(%23gradient)' x='0' y='0' width='100%' height='100%'/></svg>");
+      }
+-----------------------------------------------------------*/
+
+div ins {
+        display: -moz-inline-stack;
+        display: inline-block;
+        vertical-align: top;
+        margin: 5px;
+        zoom: 1;
+        *display: inline;
+        _height: 250px;
+
+    
+    margin: 30px 0 0 10px;
+    text-align: left;
+    text-decoration: none;
+
+}

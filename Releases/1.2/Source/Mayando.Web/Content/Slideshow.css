@@ -1,0 +1,14 @@
+﻿#header h1, #header h2
+{
+    display: inline;
+}
+
+#slideshowcontainer
+{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.navigation-slideshow
+{
+}

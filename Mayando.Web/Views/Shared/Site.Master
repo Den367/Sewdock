@@ -1,0 +1,125 @@
+<%@ Master Language="C#" Inherits="Mayando.Web.Infrastructure.SiteViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server">Welcome</asp:ContentPlaceHolder> - <%= Html.Encode(MasterModel.SiteData.Settings.Title)%>
+    </title>
+    <% 
+        Html.RenderPartial(PartialViewName.HtmlHeaders, MasterModel); %>
+</head>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                         $('#polyglotLanguageSwitcher').polyglotLanguageSwitcher(
+   {
+       effect: 'fade',
+       openMode: 'hover',              testMode: false,                
+       onChange:
+        function(evt){            
+            try {                
+                $.cookie("_culture", evt.selectedItem, { expires: 365, path: '/' });
+            } catch (e) {alert(e.message);}
+            window.location.reload(); // reload 
+        }
+       // 
+                  ,afterLoad: function(evt){
+
+                      //                    alert("The selected language has been loaded");
+
+                      //                },
+                      //                beforeOpen: function(evt){
+                      //                    alert("before open");
+
+                      //                },
+                      //                afterOpen: function(evt){
+                      //                    alert("after open");
+                      //                },
+                      //                beforeClose: function(evt){
+                      //                    alert("before close");
+                      //                },
+                      //                afterClose: function(evt){
+                      //                    alert("after close");
+                                      }
+                  });
+
+                //$(".lang-picker a." + Globalize.culture().name.toLowerCase()).prependTo($(".lang-picker"));
+                ////$("#polyglotLanguageSwitcher:first-child") + Globalize.culture().name.toLowerCase()).prependTo($(".lang-picker"));
+                //$(".lang-picker a").click(function () {
+                //    if ($(this).hasClass(Globalize.culture().name.toLowerCase()))
+                //        return false; // do nothing
+                //    try {
+                //        $.cookie("_culture", $(this).attr("class"), { expires: 365, path: '/' });
+                //    } catch (e) {
+                //        alert(e.message);
+                //    }
+                //   window.location.reload(); // reload   
+                //});
+            });
+           
+        </script>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+
+                <h1><%=Html.Link(MasterModel.SiteData.HomepageUrl, MasterModel.SiteData.Settings.Title)%></h1>
+                <h2><asp:ContentPlaceHolder ID="HeaderSubtitleContent" runat="server"><%=Html.Encode(MasterModel.SiteData.Settings.Subtitle) %></asp:ContentPlaceHolder></h2>
+            </div>
+            <!-- begin container -->
+<div id="container" style="width: 400px; float:right;">
+
+	<!-- begin language switcher -->
+    
+<div id="polyglotLanguageSwitcher">
+
+		<form action="#">
+			<select id="polyglot-language-options">
+				<option id="en" value="en">English</option>
+				<option id="ru" value="ru">Русский</option>
+				<option id="de" value="de">Deutsch</option>				
+			</select>
+		</form>
+	</div>
+	<!-- end language switcher -->
+    
+</div>
+<!-- end container -->
+           
+            <div id="logindisplay">
+                <% Html.RenderPartial(PartialViewName.LogOnUserControl); %>                               
+            </div>           
+            <div id="menucontainer">
+                <ul id="menu">
+                <% foreach (var menu in MasterModel.SiteData.Menus) { %>
+                    <li class="btn <%= menu.Selected ? "selected" : string.Empty %>"><%= Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip)%></li>
+                <% } %>
+                </ul>
+            </div>
+        </div>
+        <div style="clear:both;display:inline"></div>
+        <div id="main">
+            <% if (Page.User.CanSeeAdministratorContent()) { %>
+            <div id="admincontainer">
+                <%= Html.ActionLinkAdminIndex("Site Administration")%> 
+                <%= Html.ActionLinkAccountLogOff("Log Off")%>
+                <%= Html.ActionLinkAccountChangePassword("Change Password")%> 
+                <%= Html.ActionLinkTagsIndex("Tags")%>
+                <%= Html.ActionLinkPhotoUpload("Upload Embro")%>
+                <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
+                <%= Html.ActionLinkPageCreate("Create Page")%> 
+                <asp:ContentPlaceHolder ID="AdminLinks" runat="server" />
+            </div>
+            <% } %>
+            <%= Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle)) %>
+            <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
+            <div class="pageflash"><%= MasterModel.PageFlash%></div>
+            <% } %>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div id="footer">
+            <%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
+        </div>
+    </div>
+</body>
+</html>

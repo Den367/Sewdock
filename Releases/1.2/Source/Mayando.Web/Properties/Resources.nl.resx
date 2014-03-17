@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TimeOnDateAtTime" xml:space="preserve">
+    <value>op {0} om {1}</value>
+  </data>
+  <data name="ErrorDescription" xml:space="preserve">
+    <value>Gelieve opnieuw te proberen, of verwittig de beheerder van de website.</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Er is een fout opgetreden.</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="AccountChangePassword" xml:space="preserve">
+    <value>Wachtwoord Veranderen</value>
+  </data>
+  <data name="AccountLogOff" xml:space="preserve">
+    <value>Afmelden</value>
+  </data>
+  <data name="AccountLogOn" xml:space="preserve">
+    <value>Aanmelden</value>
+  </data>
+  <data name="LogOnAccountInformation" xml:space="preserve">
+    <value>Gebruikersgegevens</value>
+  </data>
+  <data name="LogOnEnterCredentials" xml:space="preserve">
+    <value>Vul uw gebruikersnaam en wachtwoord in.</value>
+  </data>
+  <data name="LogOnFailed" xml:space="preserve">
+    <value>Het aanmelden is mislukt. Verbeter de fouten en probeer opnieuw.</value>
+  </data>
+  <data name="LogOnPassword" xml:space="preserve">
+    <value>Wachtwoord:</value>
+  </data>
+  <data name="LogOnRememberMe" xml:space="preserve">
+    <value>Onthoud mij op deze computer</value>
+  </data>
+  <data name="LogOnSubmit" xml:space="preserve">
+    <value>Aanmelden</value>
+  </data>
+  <data name="LogOnUserName" xml:space="preserve">
+    <value>Gebruikersnaam:</value>
+  </data>
+  <data name="LogOnWelcome" xml:space="preserve">
+    <value>Welkom</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>Er werden geen resultaten gevonden.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Niet Gevonden</value>
+  </data>
+  <data name="PhotoComments" xml:space="preserve">
+    <value>Reacties</value>
+  </data>
+  <data name="PhotoCommentsAddComment" xml:space="preserve">
+    <value>Reactie Toevoegen</value>
+  </data>
+  <data name="PhotoCommentsAuthorComment" xml:space="preserve">
+    <value>Reactie</value>
+  </data>
+  <data name="PhotoCommentsAuthorEmail" xml:space="preserve">
+    <value>Email Adres</value>
+  </data>
+  <data name="PhotoCommentsAuthorName" xml:space="preserve">
+    <value>Jouw Naam</value>
+  </data>
+  <data name="PhotoCommentsAuthorUrl" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="PhotoCommentsBy" xml:space="preserve">
+    <value>Reactie van</value>
+  </data>
+  <data name="PhotoCommentsEmpty" xml:space="preserve">
+    <value>Er zijn nog geen reacties, wees de eerste om er een te plaatsen!</value>
+  </data>
+  <data name="PhotoCommentsSubmit" xml:space="preserve">
+    <value>Versturen</value>
+  </data>
+  <data name="PhotoNavigateNext" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="PhotoNavigatePrevious" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="PhotoNavigateTo" xml:space="preserve">
+    <value>Naar: {0}</value>
+  </data>
+  <data name="PhotoPublished" xml:space="preserve">
+    <value>Gepubliceerd</value>
+  </data>
+  <data name="PhotosDateTitleInMonth" xml:space="preserve">
+    <value>in {0}</value>
+  </data>
+  <data name="PhotosDateTitleInYear" xml:space="preserve">
+    <value>in {0}</value>
+  </data>
+  <data name="PhotosDateTitleOnDay" xml:space="preserve">
+    <value>op {0}</value>
+  </data>
+  <data name="PhotosOverview" xml:space="preserve">
+    <value>Overzicht</value>
+  </data>
+  <data name="PhotosPublished" xml:space="preserve">
+    <value>Foto's gepubliceerd {0}</value>
+  </data>
+  <data name="PhotosTagged" xml:space="preserve">
+    <value>Foto's met de tag {0}</value>
+  </data>
+  <data name="PhotosTaken" xml:space="preserve">
+    <value>Foto's genomen {0}</value>
+  </data>
+  <data name="PhotosTitled" xml:space="preserve">
+    <value>Foto's met '{0}' in de titel</value>
+  </data>
+  <data name="PhotoTaken" xml:space="preserve">
+    <value>Genomen</value>
+  </data>
+  <data name="SelectListItemNone" xml:space="preserve">
+    <value>&lt;Geen&gt;</value>
+  </data>
+  <data name="ValidationAuthorNameEmpty" xml:space="preserve">
+    <value>Gelieve uw naam in te vullen.</value>
+  </data>
+  <data name="ValidationTextEmpty" xml:space="preserve">
+    <value>Gelieve een bericht in te vullen.</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagNavigateTo" xml:space="preserve">
+    <value>Toon foto's met de tag {0}</value>
+  </data>
+  <data name="PhotoCommentsAuthorEmailHelp" xml:space="preserve">
+    <value>Uw email adres wordt aan niemand getoond of doorgegeven. Het wordt enkel gebruikt om uw &lt;a href="http://www.gravatar.com" target="_blank"&gt;Gravatar&lt;/a&gt; te tonen als u die hebt (een uniek prentje dat gekoppeld is aan uw email adres).</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Reacties</value>
+  </data>
+  <data name="SyndicationFeedComments" xml:space="preserve">
+    <value>RSS (Reacties)</value>
+  </data>
+  <data name="SyndicationFeedPhotos" xml:space="preserve">
+    <value>RSS (Foto's)</value>
+  </data>
+  <data name="ValidationSummaryGenericTitle" xml:space="preserve">
+    <value>Gelieve de fouten te corrigeren en opnieuw te proberen.</value>
+  </data>
+  <data name="PageFlashCommentPosted" xml:space="preserve">
+    <value>Uw reactie is toegevoegd!</value>
+  </data>
+  <data name="ValidationAuthorEmailInvalid" xml:space="preserve">
+    <value>Gelieve een geldig email adres in te vullen.</value>
+  </data>
+  <data name="PhotoCommentsAuthorRememberMe" xml:space="preserve">
+    <value>Onthoud mijn gegevens op deze computer</value>
+  </data>
+  <data name="ContactAuthorEmail" xml:space="preserve">
+    <value>Email Adres</value>
+  </data>
+  <data name="ContactAuthorMessage" xml:space="preserve">
+    <value>Bericht</value>
+  </data>
+  <data name="ContactAuthorName" xml:space="preserve">
+    <value>Jouw Naam</value>
+  </data>
+  <data name="ContactAuthorRememberMe" xml:space="preserve">
+    <value>Onthoud mijn gegevens op deze computer</value>
+  </data>
+  <data name="ContactAuthorUrl" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="ContactContactMe" xml:space="preserve">
+    <value>Contacteer Mij</value>
+  </data>
+  <data name="ContactSubmit" xml:space="preserve">
+    <value>Versturen</value>
+  </data>
+  <data name="ContactTitle" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="PageFlashMessageSent" xml:space="preserve">
+    <value>Uw bericht werd verstuurd!</value>
+  </data>
+  <data name="ValidationAuthorEmailEmpty" xml:space="preserve">
+    <value>Gelieve uw email adres in te vullen.</value>
+  </data>
+  <data name="GalleriesTitle" xml:space="preserve">
+    <value>Galerijen</value>
+  </data>
+  <data name="PhotosFoundFromSearch" xml:space="preserve">
+    <value>Foto's met de zoekterm '{0}'</value>
+  </data>
+  <data name="SearchSubmit" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="NumberOfPhotosPlural" xml:space="preserve">
+    <value>{0} foto's</value>
+  </data>
+  <data name="GalleryPhotoLinkMore" xml:space="preserve">
+    <value>(Meer)</value>
+  </data>
+  <data name="PhotoLinkLargeText" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="PhotoLinkLargeTitle" xml:space="preserve">
+    <value>Toon de grote versie van de foto</value>
+  </data>
+  <data name="PhotoLinkNormalText" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="PhotoLinkNormalTitle" xml:space="preserve">
+    <value>Toon de medium versie van de foto</value>
+  </data>
+  <data name="PhotoLinkSmallText" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="PhotoLinkSmallTitle" xml:space="preserve">
+    <value>Toon de kleine versie van de foto</value>
+  </data>
+  <data name="NumberOfPhotosSingular" xml:space="preserve">
+    <value>{0} foto</value>
+  </data>
+  <data name="PhotosCalendar" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="CalendarByDatePublished" xml:space="preserve">
+    <value>Volgens Datum Gepubliceerd</value>
+  </data>
+  <data name="CalendarByDateTaken" xml:space="preserve">
+    <value>Volgens Datum Genomen</value>
+  </data>
+  <data name="TimeZoneOffsetInfo" xml:space="preserve">
+    <value>Alle tijden zijn in {0}</value>
+  </data>
+  <data name="TimeTodayAtTime" xml:space="preserve">
+    <value>vandaag om {0}</value>
+  </data>
+  <data name="TimeYesterdayAtTime" xml:space="preserve">
+    <value>gisteren om {0}</value>
+  </data>
+  <data name="PhotoTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagsShowTop" xml:space="preserve">
+    <value>Top {0} Tags</value>
+  </data>
+  <data name="TagsShowAll" xml:space="preserve">
+    <value>Alle Tags</value>
+  </data>
+  <data name="ValidationMenuTitleEmpty" xml:space="preserve">
+    <value>Gelieve een titel in te vullen.</value>
+  </data>
+  <data name="ValidationMenuUrlEmpty" xml:space="preserve">
+    <value>Gelieve een URL in te vullen.</value>
+  </data>
+  <data name="ValidationPageTitleEmpty" xml:space="preserve">
+    <value>Gelieve een titel in te vullen.</value>
+  </data>
+  <data name="ValidationPhotoDatePublishedInvalid" xml:space="preserve">
+    <value>Gelieve een geldige publicatie datum in te vullen.</value>
+  </data>
+  <data name="ValidationPhotoDateTakenInvalid" xml:space="preserve">
+    <value>Gelieve een geldige opname datum in te vullen.</value>
+  </data>
+  <data name="ValidationPhotoUrlNormalEmpty" xml:space="preserve">
+    <value>Gelieve een URL in te vullen voor de normale grootte van de foto.</value>
+  </data>
+  <data name="PhotoSizes" xml:space="preserve">
+    <value>Groottes</value>
+  </data>
+  <data name="NumberOfCommentsPlural" xml:space="preserve">
+    <value>{0} reacties</value>
+  </data>
+  <data name="NumberOfCommentsSingular" xml:space="preserve">
+    <value>{0} reactie</value>
+  </data>
+  <data name="DemoModePageFlash" xml:space="preserve">
+    <value>Deze website draait in demo mode. Je kan alle instellingen bekijken alsof je een administrator bent, maar je kan geen wijzigingen aanbrengen.</value>
+  </data>
+  <data name="NumberOfGalleriesPlural" xml:space="preserve">
+    <value>{0} galerijen</value>
+  </data>
+  <data name="NumberOfGalleriesSingular" xml:space="preserve">
+    <value>{0} galerij</value>
+  </data>
+  <data name="PhotosByDateTaken" xml:space="preserve">
+    <value>Foto's volgens datum genomen</value>
+  </data>
+  <data name="SlideshowPause" xml:space="preserve">
+    <value>Pauzeren</value>
+  </data>
+  <data name="SlideshowGoForwards" xml:space="preserve">
+    <value>Vooruit</value>
+  </data>
+  <data name="SlideshowSpeedDown" xml:space="preserve">
+    <value>Trager</value>
+  </data>
+  <data name="SlideshowSpeedUp" xml:space="preserve">
+    <value>Sneller</value>
+  </data>
+  <data name="SlideshowStart" xml:space="preserve">
+    <value>Slideshow starten</value>
+  </data>
+  <data name="SlideshowGoBackwards" xml:space="preserve">
+    <value>Achteruit</value>
+  </data>
+</root>

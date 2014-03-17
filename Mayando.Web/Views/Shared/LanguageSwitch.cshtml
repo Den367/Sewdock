@@ -1,0 +1,38 @@
+﻿
+<!-- begin language switcher -->
+    
+<div id="polyglotLanguageSwitcher" style="width: 64px; float:right;">
+
+    <form action="#">
+        <select id="polyglot-language-options">
+            <option id="en" value="en">English</option>
+            <option id="ru" value="ru">Русский</option>
+            <option id="de" value="de" disabled="disabled">Deutsch</option>				
+        </select>
+    </form>
+ <script type="text/javascript">
+            $(document).ready(function() {
+                $('#polyglotLanguageSwitcher').polyglotLanguageSwitcher(
+                    {
+                        effect: 'fade',
+                        testMode: false,
+                        onChange:
+                            function(evt) {
+                                try {
+                                    $.cookie("_culture", evt.selectedItem, { expires: 365, path: '/' });
+                                } catch(e) {
+                                    alert(e.message);
+                                }
+                                window.location.reload(); // reload 
+                            }
+                        // 
+                        ,
+                        afterLoad: function(evt) {
+                        }
+                    });
+            });
+
+        </script>
+</div>
+
+	<!-- end language switcher -->

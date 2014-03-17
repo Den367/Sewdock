@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>7.10.3077</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8F305C7A-6F12-4218-B647-B4EC5B9CE63C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>MessagingToolkit.QRCode</AssemblyName>
+    <AssemblyOriginatorKeyFile>qrcode.pfx</AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MessagingToolkit.QRCode</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <Name>mscorlib</Name>
+      <HintPath>mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <HintPath>System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+      <HintPath>System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.Xml</Name>
+      <HintPath>System.Xml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Data\QRCodeBitmapImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Data\QRCodeImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Data\QRCodeSymbol.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Ecc\BCH15_5.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Ecc\ReedSolomon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Reader.Pattern\AlignmentPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Reader.Pattern\FinderPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Reader.Pattern\LogicalSeed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Reader\QRCodeDataBlockReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec.Reader\QRCodeImageReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec\QRCodeDecoder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Codec\QRCodeEncoder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Crypt\BCH_15_5.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Crypt\Galois.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Crypt\RsDecode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Crypt\RsEncode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\AlignmentPatternNotFoundException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\DecodingFailedException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\FinderPatternNotFoundException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\InvalidDataBlockException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\InvalidVersionException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\InvalidVersionInfoException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\SymbolNotFoundException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.ExceptionHandler\VersionInformationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Geom\Axis.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Geom\Line.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Geom\Point.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Geom\SamplingGrid.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\Color.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\Color_Fields.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\ConsoleCanvas.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\ContentConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\DebugCanvas.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\DebugCanvasAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\QRCodeHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\StringHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Helper\SystemUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessagingToolkit.QRCode.Properties\Resources.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="MessagingToolkit.QRCode.Properties.Resources.resx" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv10_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv10_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv10_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv10_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv11_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv11_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv11_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv11_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv12_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv12_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv12_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv12_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv13_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv13_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv13_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv13_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv14_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv14_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv14_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv14_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv15_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv15_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv15_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv15_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv16_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv16_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv16_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv16_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv17_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv17_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv17_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv17_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv18_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv18_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv18_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv18_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv19_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv19_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv19_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv19_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv1_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv1_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv1_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv1_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv20_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv20_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv20_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv20_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv21_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv21_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv21_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv21_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv22_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv22_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv22_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv22_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv23_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv23_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv23_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv23_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv24_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv24_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv24_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv24_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv25_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv25_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv25_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv25_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv26_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv26_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv26_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv26_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv27_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv27_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv27_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv27_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv28_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv28_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv28_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv28_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv29_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv29_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv29_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv29_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv2_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv2_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv2_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv2_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv30_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv30_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv30_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv30_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv31_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv31_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv31_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv31_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv32_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv32_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv32_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv32_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv33_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv33_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv33_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv33_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv34_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv34_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv34_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv34_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv35_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv35_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv35_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv35_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv36_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv36_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv36_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv36_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv37_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv37_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv37_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv37_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv38_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv38_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv38_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv38_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv39_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv39_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv39_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv39_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv3_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv3_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv3_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv3_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv40_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv40_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv40_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv40_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv4_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv4_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv4_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv4_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv5_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv5_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv5_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv5_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv6_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv6_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv6_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv6_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv7_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv7_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv7_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv7_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv8_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv8_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv8_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv8_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv9_0.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv9_1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv9_2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrv9_3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr1.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr10.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr11.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr12.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr13.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr14.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr15.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr16.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr17.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr18.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr19.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr2.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr20.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr21.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr22.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr23.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr24.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr25.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr26.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr27.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr28.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr29.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr3.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr30.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr31.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr32.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr33.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr34.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr35.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr36.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr37.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr38.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr39.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr4.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr40.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr5.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr6.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr7.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr8.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.qrvfr9.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc10.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc13.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc15.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc16.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc17.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc18.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc20.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc22.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc24.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc26.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc28.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc30.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc32.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc34.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc36.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc40.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc42.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc44.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc46.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc48.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc50.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc52.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc54.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc56.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc58.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc60.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc62.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc64.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc66.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc68.dat" />
+    <EmbeddedResource Include="MessagingToolkit.QRCode.qrcode_data.rsc7.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qrcode.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

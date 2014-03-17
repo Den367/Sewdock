@@ -1,0 +1,48 @@
+﻿@using System.Web.Mvc.Html
+@using Mayando.Web.Extensions
+@using Mayando.Web.Infrastructure
+@using Mayando.Web.Properties
+@model Mayando.Web.ViewModels.EmbroNavigationViewModel
+@{
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+
+@section TitleContent{
+    @if (Model.EmbroDetails != null)
+    {
+        @Html.Encode(Model.EmbroDetails.Title);
+    }
+}
+
+
+@*@section AdminLinks{    @Html.ActionLinkPhotoEdit("Edit Embro", Model.EmbroDetails.Embro.Id);
+               @Html.ActionLinkPhotoDelete("Delete EmbroideryItem", Model.EmbroDetails.Embro.Id);
+                @Html.ActionLinkPageCreate("Create Page With EmbroideryItem", Model.EmbroDetails.Embro.Id);}*@
+
+
+@section MainContent
+{
+
+    @{Html.RenderAction("GetThumbsPaged", "thumb", Model.NavigationContext); }
+
+
+}
+
+    <div id="detailspage">
+
+        @if (Model.EmbroDetails != null)
+        {
+
+
+            Html.RenderPartial(PartialViewName.Details, Model.EmbroDetails);
+        }
+        else if (Model.NavigationContext.Current != null)
+        {
+            Html.RenderAction("Details", "Embro", Model.NavigationContext.Current);
+        }
+        else
+        {
+            Html.RenderAction("Details", "Embro", Model.NavigationContext);
+        }
+    </div>

@@ -1,0 +1,15 @@
+﻿@using Mayando.Web.Infrastructure
+@model Mayando.Web.ViewModels.QrcodeFormViewModel
+@{ Layout = "~/Views/Shared/SiteLayout.cshtml"; }
+
+
+@section TitleContent{QR-Code stitches calculating}
+
+@section MainContent{
+    <div class="form-view" style="min-width: 600px">
+        <span class="form-qrcode">
+            @{ Html.RenderPartial("QrcodeForm", Model); }
+        </span>
+    </div>}
+
+

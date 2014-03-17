@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='UTF-8'>
+	
+	<title>Pure CSS Tabbed Areas</title>
+	
+	<link rel='stylesheet' href='css/style.css'>
+	
+	<style>
+    .tabs {
+      position: relative;   
+      min-height: 200px; /* This part sucks */
+      clear: both;
+      margin: 5px 0;
+    }
+    .tab {
+      float: left;
+    }
+    .tab label 
+    {
+          display: inline-block; 
+    float: none;
+     font-family: Verdana, Geneva, sans-serif;
+     font-size:8pt;   
+      background: #ddd; 
+      padding: 10px; 
+      border: 1px solid #aaa; 
+      margin-left: -4px; 
+      position: relative;
+      left: 1px; 
+      border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    }
+    
+ 
+
+    .tab [type=radio] {
+      display: none;   
+    }
+    .content {
+      position: absolute;
+      top: 32px;
+      left: 0;
+      background: white;
+      right: 0;
+      bottom: 0;
+      margin:  3px ;
+      padding: 2px;
+      border: 1px solid #ccc; 
+    }
+    [type=radio]:checked ~ label {
+      background: white;
+      border-bottom: 1px solid white;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+      z-index: 2;
+    }
+    
+    
+.tab label:before {
+    border-bottom-right-radius: 6px;
+    border-width: 0 1px 1px 0;
+    box-shadow: 1px 1px 0 #aaa;
+    left: -6px;
+}
+.tab label:before, .tab label:after {
+    border: 1px solid #ddd;
+    bottom: -1px;
+    content: " ";
+    height: 5px;
+    position: absolute;
+    width: 5px;
+     border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+}
+.tab label:after {
+    border-bottom-left-radius: 7px;
+    border-width: 0 0 1px 1px;
+    box-shadow: -2px 1px 0 #aaa;
+    right: -6px;
+}
+.tab label:before, .tab label:after {
+    border: 1px solid #ddd;
+    bottom: -1px;
+    content: " ";
+    height: 7px;
+    position: absolute;
+    width: 7px;
+}
+    
+    [type=radio]:checked ~ label ~ .content {
+      z-index: 1;
+    }
+	</style>
+</head>
+
+<body>
+
+	<div id="page-wrap">
+		
+    <div class="tabs">
+        
+       <div class="tab">
+           <input type="radio" id="tab-1" name="tab-group-1" checked>
+           <label for="tab-1">Tab One</label>
+           
+           <div class="content">
+               <p>Stuff for Tab One</p>
+           </div> 
+       </div>
+        
+       <div class="tab">
+           <input type="radio" id="tab-2" name="tab-group-1">
+           <label for="tab-2">Tab Two</label>
+           
+           <div class="content">
+               <p>Stuff for Tab Two</p>
+               
+               <img src="http://placekitten.com/200/100">
+           </div> 
+       </div>
+        
+        <div class="tab">
+           <input type="radio" id="tab-3" name="tab-group-1">
+           <label for="tab-3">Tab Three</label>
+         
+           <div class="content">
+               <p>Stuff for Tab Three</p>
+               
+               <img src="http://placedog.com/200/100">
+           </div> 
+       </div>
+
+        <div class="tab">
+           <input type="radio" id="tab-4" name="tab-group-1">
+           <label for="tab-4">Tab Four</label>
+         
+           <div class="content">
+               <p>Stuff for Tab 4</p>
+               
+               <img src="http://placebear.com/200/100">
+           </div> 
+       </div>
+        
+    </div>
+    
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+    
+    <div class="tabs">
+        
+       <div class="tab">
+           <input type="radio" id="tab-4" name="tab-group-2" checked>
+           <label for="tab-4">Tab One</label>
+           
+           <div class="content">
+               <p>Stuff for Tab One</p>
+           </div> 
+       </div>
+        
+       <div class="tab">
+           <input type="radio" id="tab-5" name="tab-group-2">
+           <label for="tab-5">Tab Two</label>
+           
+           <div class="content">
+               <p>Stuff for Tab Two</p>
+               
+               <img src="http://placebear.com/200/100">
+           </div> 
+       </div>
+        
+        <div class="tab">
+           <input type="radio" id="tab-6" name="tab-group-2">
+           <label for="tab-6">Tab Three</label>
+         
+           <div class="content">
+              You made it this far?!
+           </div> 
+       </div>
+
+         <div class="tab">
+           <input type="radio" id="tab-7" name="tab-group-2">
+           <label for="tab-7">Tab 4</label>
+         
+           <div class="content">
+              4
+           </div> 
+       </div>
+        
+    </div>
+	
+	</div>
+	
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+﻿@using Mayando.Web.Extensions
+@model Mayando.Web.Models.SiteData
+<div id="admincontainer">
+    @Html.Raw(
+    Html.ActionLinkAdminIndex("Site Administration") +
+    Html.ActionLinkAccountLogOff("Log Off") +
+    Html.ActionLinkAccountChangePassword("Change Password") +
+    Html.ActionLinkTagsIndex("Tags") +
+    Html.ActionLinkPhotoUpload("Upload Embro") +
+    Html.ActionLinkGalleryCreate("Create Gallery") +
+    Html.ActionLinkPageCreate("Create Page"))
+    @*@RenderSection("AdminLinks", false)        *@       
+</div>
+

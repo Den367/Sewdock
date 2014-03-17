@@ -1,0 +1,18 @@
+﻿@model Mayando.Web.ViewModels.DeleteViewModel
+
+@section TitleContent {
+
+    Delete @Model.ItemName
+
+}
+
+
+<div id="deletepage">
+    <h2>Delete @Model.ItemName</h2>
+    <p>Are you sure you want to delete &quot;@Model.ItemDescription&quot;?</p>
+    @using (Html.BeginForm()) { 
+        @Html.Hidden("returnUrl")
+        <input name="submitButton" type="submit" value="Delete" />
+     } 
+</div>
+

@@ -1,0 +1,39 @@
+﻿@using Mayando.Web.Infrastructure
+@using Mayando.Web.Properties
+@using Mayando.Web.Extensions
+
+@model JelleDruyts.Web.Mvc.Paging.IPagedList<Mayando.Web.Models.Comment>
+
+@{Layout = null;}
+
+@{Page.Title = Html.Encode(Resources.CommentsTitle);}
+
+<div id="commentindexpage">
+    @if (Model != null)
+    {
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount);        
+        if (!Model.Any())
+        {
+            @Resources.PhotoCommentsEmpty;            
+        }
+        else
+        {
+            <table class="list">
+                <tbody>               
+                    @{foreach (var comment in Model.OrderBy(c => c.DatePublished))
+                    {
+                        <tr>
+                            <td>                                
+                                    @{ Html.RenderPartial(PartialViewName.CommentDetails, comment); }                                
+                            </td>
+                        </tr>
+                    }
+                    }
+                </tbody>
+            </table>
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount);           
+        }
+    }
+</div>
+
+

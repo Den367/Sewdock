@@ -1,0 +1,822 @@
+﻿
+
+/*----------------------------------------------------------
+The base color for this template is #66686D. If you'd like
+to use a different color start by replacing all instances of
+#66686D with your new color.
+----------------------------------------------------------*/
+
+body
+{
+    background-color: #66686D;
+    font-size: .75em;
+    font-family: Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+    color: #696969;
+}
+
+
+a:visited
+{
+    color: #505abc;
+}
+a:hover
+{
+    color: #1d60ff;
+    text-decoration: none;
+}
+a:active
+{
+    color: #12eb87;
+}
+
+p, ul
+{
+    margin-bottom: 20px;
+    line-height: 1.6em;
+   
+}
+
+li{ list-style: none;
+    list-style-type: none;}
+/* HEADINGS   
+----------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6
+{
+    font-size: 1.5em;
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1
+{
+    font-size: 2em;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+h2
+{
+    padding: 0 0 10px 0;
+}
+h3
+{
+    font-size: 1.2em;
+    background-color: #66686D;
+    color: #ffffff;
+    padding: 5px;
+}
+h4
+{
+    font-size: 1.1em;
+}
+h5, h6
+{
+    font-size: 1em;
+}
+
+/* this rule styles <h2> tags that are the 
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
+{
+    margin-top: 0;
+}
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+/* you can specify a greater or lesser percentage for the 
+page width. Or, you can specify an exact pixel width. */
+.page
+{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header
+{
+    position: relative;
+    margin-bottom: 0px;
+    color: #000000;
+    padding: 0;
+}
+
+#header h1 a
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#header h1
+{
+    font-weight: bold;
+    padding: 5px 0;
+    margin: 0;
+    color: #ffffff;
+    border: none;
+    line-height: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 32px !important;
+}
+
+#searchcontainer form
+{
+    margin: 0;
+    padding: 0;
+}
+
+#main
+{
+    padding: 30px 30px 15px 30px;
+    background-color: #ffffff;
+    _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
+}
+
+#footer
+{
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+    line-height: normal;
+    margin: 0;
+    font-size: .9em;
+    margin-bottom: 30px;
+}
+
+#footer a
+{
+    color: #ffffff;
+}
+
+#footer p
+{
+    display: inline;
+}
+
+/* TAB MENU   
+----------------------------------------------------------*/
+ul#menu
+{
+    border-bottom: 1px #5C87B2 solid;
+    padding: 0 0 2px;
+    position: relative;
+    margin: 0;
+    text-align: right;
+}
+
+ul#menu li
+{
+    display: inline;
+    list-style: none;
+}
+
+ul#menu li#greeting
+{
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    color: #ffffff;
+}
+
+
+ul#menu li a:hover
+{
+    color: #EEEEEE;  
+    text-decoration: none;
+   
+   /* text-shadow: 0 -1px 0 #101010;*/
+}
+
+ul#menu li a:active
+{
+    background-color: #a6e2a6;
+    text-decoration: none;
+}
+
+ul#menu li.selected a
+{
+   
+    color: #333;
+}
+
+
+ul#menu li:hover
+{
+    	background: #999;
+    }
+    
+ul#menu  li a
+{
+  	cursor: pointer;
+	-webkit-transition: all 0.5s ease-in;
+	-moz-transition: all 0.5s ease-in;
+	-o-transition: all 0.5s ease-in;  
+    }
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset
+{
+    margin: 1em 0;
+    padding: 1em;
+    border: 1px solid #cccccc;
+}
+
+fieldset p
+{
+    margin: 2px 12px 10px 10px;
+}
+
+legend
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+/* TABLE
+----------------------------------------------------------*/
+
+table
+{
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+}
+
+table td
+{
+    padding: 5px;
+    border: solid 1px #e8eef4;
+    vertical-align: top;
+}
+
+table th
+{
+    padding: 6px 5px;
+    text-align: left;
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
+}
+
+table tfoot
+{
+    background-color: #e8eef4;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+#menucontainer {}
+
+div#title
+{
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+div#title h2
+{
+    color: #e8eef4;
+    margin-top: -25px;
+}
+
+#logindisplay
+{
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    margin: 10px 0px;
+
+}
+
+#logindisplay a:link
+{
+    color:  #034af3;
+    text-decoration: underline;
+}
+
+#logindisplay a:visited
+{
+    color: white;
+    text-decoration: underline;
+}
+
+#logindisplay a:hover
+{
+    color: white;
+    text-decoration:solid;
+}
+
+#admincontainer a, a.admin
+{
+    text-decoration: solid;
+    -webkit-transition: all 1.0s ease-in;
+	-moz-transition: all 1.0s ease-in;
+	-o-transition: all 1.0s ease-in;  
+}
+
+.photo-tag a
+{
+    text-decoration: none;
+}
+/* Embroidery */
+/*----------------------------------------------------------
+The base color for this template is #EFEFEF. If you'd like
+to use a different color start by replacing all instances of
+#EFEFEF with your new color.
+----------------------------------------------------------*/
+body {
+    background-color: #66686D;
+    font-size: .85em;
+    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+a:link {
+    color: #034af3;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #505abc;
+}
+
+a:hover {
+    color: #1d60ff;
+    text-decoration: none;
+}
+
+a:active {
+    color: #12eb87;
+}
+
+p, ul {
+    margin-bottom: 20px;
+    line-height: 1.6em;
+}
+
+header,
+footer,
+nav,
+section {
+    display: block;
+}
+
+/* HEADINGS   
+----------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5em;
+    color: #505961;
+     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-style: normal;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2em;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+h2 {
+    padding: 0 0 10px 0;
+}
+
+h3 {
+    font-size: 1.2em;
+      color: #EBEBEB;
+      background-color:#A0A0A0;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+/* you can specify a greater or lesser percentage for the 
+page width. Or, you can specify an exact pixel width. */
+.page {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header, #header {
+    position: relative;
+    margin-bottom: 0px;
+    color: #505961;
+    padding: 0;
+}
+
+header h1, #header h1 {
+    font-weight: bold;
+    padding: 5px 0;
+    margin: 0;
+    color: Linen;
+    border: none;
+    line-height: 2em;
+    font-size: 32px !important;
+    text-shadow: 1px 1px 2px #111;
+}
+
+#main {
+    padding: 30px 30px 15px 30px;    
+    margin-left: auto;
+    margin-right: auto;
+    width: 1024px;
+}
+
+footer, 
+#footer {
+    background-color: silver;
+    color: #999;
+    padding: 10px 30px;
+    text-align: center;
+    line-height: normal;
+    margin: 0 0 30px 0;
+    font-size: .9em;   
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+}
+
+/* TAB MENU   
+----------------------------------------------------------*/
+ul#menu {
+    border-bottom: 1px #EFEFEF solid;
+    padding: 0 0 2px;
+    position: relative;
+    margin: 0;
+    text-align: left;
+}
+
+/*ul#menu li {
+    display: inline;
+    list-style: none;
+   
+}*/
+
+ul#menu li#greeting {
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    color: #fff;
+}
+
+ul#menu li a {
+   
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+  
+}
+
+
+
+ul#menu li a:active {
+    background-color: #a6e2a6;
+    text-decoration: none;
+}
+
+ul#menu li.selected a {
+   
+    color: #666;
+}
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+input[type="text"], 
+input[type="password"] {
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 1.2em;
+    color: #444;
+    width:inherit;
+}
+
+select {
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 1.2em;
+    color: #444;
+}
+
+input[type="submit"] {
+    font-size: 1.2em;  
+    color: #505961;
+    display: block;  
+    line-height: 100%;    
+}
+
+input[type="file"] {
+    font-size: 1.2em;
+     border: 0 none;
+    border-radius: 10px 10px 10px 10px;
+    color: #505961;
+    display: block;  
+    line-height: 100%;
+    padding: 1px 15px 1px;
+    text-decoration: none;
+}
+
+input[type="submit"]:active 
+{
+background: gray;
+ border: 2px solid white;
+}
+
+input[type="submit"]:hover {
+    border: 1px solid silver;    
+background: white;
+}
+
+input[type="submit"]
+{
+ background-color: #E5E5E5;    
+
+ border: 1px solid silver;
+}
+
+.button:hover 
+{
+   color: Gray;
+background: white;
+ border: 1px solid silver;
+} 
+
+
+.button:active 
+{
+  
+background: gray;
+ border: 2px solid white;
+} 
+
+
+.attach { position:relative; width:400px; height:30px; }
+	.attach #file_fake { width:100%; height:85%; cursor:default; color:gray; padding:2px 0; }
+	.attach span.file { position:absolute; right:-125px; top:0; width:115px; height:100%; overflow:hidden; }
+	.attach span.file * { cursor:pointer; }
+	.attach span.file:hover * { color:gray; }
+	.attach input.file_select_btn 
+	{overflow:visible;
+	 width:100%; height:100%;
+	 border-radius: 10px 10px 10px 10px;
+     color: #505961;    display: block;  
+     line-height: 100%;
+     padding: 1px 15px 1px;
+     text-decoration: none;
+    
+     }
+	.attach input.file_select { position:absolute; font-size:150px; right:0; top:0; opacity:0; -moz-opacity:0; filter:alpha(opacity=10); }
+	
+/* TABLE
+----------------------------------------------------------*/
+
+table {
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 5px;
+    border: solid 1px #e8eef4;
+}
+
+table th {
+    padding: 6px 5px;
+    text-align: left;
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+.clear {
+    clear: both;
+}
+
+.error {
+    color: Red;
+}
+
+nav, 
+#menucontainer {
+    margin-top: 40px;
+}
+
+div#title {
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+#logindisplay {
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    margin: 10px;
+    color: rgb(3, 74, 243);
+}
+
+#logindisplay a:link {
+    color: black;
+    text-decoration: underline;
+}
+
+#logindisplay a:visited {
+    color: white;
+    text-decoration: underline;
+}
+
+#logindisplay a:hover {
+    color: GrayText;
+    text-decoration: none;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label, 
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.display-field, 
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+.text-box {
+    width: 30em;
+}
+
+.text-box.multi-line {
+    height: 6.5em;
+}
+
+.tri-state {
+    width: 6em;
+}
+/* SVG
+
+
+-----------------------------------------------------------*/
+td.navigation-filmstrip-next
+{
+
+  
+  height:100px;
+  float:left;
+    }
+    
+ td.navigation-filmstrip-current  
+{
+width:inherit;
+height: 120px; 
+       
+    }    
+    
+    td.navigation-filmstrip-current  svg
+{
+    overflow:scroll;
+ float: right; 
+ width: 120px;
+ position:relative;      
+    }
+    
+   
+    
+svg.thumbnail:hover,ins.selected div
+{
+     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'><linearGradient id='gradient'><stop offset='20%' stop-color='%23999'/><stop offset='90%' stop-color='%23ccc'/></linearGradient><rect fill='url(%23gradient)' style='stroke:rgb(80,90,100);stroke-width:7;fill-opacity:0.1;stroke-opacity:0.9' x='0' y='0' width='100%' height='100%'/></svg>");
+       /*url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><linearGradient id='gradient'><stop offset='80%' stop-color='%23AA0'/><stop offset='90%' stop-color='%23ccc'/></linearGradient><rect x="0" y="0" width="200" height="300" fill="gray" style="fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9"/></svg>");*/
+
+      }
+
+svg.thumbnail:active {	border: 3px solid #666;}
+
+span.from-qrcode
+{  position:absolute;
+ top:0;
+left:0;
+}
+
+span.view-qrcode
+{  position:absolute;
+ top:0;
+ right:0;
+}
+div.form-view
+{ position:relative;
+}
+
+nav#menu
+{top:-50px;
+}
+
+.qr{
+    position: absolute;
+    top: 128px;
+    left: 50px;
+
+}
+.background-smile {
+    background-image: url('Images/Smile.jpg');
+   width:100%; height:100%;
+   background-size: 100%;
+ 
+}
+
+div > ins {
+        display: -moz-inline-stack;
+        display: inline-block;
+        vertical-align: top;        
+        zoom: 1;
+        *display: inline;
+        _height: 250px;
+
+    
+    margin: 30px 0 0 10px;
+    text-align: left;
+    text-decoration: none;
+
+}
+
+
+ins > div {      
+        margin: 5px;
+        zoom: 1;
+        *display: inline;
+        _height: 250px;    
+    margin: 30px 0 0 10px;
+
+    text-decoration: none;
+
+}
+
+@@font-face {
+		font-family: 'IconPack';
+    src: local('Icon Pack') format("truetype");
+
+		
+	}
+#Captcha {
+    font-family: 'IconPack';
+    font-size: 2em;
+    height: 40px;
+    margin: 0px 0px 5px;
+    padding: 0px;
+    text-shadow: 5px 5px 1.25em rgb(96, 96, 96);
+    width: 256px;height:80px;
+}

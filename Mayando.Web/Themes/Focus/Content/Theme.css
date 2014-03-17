@@ -1,0 +1,321 @@
+/* GENERAL
+----------------------------------------------------------*/
+
+body
+{
+    font-size: small;
+    font-family: Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+}
+
+a:link
+{
+    text-decoration: underline;
+}
+
+a:visited {}
+
+a:hover
+{
+    text-decoration: none;
+}
+
+a:active {}
+
+p, ul
+{
+    margin-bottom: 20px;
+    line-height: 1.6em;
+}
+
+/* HEADINGS
+----------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2
+{
+    margin: 0;
+}
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+.page {}
+
+#header
+{
+    padding: 0 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    text-transform: lowercase;
+    border-bottom: solid 1px;
+}
+
+#header h1 a
+{
+    text-decoration: none;
+}
+
+#header h1
+{
+    font-weight: bold;
+    display: inline;
+    font-size: medium;
+}
+
+#header h2
+{
+    display: inline;
+    font-size: medium;
+}
+
+#title
+{
+    display: inline;
+}
+
+#menucontainer
+{
+    display: inline;
+}
+
+#searchcontainer, #searchcontainer form
+{
+    display: inline;
+    float: right;
+}
+
+#main
+{
+    padding: 10px;
+    margin-bottom: 15px;
+    _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
+}
+
+#footer
+{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 25px;
+    text-align: center;
+    margin: 0;
+    font-size: x-small;
+    border-top: solid 1px;
+}
+
+#footer p
+{
+    display: inline;
+}
+
+/* TAB MENU   
+----------------------------------------------------------*/
+ul#menu
+{
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+ul#menu li
+{
+    display: inline;
+    list-style: none;
+}
+
+#header a, #header a:hover, #header a:active
+{
+    text-decoration: none;
+}
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset
+{
+    margin: 1em 0;
+    padding: 1em;
+    border: solid 1px solid;
+}
+
+fieldset p
+{
+    margin: 2px 12px 10px 10px;
+}
+
+legend
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+/* TABLE
+----------------------------------------------------------*/
+
+table
+{
+    border-collapse: collapse;
+    border: solid 1px;
+}
+
+table td
+{
+    padding: 5px;
+    vertical-align: top;
+    border: solid 1px;
+}
+
+table th
+{
+    padding: 6px 5px;
+    text-align: left;
+    border: solid 1px;
+}
+
+/* OVERRIDES
+----------------------------------------------------------*/
+
+.navigationcontainer
+{
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+#photo-text, #photo-details, h2, #controlcontainer, #photo-image
+{
+    text-align: center;
+}
+
+#photo-text
+{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#photocontainertable, #photocontainer td
+{
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.photo-tag
+{
+    border: solid 1px;
+    white-space: nowrap;
+    padding: 2px;
+    line-height: 35px;
+}
+
+#commentscontainer
+{
+    font-size: smaller;
+}
+
+#commentscontainer .helptext
+{
+    font-size: xx-small;
+}
+
+#commentscontainer h3
+{
+    padding: 0;
+    margin: 0;
+}
+
+#comment-list
+{
+    display: none;
+    width: 300px;
+}
+
+#comment-form
+{
+    display: none;
+    width: 300px;
+}
+
+.photo-details
+{
+    font-size: xx-small;
+}
+
+.photo-sizes
+{
+    font-size: x-small;
+}
+
+.photo-size a, .photo-size a:link, .photo-size a:visited, .photo-size a:hover, .photo-size a:active
+{
+    border: solid 1px;
+    padding: 0 2px;
+}
+
+#controlcontainer
+{
+    font-size: smaller;
+}
+
+#controlcontainer a
+{
+    text-decoration: none;
+    text-transform: lowercase;
+}
+
+#comment-form input[type="text"], #comment-form textarea
+{
+    width: 100%;
+}
+
+#comment-form table, #comment-form td
+{
+    border: none;
+}
+
+#comment-form td
+{
+}
+
+.pager, .linklist
+{
+    border: none;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+.listitem-title
+{
+    font-size: small;
+}
+
+.comment
+{
+    border: solid 1px #888888;
+}
+
+.comment-title
+{
+    border-bottom: solid 1px;
+    padding: 2px;
+    background: #000000;
+    background-image: none;
+}
+
+table, table td
+{
+    border: none;
+}
+
+#photo-image-display
+{
+    border: solid 1px;
+}

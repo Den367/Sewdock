@@ -1,0 +1,66 @@
+<%@ Master Language="C#" Inherits="Mayando.Web.Infrastructure.SiteViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server">Welcome</asp:ContentPlaceHolder> - <%= Html.Encode(MasterModel.SiteData.Settings.Title)%>
+    </title>
+    <% Html.RenderPartial(PartialViewName.HtmlHeaders, MasterModel); %>
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+                <h1><%= Html.Link(MasterModel.SiteData.HomepageUrl, MasterModel.SiteData.Settings.Title)%></h1>
+                <h2><%= Html.Encode(MasterModel.SiteData.Settings.Subtitle)%></h2>
+            </div>
+            <div id="menucontainer">
+                |
+                <ul id="menu">
+                <% foreach (var menu in MasterModel.SiteData.Menus) { %>
+                    <li class="<%= menu.Selected ? "selected" : string.Empty %>"><%= Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip)%></li>
+                <% } %>
+                </ul>
+                |
+                <a href="#" title="Select the black theme" onclick="setActiveStyleSheet('Black'); return false;">B</a>&amp;<a href="#" title="Select the white theme" onclick="setActiveStyleSheet('White'); return false;">W</a>
+            </div>
+             <div id="logindisplay">
+                 <%= Html.ActionLinkAccountLogOn(Resources.AccountLogOn)%> 
+                    <%= Html.ActionLinkAdminIndex("Site Administration")%> |
+                <%= Html.ActionLinkAccountLogOff("Log Off")%>
+                <%= Html.ActionLinkAccountChangePassword("Change Password")%> |
+                <%= Html.ActionLinkPhotoCreate("Create EmbroideryItem")%>
+                <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
+                <%= Html.ActionLinkPageCreate("Create Page")%> |
+            </div>
+            <div id="searchcontainer">
+                <% using (Html.BeginPhotosSearchForm()) { %>
+                    <%= Html.TextBox("SearchText", string.Empty, new { @class = "search-box" })%>
+                    <input type="submit" value="<%= Resources.SearchSubmit %>" />
+                <% } %>
+            </div>
+        </div>
+        <div id="main">
+            <% if (Page.User.CanSeeAdministratorContent()) { %>
+            <div id="admincontainer">
+                <%= Html.ActionLinkAdminIndex("Site Administration")%> |
+                <%= Html.ActionLinkAccountLogOff("Log Off")%>
+                <%= Html.ActionLinkAccountChangePassword("Change Password")%> |
+                <%= Html.ActionLinkPhotoCreate("Create EmbroideryItem")%>
+                <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
+                <%= Html.ActionLinkPageCreate("Create Page")%> |
+                <asp:ContentPlaceHolder ID="AdminLinks" runat="server" />
+            </div>
+            <% } %>
+            <%= Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle)) %>
+            <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
+            <div class="pageflash"><%= MasterModel.PageFlash%></div>
+            <% } %>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div id="footer" style="clear: both;">
+            <%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
+        </div>
+    </div>
+</body>
+</html>

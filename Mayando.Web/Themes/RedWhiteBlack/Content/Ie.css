@@ -1,0 +1,7 @@
+/* 
+  background on hover fails in IE (even in 8) unless the element also has a 
+  background set! transparent isn't good enough either.
+*/
+ul#menu a {
+  background: #e00 url( Layout/menu.png ) repeat-x bottom;
+}

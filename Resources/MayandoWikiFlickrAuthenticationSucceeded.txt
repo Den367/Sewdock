@@ -1,0 +1,11 @@
+!! You have successfully authenticated with Flickr
+
+The last part of the authentication process is to copy the so-called "frob" that Flickr provided and paste it into the settings of the Flickr photo provider on your Mayando website.
+
+It's a bit unfortunate that this isn't automated yet but you can find this frob value by looking at the address bar in your web browser. The URL should be something like:
+
+{{
+http://mayando.codeplex.com/Wiki/View.aspx?title=FlickrAuthenticationSucceeded&frob=93516720102394543-809218a39016715b-70931531
+}}
+
+And it's the value after the "frob=" part at the end that you need. In the example above that would be "93516720102394543-809218a39016715b-70931531", but obviously you need to copy your own frob value for this to succeed.

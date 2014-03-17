@@ -1,0 +1,18 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@using Mayando.Web.Properties
+
+@section TitleContent {
+
+    @Resources.ErrorTitle
+
+}
+
+
+<div id="errorpage">
+    <h2>@Resources.ErrorMessage</h2>
+    <p>@Resources.ErrorDescription</p>
+    @if (Model != null && Model.Exception != null) { 
+    <p class="error">@Model.Exception.Message</p>
+     } 
+</div>
+

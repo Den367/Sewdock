@@ -1,0 +1,678 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JelleDruyts.Mollom.Client</name>
+    </assembly>
+    <members>
+        <member name="T:JelleDruyts.Mollom.Client.ContentCheck">
+            <summary>
+            The result of a content check.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.ContentCheck.#ctor(JelleDruyts.Mollom.Client.ContentClassification,System.String,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.ContentCheck"/> class.
+            </summary>
+            <param name="classification">The classification of the content that was submitted.</param>
+            <param name="sessionId">A unique ID to identify the current session.</param>
+            <param name="quality">The quality of the classification.</param>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.ContentCheck.Classification">
+            <summary>
+            Gets the classification of the content that was submitted.
+            </summary>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.ContentCheck.SessionId">
+            <summary>
+            Gets a unique ID to identify the current session.
+            </summary>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.ContentCheck.Quality">
+            <summary>
+            Gets the quality of the classification.
+            </summary>
+            <remarks>
+            This is an assessment of the content’s quality, between 0 and 1,
+            where 0 denotes very bad quality, and 1 very high quality.
+            </remarks>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.ContentClassification">
+            <summary>
+            Defines the possible classifications for message or post contents.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.ContentClassification.Ham">
+            <summary>
+            The content is considered ham (not spam).
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.ContentClassification.Spam">
+            <summary>
+            The content is considered spam.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.ContentClassification.Unsure">
+            <summary>
+            Mollom was unsure about the classification; further analysis is required.
+            </summary>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.Captcha">
+            <summary>
+            Represents a captcha that was generated on the server-side.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.Captcha.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.Captcha"/> class.
+            </summary>
+            <param name="url">The URL of the generated captcha.</param>
+            <param name="sessionId">A unique ID to identify the current captcha session.</param>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.Captcha.Url">
+            <summary>
+            Gets the URL of the generated captcha.
+            </summary>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.Captcha.SessionId">
+            <summary>
+            Gets a unique ID to identify the current captcha session.
+            </summary>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.Feedback">
+            <summary>
+            Defines the possible types of feedback to report.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.Feedback.Spam">
+            <summary>
+            Represents spam or unsolicited advertising.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.Feedback.Profanity">
+            <summary>
+            Represents obscene, violent or profane content.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.Feedback.LowQuality">
+            <summary>
+            Represents low-quality content or writing.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.Feedback.Unwanted">
+            <summary>
+            Represents unwanted, taunting or off-topic content.
+            </summary>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.MollomClient">
+            <summary>
+            Provides access to the Mollom server.
+            </summary>
+            <remarks>
+            Access to the properties and methods of this class is not thread-safe.
+            </remarks>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.TimestampFormat">
+            <summary>
+            The format string for the time stamp.
+            </summary>
+            <remarks>
+            The timestamp format should be "yyyy-MM-ddTHH:mm:ss.fffZ" according
+            to the rules of the W3C but Mollom doesn't accept this (yet).
+            </remarks>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.MollomVersion">
+            <summary>
+            The API version of Mollom to use.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.MollomRootUrl">
+            <summary>
+            The root URL of Mollom.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.privateKey">
+            <summary>
+            The private key used for authentication.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.publicKey">
+            <summary>
+            The public key used for authentication.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.lastRetrievedServerList">
+            <summary>
+            The last retrieved server list.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.lastUsedServerIndex">
+            <summary>
+            The index of the last used server in the <see cref="F:JelleDruyts.Mollom.Client.MollomClient.lastRetrievedServerList"/>.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.server">
+            <summary>
+            The XML-RPC server to use.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.MollomClient.randomizer">
+            <summary>
+            The random number generator to use for the nonce.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.MollomClient"/> class.
+            </summary>
+            <param name="privateKey">The private key used for authentication.</param>
+            <param name="publicKey">The public key used for authentication.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.MollomClient"/> class.
+            </summary>
+            <param name="privateKey">The private key used for authentication.</param>
+            <param name="publicKey">The public key used for authentication.</param>
+            <param name="userAgent">Contains information about the plugin and/or application that is responsible for making the requests.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetServerList">
+            <summary>
+            Gets the server list.
+            </summary>
+            <returns>A list of available Mollom servers.</returns>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.CheckContent(System.String,System.String)">
+            <summary>
+            Checks the content of a message or post and classifies it as ham, spam or unsure.
+            </summary>
+            <param name="postTitle">The title of the post.</param>
+            <param name="postBody">The post body.</param>
+            <returns>The result of the check for the content that was submitted.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.CheckContent(System.String,System.String,System.String)">
+            <summary>
+            Checks the content of a message or post and classifies it as ham, spam or unsure.
+            </summary>
+            <param name="postTitle">The title of the post.</param>
+            <param name="postBody">The post body.</param>
+            <param name="sessionId">A unique ID to identify the current session.</param>
+            <returns>The result of the check for the content that was submitted.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.CheckContent(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Checks the content of a message or post and classifies it as ham, spam or unsure.
+            </summary>
+            <param name="postTitle">The title of the post.</param>
+            <param name="postBody">The post body.</param>
+            <param name="authorName">The name or nick of the user who entered the post.</param>
+            <param name="authorMail">The email address of the user that entered the post.</param>
+            <param name="authorUrl">The url of the user that entered the post.</param>
+            <param name="authorIPAddress">The current IP address of the user who entered the post.</param>
+            <returns>The result of the check for the content that was submitted.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.CheckContent(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Checks the content of a message or post and classifies it as ham, spam or unsure.
+            </summary>
+            <param name="postTitle">The title of the post.</param>
+            <param name="postBody">The post body.</param>
+            <param name="authorName">The name or nick of the user who entered the post.</param>
+            <param name="authorMail">The email address of the user that entered the post.</param>
+            <param name="authorUrl">The url of the user that entered the post.</param>
+            <param name="authorIPAddress">The current IP address of the user who entered the post.</param>
+            <param name="sessionId">A unique ID to identify the current session.</param>
+            <returns>The result of the check for the content that was submitted.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.CheckContent(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Checks the content of a message, comment or post and classifies it as ham, spam or unsure.
+            </summary>
+            <param name="postTitle">The title of the post.</param>
+            <param name="postBody">The post body.</param>
+            <param name="authorName">The name or nick of the user who entered the post.</param>
+            <param name="authorMail">The email address of the user that entered the post.</param>
+            <param name="authorUrl">The url of the user that entered the post.</param>
+            <param name="authorIPAddress">The current IP address of the user who entered the post.</param>
+            <param name="authorId">Your website’s user id of the user who entered the post.</param>
+            <param name="authorOpenId">The OpenID of the user that entered the post. Multiple OpenIDs can be given, separated by whitespace.</param>
+            <param name="sessionId">A unique ID to identify the current session.</param>
+            <returns>The result of the check for the content that was submitted.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+            <remarks>
+            All parameters are optional and can be passed as <see langword="null"/> or an empty string.
+            The more information that is provided, the more accurate the classification.
+            </remarks>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.SendFeedback(System.String,JelleDruyts.Mollom.Client.Feedback)">
+            <summary>
+            Reports that the specifed message was spam or otherwise not appropriate for your website.
+            </summary>
+            <param name="sessionId">The ID of the session for which the feedback is.</param>
+            <param name="feedback">The type of feedback to report.</param>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcException">The XML-RPC response did not contain the expected 'true' return value.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetImageCaptcha">
+            <summary>
+            Gets an image captcha that is generated on the server-side.
+            </summary>
+            <returns>The captcha that was generated on the server-side.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetImageCaptcha(System.String)">
+            <summary>
+            Gets an image captcha that is generated on the server-side.
+            </summary>
+            <param name="authorIPAddress">The IP address of the visitor or user that you are generating the captcha for.</param>
+            <returns>The captcha that was generated on the server-side.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetImageCaptcha(System.String,System.String)">
+            <summary>
+            Gets an image captcha that is generated on the server-side.
+            </summary>
+            <param name="authorIPAddress">The IP address of the visitor or user that you are generating the captcha for.</param>
+            <param name="sessionId">A unique ID to identify the current captcha session.</param>
+            <returns>The captcha that was generated on the server-side.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetAudioCaptcha">
+            <summary>
+            Gets an audio captcha that is generated on the server-side.
+            </summary>
+            <returns>The captcha that was generated on the server-side.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetAudioCaptcha(System.String)">
+            <summary>
+            Gets an audio captcha that is generated on the server-side.
+            </summary>
+            <param name="authorIPAddress">The IP address of the visitor or user that you are generating the captcha for.</param>
+            <returns>The captcha that was generated on the server-side.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetAudioCaptcha(System.String,System.String)">
+            <summary>
+            Gets an audio captcha that is generated on the server-side.
+            </summary>
+            <param name="authorIPAddress">The IP address of the visitor or user that you are generating the captcha for.</param>
+            <param name="sessionId">A unique ID to identify the current captcha session.</param>
+            <returns>The captcha that was generated on the server-side.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetCaptcha(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets a captcha that is generated on the server-side.
+            </summary>
+            <param name="authorIPAddress">The IP address of the visitor or user that you are generating the captcha for.</param>
+            <param name="sessionId">A unique ID to identify the current captcha session.</param>
+            <param name="audioCaptcha">Determines whether to get an image (<see langword="false"/>) or audio (<see langword="true"/>) captcha.</param>
+            <returns>The captcha that was generated on the server-side.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.CheckCaptcha(System.String,System.String)">
+            <summary>
+            Checks the captcha that was generated on the server-side.
+            </summary>
+            <param name="sessionId">A unique ID to identify the current captcha session.</param>
+            <param name="solution">The solution of the captcha.</param>
+            <returns><see langword="true"/> if the captcha solution was correct; <see langword="false"/> otherwise.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetStatistics(JelleDruyts.Mollom.Client.StatisticsTypes)">
+            <summary>
+            Gets a statistics value from Mollom.
+            </summary>
+            <param name="type">The type of statistics that is desired.</param>
+            <returns>The statistics value for the requested statistics type.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetStatistics(System.String)">
+            <summary>
+            Gets a statistics value from Mollom.
+            </summary>
+            <param name="type">The type of statistics that is desired.</param>
+            <returns>The statistics value for the requested statistics type.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.VerifyKey">
+            <summary>
+            Verifies the client's key with Mollom.
+            </summary>
+            <returns><see langword="true"/> if the client's key is valid and enabled, <see langword="false"/> if the key is invalid or disabled.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcException">The XML-RPC response did not contain a valid return value.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.XmlRpcOperationFailed(System.Object,JelleDruyts.Mollom.Client.OperationFailedEventArgs)">
+            <summary>
+            Handles the <see cref="E:JelleDruyts.Mollom.Client.XmlRpcServer.OperationFailed"/> event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:JelleDruyts.Mollom.Client.OperationFailedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetStringValue(System.Enum)">
+            <summary>
+            Gets a string representation for an enum value, either as the <code>ToString</code>
+            representation or from a [<see cref="T:System.ComponentModel.DescriptionAttribute"/>] on the enum value.
+            </summary>
+            <param name="value">The enum value for which to return a string representation.</param>
+            <returns>The representation for an enum value.</returns>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.EnsureValidServer">
+            <summary>
+            Ensures that a valid server is being used.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.MollomClient.GetAuthenticationParameters">
+            <summary>
+            Gets the required authentication parameters.
+            </summary>
+            <returns>A dictionary containing the required authentication parameters.</returns>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.OperationFailedEventArgs">
+            <summary>
+            Provides data for an event indicating that a retryable operation failed.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.OperationFailedEventArgs.#ctor(System.Exception,System.Boolean,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.OperationFailedEventArgs"/> class.
+            </summary>
+            <param name="exception">The exception that caused the operation to fail.</param>
+            <param name="shouldRetry">A value indicating whether the event should be retried.</param>
+            <param name="retryCount">The number of retries that have already taken place before this event.</param>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.OperationFailedEventArgs.ShouldRetry">
+            <summary>
+            Gets or sets a value indicating whether the operation should be retried.
+            </summary>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.OperationFailedEventArgs.RetryCount">
+            <summary>
+            Gets the number of retries that have already taken place before this event.
+            </summary>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.OperationFailedEventArgs.Exception">
+            <summary>
+            Gets the exception that caused the operation to fail.
+            </summary>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.StatisticsTypes">
+            <summary>
+            Defines the possible types of statistics that can be requested.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.None">
+            <summary>
+            No statistics should be retrieved.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.TotalDays">
+            <summary>
+            Number of days Mollom has been used.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.TotalAccepted">
+            <summary>
+            Total of accepted posts.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.TotalRejected">
+            <summary>
+            Total of rejected spam posts.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.YesterdayAccepted">
+            <summary>
+            Number of posts accepted yesterday.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.YesterdayRejected">
+            <summary>
+            Amount of spam blocked yesterday.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.TodayAccepted">
+            <summary>
+            Number of posts accepted today.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.StatisticsTypes.TodayRejected">
+            <summary>
+            Amount of spam posts rejected today.
+            </summary>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.XmlRpcException">
+            <summary>
+            Represents an XML-RPC exception.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcException"/> class.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcException"/> class.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcException"/> class.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
+            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0).</exception>
+            <exception cref="T:System.ArgumentNullException">The info parameter is null.</exception>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">
+            <summary>
+            Represents an XML-RPC fault exception.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcFaultException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException"/> class.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcFaultException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException"/> class.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcFaultException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException"/> class.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcFaultException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
+            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0).</exception>
+            <exception cref="T:System.ArgumentNullException">The info parameter is null.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcFaultException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> with information about the exception.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
+            <exception cref="T:System.ArgumentNullException">The info parameter is a null reference (Nothing in Visual Basic).</exception>
+            <PermissionSet><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Read="*AllFiles*" PathDiscovery="*AllFiles*"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="SerializationFormatter"/></PermissionSet>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcFaultException.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException"/> class.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="faultString">The fault string.</param>
+            <param name="faultCode">The fault code.</param>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.XmlRpcFaultException.FaultCode">
+            <summary>
+            Gets the fault code.
+            </summary>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.XmlRpcFaultException.FaultString">
+            <summary>
+            Gets the fault string.
+            </summary>
+        </member>
+        <member name="T:JelleDruyts.Mollom.Client.XmlRpcServer">
+            <summary>
+            Provides access to an XML-RPC server.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.XmlRpcServer.StructureFieldExpression">
+            <summary>
+            The regular expression used to find field names and values in XML-RPC structs.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.XmlRpcServer.ListFieldExpression">
+            <summary>
+            The regular expression used to find field values in XML-RPC structs.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.XmlRpcServer.ReturnValueFieldExpression">
+            <summary>
+            The regular expression used to find the return value in an XML-RPC response.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.XmlRpcServer.userAgent">
+            <summary>
+            The HTTP User-Agent header to be sent to the server.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.XmlRpcServer.maxRetryCount">
+            <summary>
+            The maximum number of times to retry a failed operation. The default is 5.
+            </summary>
+        </member>
+        <member name="F:JelleDruyts.Mollom.Client.XmlRpcServer.url">
+            <summary>
+            The URL of the XML-RPC server.
+            </summary>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcServer"/> class.
+            </summary>
+            <param name="url">The URL of the XML-RPC server.</param>
+            <param name="userAgent">The HTTP User-Agent header to be sent to the server.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JelleDruyts.Mollom.Client.XmlRpcServer"/> class.
+            </summary>
+            <param name="url">The URL of the XML-RPC server.</param>
+            <param name="userAgent">The HTTP User-Agent header to be sent to the server.</param>
+            <param name="maxRetryCount">The maximum number of times to retry a failed operation. The default is 5.</param>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.CallMethodAsBool(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Calls the given XML-RPC method.
+            </summary>
+            <param name="methodName">The name of the method to call.</param>
+            <param name="parameters">The parameters to be passed to the method.</param>
+            <returns>The boolean value inside the response message.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcException">The XML-RPC response did not contain a valid return value.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.CallMethodAsInt(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Calls the given XML-RPC method.
+            </summary>
+            <param name="methodName">The name of the method to call.</param>
+            <param name="parameters">The parameters to be passed to the method.</param>
+            <returns>The integer value inside the response message.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcException">The XML-RPC response did not contain a valid return value.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.CallMethodAsList(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Calls the given XML-RPC method.
+            </summary>
+            <param name="methodName">The name of the method to call.</param>
+            <param name="parameters">The parameters to be passed to the method.</param>
+            <returns>A list with all items found in the response message's structure.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.CallMethodAsDictionary(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Calls the given XML-RPC method.
+            </summary>
+            <param name="methodName">The name of the method to call.</param>
+            <param name="parameters">The parameters to be passed to the method.</param>
+            <returns>A dictionary with all key/value pairs found in the response message's structure.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.CallMethod(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Calls the given XML-RPC method.
+            </summary>
+            <param name="methodName">The name of the method to call.</param>
+            <param name="parameters">The parameters to be passed to the method.</param>
+            <returns>The response message.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.GetReturnValue(System.String)">
+            <summary>
+            Parses the given XML-RPC response and returns the return value
+            </summary>
+            <param name="response">The XML-RPC response that contains a return value.</param>
+            <returns>The return value found in the response.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcException">The XML-RPC response did not contain a valid return value.</exception>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.GetList(System.String)">
+            <summary>
+            Parses the given XML-RPC message and returns all list items in the XML-RPC structure.
+            </summary>
+            <param name="message">The XML-RPC message that contains a structure with list items.</param>
+            <returns>A list with all items found in the message's structure.</returns>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.GetDictionary(System.String)">
+            <summary>
+            Parses the given XML-RPC message and returns all key/value pairs in the XML-RPC structure.
+            </summary>
+            <param name="message">The XML-RPC message that contains a structure with key/value pairs.</param>
+            <returns>A dictionary with all key/value pairs found in the message's structure.</returns>
+        </member>
+        <member name="M:JelleDruyts.Mollom.Client.XmlRpcServer.PerformPost(System.String)">
+            <summary>
+            Performs an HTTP POST to an XML-RPC server.
+            </summary>
+            <param name="postData">The data to post to the server.</param>
+            <returns>The response message.</returns>
+            <exception cref="T:JelleDruyts.Mollom.Client.XmlRpcFaultException">The XML-RPC response contained an XML-RPC fault.</exception>
+        </member>
+        <member name="P:JelleDruyts.Mollom.Client.XmlRpcServer.Url">
+            <summary>
+            Gets or sets the URL of the XML-RPC server.
+            </summary>
+        </member>
+        <member name="E:JelleDruyts.Mollom.Client.XmlRpcServer.OperationFailed">
+            <summary>
+            Occurs when an XML-RPC operation failed.
+            </summary>
+        </member>
+    </members>
+</doc>

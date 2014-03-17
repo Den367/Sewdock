@@ -1,0 +1,2 @@
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Mayando.Web.ViewModels.HtmlEditorViewModel>" %>
+            <textarea name="<%= Model.FormFieldName %>" style="width:100%" rows="<%= Model.Height %>" cols="20" class="text-editor-html"><%= Html.Encode(Model.Text) %></textarea>

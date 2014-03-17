@@ -1,0 +1,59 @@
+<%@ Master Language="C#" Inherits="Mayando.Web.Infrastructure.SiteViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server">Welcome</asp:ContentPlaceHolder> - <%= Html.Encode(MasterModel.SiteData.Settings.Title)%>
+    </title>
+    <% Html.RenderPartial(PartialViewName.HtmlHeaders, MasterModel); %>
+  </head>
+  <body>
+    <div class="page roundBig">
+      <div id="header">
+        <div id="title" class="round">
+          <h1><%= Html.Link(MasterModel.SiteData.HomepageUrl, MasterModel.SiteData.Settings.Title)%></h1>
+          <img src="<%= Url.ThemedContent("~/Content/Images/mvcLogo.png") %>" alt="Logo" />
+        </div>
+        <div id="logindisplay">
+          [ <% Html.RenderPartial(PartialViewName.LogOnUserControl); %> ]
+        </div> 
+        <div id="searchcontainer">
+            <% using (Html.BeginPhotosSearchForm()) { %>
+                <div>
+                    <%= Html.TextBox("SearchText", string.Empty, new { @class = "search-box" })%>
+                    <input type="submit" value="<%= Resources.SearchSubmit %>" />
+                </div>
+            <% } %>
+        </div>
+        <div id="menucontainer" class="round roundT">
+          <ul id="menu">              
+            <% foreach (var menu in MasterModel.SiteData.Menus) { %>
+                <li><%= Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip, (menu.Selected ? "round roundT current" : "round roundT"))%></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+      <div id="main" class="round roundB">
+        <% if (Page.User.CanSeeAdministratorContent()) { %>
+        <div id="admincontainer">
+            <%= Html.ActionLinkAdminIndex("Site Administration")%> |
+            <%= Html.ActionLinkAccountLogOff("Log Off")%>
+            <%= Html.ActionLinkAccountChangePassword("Change Password")%> |
+            <%= Html.ActionLinkPhotoCreate("Create EmbroideryItem")%>
+            <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
+            <%= Html.ActionLinkPageCreate("Create Page")%> |
+            <asp:ContentPlaceHolder ID="AdminLinks" runat="server" />
+        </div>
+        <% } %>
+        <%= Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle)) %>
+        <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
+        <div class="pageflash"><%= MasterModel.PageFlash%></div>
+        <% } %>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+      </div>
+      <div id="footer">
+        <%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
+      </div>        
+    </div>
+  </body>
+</html>
