@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using JelleDruyts.Web.Mvc.Paging;
@@ -12,6 +13,8 @@ namespace Mayando.Web.Models
     {
         //EmbroideryItem GetMostRecentEmbroWithTagsAndComments(EmbroDateType type);
         #region [Saving]
+
+        void SaveEmbro(System.IO.Stream stream, EmbroideryItem embro, int size);
         void SaveEmbro(EmbroideryItem item);
         #endregion [Saving]
 

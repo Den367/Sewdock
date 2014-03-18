@@ -140,7 +140,7 @@
     </Reference>
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
+      <HintPath>_bin_deployableAssemblies\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -248,6 +248,7 @@
     <Compile Include="Repository\ThumbRepository.cs" />
     <Compile Include="ViewModels\CaptchaBase.cs" />
     <Compile Include="ViewModels\EmbroBoundViewModel.cs" />
+    <Compile Include="ViewModels\EmbroCommentsViewModel.cs" />
     <Compile Include="ViewModels\EmbroDetailsViewModel.cs" />
     <Compile Include="Models\EmbroideryItem.cs" />
     <Compile Include="Models\EmbroideryType.cs" />

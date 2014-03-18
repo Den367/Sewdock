@@ -36,10 +36,23 @@ namespace EmbroideryFile
         {
 
             _blocks = blocks;
-            _width = width;
-            _height = height;
 
+            if (WidthGTOREQHeight())
+            {
+                _width = size;
+                _height = size*GetHeight()/GetWidth();
+            }
+            else
+            {
+                _width = size*GetWidth()/GetHeight();
+                _height = size;
+            }
             CalcTranslate();
+        }
+
+        private bool WidthGTOREQHeight()
+        {
+            return GetWidth() >= GetHeight();
         }
 
         /// <summary>
@@ -47,19 +60,50 @@ namespace EmbroideryFile
         /// </summary>
         void CalcTranslate()
         {
-            int xmin = _blocks.SelectMany(block => block.AsEnumerable()).Min(coord => coord.X);
-            int ymin = _blocks.SelectMany(block => block.AsEnumerable()).Min(coord => coord.Y);
-            int xmax = _blocks.SelectMany(block => block.AsEnumerable()).Max(coord => coord.X);
-            int ymax = _blocks.SelectMany(block => block.AsEnumerable()).Max(coord => coord.Y);
-            
-               _xscale =((float)_width) / ((float)(xmax - xmin))   ;
-               _yscale = ((float)_width) / ((float)(ymax - ymin)) ;
-           
-            _translateStart.X = - (int)(xmin * _xscale);
-            _translateStart.Y = -(int)(ymin * _yscale); 
+           _xscale = ((float)_width) / ((float)GetWidth());
+            _yscale = ((float)_width) / ((float)GetHeight());
+
+            _translateStart.X = -(int)(GetXMin() * _xscale);
+            _translateStart.Y = -(int)(GetYMin() * _yscale); 
 
         }
-   
+        
+        private int GetXMin()
+        {
+            return _blocks.SelectMany(block => block.AsEnumerable()).Min(coord => coord.X);
+        }
+
+        private int _yMin;
+        private int GetYMin()
+        {
+            return _blocks.SelectMany(block => block.AsEnumerable()).Min(coord => coord.Y);
+        }
+
+        private int _blockWidth = -1;
+        private int GetWidth()
+        {
+            if (_blockWidth < 0)
+            {
+                int xmin = GetXMin();
+                int xmax = _blocks.SelectMany(block => block.AsEnumerable()).Max(coord => coord.X);
+                _blockWidth =  xmax - xmin;
+            }
+            return _blockWidth;
+        }
+
+        private int _blocksHeight = -1;
+
+        private int GetHeight()
+        {
+            if (_blocksHeight < 0)
+            {
+                int ymin = GetYMin();
+                int ymax = _blocks.SelectMany(block => block.AsEnumerable()).Max(coord => coord.Y);
+                _blocksHeight = ymax - ymin;
+            }
+            return _blocksHeight;
+        }
+
         public Bitmap DesignToBitmap(Single threadThickness)
         {
             Bitmap drawArea = new Bitmap(_width, _height);
