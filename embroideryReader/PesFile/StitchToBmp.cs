@@ -20,11 +20,21 @@ namespace EmbroideryFile
         float _xscale;
         float _yscale;
 
-      
+
 
         public StitchToBmp(List<CoordsBlock> blocks, int width, int height)
         {
-           
+
+            _blocks = blocks;
+            _width = width;
+            _height = height;
+
+            CalcTranslate();
+        }
+
+        public StitchToBmp(List<CoordsBlock> blocks, int size)
+        {
+
             _blocks = blocks;
             _width = width;
             _height = height;
