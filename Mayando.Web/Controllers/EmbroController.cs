@@ -141,37 +141,37 @@ namespace Mayando.Web.Controllers
                         if (providerUserKey != null)
                             embro.UserID = (Guid)providerUserKey;
                     }
-                    using (Stream embroStream = fileUpload.InputStream)
-                    {
-                        byte[] bytes = new byte[fileUpload.ContentLength];
-                        embroStream.Read(bytes, 0, fileUpload.ContentLength);
-                        embroStream.Position = 0;
-                        EmbroideryParserFactory factory = new EmbroideryParserFactory(embroStream);
-                        IGetEmbroideryData embroDatum = factory.CreateParser();
-                        embro.Data = bytes;  
-                        var design = embroDatum.Design;
-                        embro.Summary = design.ToString();
-                        using (Stream svg = new MemoryStream())
-                        {
-                            SvgEncoder svgEncoder = new SvgEncoder(svg, embroDatum.Design);
-                            svgEncoder.WriteSvg();
-                            embro.Svg = svgEncoder.ReadSvgString();
-                        }
-                        using (Stream png = new MemoryStream())
-                        {
-                            StitchToBmp pngEncoder = new StitchToBmp(design.Blocks, ThumbnailWidth,
-                                                                     ThumbnailHeight);
-                            pngEncoder.FillStreamWithPng(png);
-                            embro.Png = Convert.ToBase64String(png.ToByteArray());
-                        }
-
+                    embro.Tags = tagList;
+                    _repo.SaveEmbro(fileUpload.InputStream,embro,ThumbnailWidth);
+                    //using (Stream embroStream = fileUpload.InputStream)
+                    //{
+                    //    byte[] bytes = new byte[fileUpload.ContentLength];
+                    //    embroStream.Read(bytes, 0, fileUpload.ContentLength);
+                    //    embroStream.Position = 0;
+                    //    EmbroideryParserFactory factory = new EmbroideryParserFactory(embroStream);
+                    //    IGetEmbroideryData embroDatum = factory.CreateParser();
+                    //    embro.Data = bytes;  
+                    //    var design = embroDatum.Design;
+                    //    embro.Summary = design.ToString();
+                    //    using (Stream svg = new MemoryStream())
+                    //    {
+                    //        SvgEncoder svgEncoder = new SvgEncoder(svg, embroDatum.Design);
+                    //        svgEncoder.WriteSvg();
+                    //        embro.Svg = svgEncoder.ReadSvgString();
+                    //    }
+                    //    using (Stream png = new MemoryStream())
+                    //    {
+                    //        StitchToBmp pngEncoder = new StitchToBmp(design.Blocks, ThumbnailWidth);
+                    //        pngEncoder.FillStreamWithPng(png);
+                    //        embro.Png = Convert.ToBase64String(png.ToByteArray());
+                    //    }
                       
-                        embro.Json = design.ToJsonCoords();                        
+                    //    embro.Json = design.ToJsonCoords();                        
 
-                    if (!embro.Hidden) embro.Published = DateTime.UtcNow;
-                        embro.Tags = tagList;
-                        _repo.SaveEmbro(embro);
-                    }                    
+                    //if (!embro.Hidden) embro.Published = DateTime.UtcNow;
+                       
+                    //    _repo.SaveEmbro(embro);
+                    //}                    
                    
                 }
               
