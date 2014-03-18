@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
+using EmbroideryFile;
 using Mayando.Web.Models;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -521,6 +523,40 @@ namespace Mayando.Web.Infrastructure
             throw new NotImplementedException();
         }
 
-       
+
+
+        public void SaveEmbro(Stream stream, EmbroideryItem embro, int size)
+        {
+            long length = stream.Length;
+            using (stream)
+            {
+                byte[] bytes = new byte[length];
+                stream.Read(bytes, 0, (int)length);
+                stream.Position = 0;
+                EmbroideryParserFactory parserfactory = new EmbroideryParserFactory(stream);
+                IGetEmbroideryData embroDatum = parserfactory.CreateParser();
+                embro.Data = bytes;
+                var design = embroDatum.Design;
+                embro.Summary = design.ToString();
+                using (Stream svg = new MemoryStream())
+                {
+                    SvgEncoder svgEncoder = new SvgEncoder(svg, embroDatum.Design);
+                    svgEncoder.WriteSvg();
+                    embro.Svg = svgEncoder.ReadSvgString();
+                }
+                using (Stream png = new MemoryStream())
+                {
+                    StitchToBmp pngEncoder = new StitchToBmp(design.Blocks, size);
+                    pngEncoder.FillStreamWithPng(png);
+                    embro.Png = Convert.ToBase64String(png.ToByteArray());
+                }
+
+                embro.Json = design.ToJsonCoords();
+
+                if (!embro.Hidden) embro.Published = DateTime.UtcNow;
+              
+                SaveEmbro(embro);
+            }                
+        }
     }
 }
