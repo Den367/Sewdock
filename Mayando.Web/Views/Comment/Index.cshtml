@@ -1,13 +1,14 @@
 ﻿@using Mayando.Web.Infrastructure
 @using Mayando.Web.Models
-@model IPagedList<Mayando.Web.Models.Comment>
+@model Mayando.Web.ViewModels.EmbroCommentsViewModel
            
 @{ Layout = null; }
 
 @if (Model != null)
 {
-    Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount);
-           Html.RenderPartial("List", Model);
+    var comments = Model.Comments;
+    Html.Pager(comments.PageSize, comments.PageNumber, comments.TotalItemCount);
+           Html.RenderPartial("List", comments);
 
 }
- @{Html.RenderPartial("CommentEdit",new Comment(){EmbroId= Model.});}
+ @if (Model !=  null) {Html.RenderPartial("CommentEdit",new Comment(){EmbroId= Model.EmbroID});}
