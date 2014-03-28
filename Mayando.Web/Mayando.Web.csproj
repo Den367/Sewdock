@@ -131,16 +131,16 @@
     <Reference Include="System.Web.Abstractions">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Microsoft ASP.NET\ASP.NET MVC 4\Assemblies\System.Web.Mvc.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>_bin_deployableAssemblies\System.Web.WebPages.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v2.0\Assemblies\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -247,6 +247,7 @@
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Repository\ThumbRepository.cs" />
     <Compile Include="ViewModels\CaptchaBase.cs" />
+    <Compile Include="ViewModels\CommentEditViewModel.cs" />
     <Compile Include="ViewModels\EmbroBoundViewModel.cs" />
     <Compile Include="ViewModels\EmbroCommentsViewModel.cs" />
     <Compile Include="ViewModels\EmbroDetailsViewModel.cs" />
@@ -981,8 +982,6 @@
     <Content Include="Views\Qrcode\QrcodeForm.cshtml" />
     <Content Include="Views\Image\Thumbnail.cshtml" />
     <Content Include="Content\Fonts\iconpack.ttf" />
-    <None Include="Properties\PublishProfiles\disk.pubxml" />
-    <None Include="Properties\PublishProfiles\embro.pubxml" />
     <Content Include="Views\Comment\List.cshtml" />
     <Content Include="Views\Embro\Summary.cshtml" />
     <Content Include="Views\Embro\Details.cshtml" />
@@ -992,12 +991,8 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Embro\Index.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
-    <None Include="Properties\PublishProfiles\embro2.pubxml" />
-    <None Include="Properties\PublishProfiles\embro3.pubxml" />
-    <None Include="Properties\PublishProfiles\inwwwroot.pubxml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <None Include="Properties\PublishProfiles\new.pubxml" />
-    <None Include="Properties\PublishProfiles\web.pubxml" />
+    <None Include="Properties\PublishProfiles\beta.pubxml" />
     <None Include="Views\Embro\DetailsDesign.cshtml" />
     <Content Include="Views\Embro\DetailsText.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1059,11 +1054,9 @@
     <Content Include="Views\Qrcode\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.Helpers.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.nl.resx">

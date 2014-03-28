@@ -23,11 +23,6 @@
             <img src="@Url.Gravatar(Model.AuthorEmail, 60, Url.ThemedContent("~/content/anonymous.png"))" height="60" width="60" alt="Gravatar" />
         </div>
 
-        {
-            <div  style="position: absolute; top: 600px; left: 320px;">
-      
-            </div>
-        }
         <div class="comment-text">@Html.EncodeWithLineBreaks(Model.Text)</div>
     </div>
 </div>

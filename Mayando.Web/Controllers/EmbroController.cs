@@ -48,7 +48,7 @@ namespace Mayando.Web.Controllers
         #region Actions
 
         [AcceptVerbs(HttpVerbs.Post)]
- public ActionResult Detailsbyid(int id =0)
+ public ActionResult DetailsById(int id = 0)
         {
             MasterViewModel = null;
             return PartialView(ViewName.Details.ToString(), new EmbroDetailsViewModel(_repo.GetEmbroById(id), false, false));
@@ -60,9 +60,8 @@ namespace Mayando.Web.Controllers
         public ActionResult Index([Description("The page number to show.")]int page = 1,[Description("The number of items to show.")]int count =5, string criteria = "", int current = 0)
         {
              var nav = new EmbroNavigationContext{PageSize = count ,PageNumber = page, Criteria =  criteria, CurrentEmbroID = current};
-            EmbroDetailsViewModel detailsViewModel;
-            detailsViewModel = ( 0 == current) ? _repo.GetEmbroByPageNoSize(page, count, criteria) : new EmbroDetailsViewModel(_repo.GetEmbroById(current),false,false);
-            return View(new EmbroNavigationViewModel(detailsViewModel, nav));          
+            if (0 == current) return View(_repo.GetEmbroByPageNoSize(nav));          
+            return View(new EmbroNavigationViewModel( new EmbroDetailsViewModel(_repo.GetEmbroById(current),false,false), nav));          
         }
 
       
@@ -99,8 +98,9 @@ namespace Mayando.Web.Controllers
         [Description("Gets info about a single embro by paging info.")]
         public ActionResult DetailsByPage( [Description("The number of the page to show.")]int page = 1, int count = 2, string criteria = "")
         {
-            
-            return PartialView("Details",_repo.GetEmbroByPageNoSize(page, count, criteria));
+            var nav = new EmbroNavigationContext { PageSize = count, PageNumber = page, Criteria = criteria};
+            var details =  _repo.GetEmbroByPageNoSize(nav);
+            return PartialView("Details",details.EmbroDetails);
 
         }
 

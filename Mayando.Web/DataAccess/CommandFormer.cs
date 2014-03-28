@@ -12,72 +12,73 @@ namespace Mayando.Web.DataAccess
     public class CommandFormer
     {
         protected readonly SqlConnection _sqlConnection;
-        protected readonly SqlCommand _sqlCommand;
+        //protected readonly SqlCommand cmd;
         public CommandFormer(SqlConnection connection)
         {
             _sqlConnection =connection;
-            _sqlCommand = _sqlConnection.CreateCommand();
-            //_sqlCommand.Connection = connection;
+           
         }
 
-     
 
+        protected SqlCommand GetCommand()
+        {
+            if (_sqlConnection.State != ConnectionState.Open)
+            {
+                _sqlConnection.Open();
+            }
+            if (null != _sqlConnection) return _sqlConnection.CreateCommand();
+            else return null;
+        }
       
 
         public SqlCommand GetReadMenuCommand()
         {
-            if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-            _sqlCommand.Parameters.Clear();
-            _sqlCommand.CommandType = CommandType.StoredProcedure;
-            _sqlCommand.CommandText = "emb.Menu";
-            return _sqlCommand;
+            var cmd = GetCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.Menu";
+            return cmd;
         }
 
         public SqlCommand GetGetCommentsCommand(int id, int pageNo, int pageSize)
         {
-            if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-            _sqlCommand.Parameters.Clear();
-            _sqlCommand.CommandType = CommandType.StoredProcedure;
-            _sqlCommand.CommandText = "emb.GetCommentByEmbroID";
-
-            _sqlCommand.Parameters.Add(new SqlParameter("EmbroID", id));
-            _sqlCommand.Parameters.Add(new SqlParameter("PageNo", pageNo));
-            _sqlCommand.Parameters.Add(new SqlParameter("PageSize", pageSize));
+            var cmd = GetCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.GetCommentByEmbroID";
+            cmd.Parameters.Add(new SqlParameter("EmbroID", id));
+            cmd.Parameters.Add(new SqlParameter("PageNo", pageNo));
+            cmd.Parameters.Add(new SqlParameter("PageSize", pageSize));
             var commentCountParam = new SqlParameter("CommentCount", SqlDbType.Int);
             commentCountParam.Direction = ParameterDirection.Output;
-            _sqlCommand.Parameters.Add(commentCountParam);
-            return _sqlCommand;
+            cmd.Parameters.Add(commentCountParam);
+            return cmd;
         }
 
         public SqlCommand GetEditCommentCommand(Comment comment)
         {
-            if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-            _sqlCommand.Parameters.Clear();
-            _sqlCommand.CommandType = CommandType.StoredProcedure;
-            _sqlCommand.CommandText = "emb.CommentEdit";
+            var cmd = GetCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.CommentEdit";
+            cmd.Parameters.Add(new SqlParameter("EmbroID", comment.EmbroId));
+            cmd.Parameters.Add(new SqlParameter("ExternalID", comment.ExternalID));
+            cmd.Parameters.Add(new SqlParameter("Text", comment.Text));
+            cmd.Parameters.Add(new SqlParameter("AuthorIsOwner", comment.AuthorIsOwner));
+            cmd.Parameters.Add(new SqlParameter("AuthorName", comment.AuthorName));
+            cmd.Parameters.Add(new SqlParameter("AuthorEmail", comment.AuthorEmail));
+            cmd.Parameters.Add(new SqlParameter("AuthorUrl", comment.AuthorUrl));
+            cmd.Parameters.Add(new SqlParameter("DatePublished", comment.DatePublished));
 
-            _sqlCommand.Parameters.Add(new SqlParameter("EmbroID", comment.EmbroId));
-            _sqlCommand.Parameters.Add(new SqlParameter("ExternalID", comment.ExternalID));
-            _sqlCommand.Parameters.Add(new SqlParameter("Text", comment.Text));
-            _sqlCommand.Parameters.Add(new SqlParameter("AuthorIsOwner", comment.AuthorIsOwner));
-            _sqlCommand.Parameters.Add(new SqlParameter("AuthorName", comment.AuthorName));
-            _sqlCommand.Parameters.Add(new SqlParameter("AuthorEmail", comment.AuthorEmail));
-            _sqlCommand.Parameters.Add(new SqlParameter("AuthorUrl", comment.AuthorUrl));
-            _sqlCommand.Parameters.Add(new SqlParameter("DatePublished", comment.DatePublished));
-
-            return _sqlCommand;
+            return cmd;
         }
 
         public SqlCommand GetReadSettingCommand(string Scope)
         {
-            if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-            _sqlCommand.Parameters.Clear();
-            _sqlCommand.CommandType = CommandType.StoredProcedure;
-            _sqlCommand.CommandText = "dbo.GetSetting";
+            var cmd = GetCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "dbo.GetSetting";
             SqlParameter param = new SqlParameter("Scope", SqlDbType.VarChar, 256);
             param.Value = Scope;
-            _sqlCommand.Parameters.Add(param);
-            return _sqlCommand;
+            cmd.Parameters.Add(param);
+            return cmd;
         }
     }
 }

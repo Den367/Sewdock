@@ -6,6 +6,7 @@ using Mayando.Web.Extensions;
 using Mayando.Web.Infrastructure;
 using Mayando.Web.Models;
 using Mayando.Web.Repository;
+using Mayando.Web.ViewModels;
 
 namespace Mayando.Web.Controllers
 {
@@ -37,8 +38,8 @@ namespace Mayando.Web.Controllers
         public ActionResult Index([Description("The number of items to show.")]int count, [Description("The page number to show.")]int page, int embroID)
         {
             var comments = _repo.GetCommentsForEmbro(embroID,page,count);
-            return PartialView(ViewName.Index.ToString(),comments);
-            //return ViewFor(ViewName.Index, r => r.GetCommentsForEmbro(embroID,page,count));
+            return PartialView(ViewName.Index.ToString(),new EmbroCommentsViewModel(embroID, comments));
+           
         }
 
         [Description("Shows the list of comments.")]
@@ -90,14 +91,15 @@ namespace Mayando.Web.Controllers
 
          [AcceptVerbs(HttpVerbs.Post)]
         [Compress]
-        public ActionResult AddComment(Comment comment, [Description("The URL to which to return.")]string returnUrl)
+        public ActionResult AddComment(CommentEditViewModel m)
          {
+             var comment = m.Comment;
              if (comment.IsCaptchaMatched())
              {
                  comment.UserName = User.Identity.Name;
                  _repo.EditComment(comment);
              }
-            return Redirect(returnUrl);
+            return Redirect(m.PageURL);
          
         }
 

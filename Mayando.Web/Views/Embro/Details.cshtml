@@ -7,15 +7,20 @@
 @{Layout = null;}
 
 <h2>@{
-        var embro = Model.Embro;
+        if (null != Model) 
+        {var embro = Model.Embro;
         if (embro != null && embro.DisplayTitle != null)
         {
             Html.Encode(Model.Embro.DisplayTitle);
-        }
-    }</
-        h2>
+        }}
+        }</h2>
 
-
+<style>
+    ins > div[id="@Model.Id"]
+    {
+     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'><linearGradient id='gradient'><stop offset='20%' stop-color='%23999'/><stop offset='90%' stop-color='%23ccc'/></linearGradient><rect fill='url(%23gradient)' style='stroke:rgb(80,90,100);stroke-width:7;fill-opacity:0.1;stroke-opacity:0.9' x='0' y='0' width='100%' height='100%'/></svg>");
+    }
+    </style>
 <div id="embrocontainer">
     @{Html.RenderPartial(PartialViewName.DetailsDesign, Model); }
     <div>

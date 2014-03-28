@@ -5,10 +5,10 @@
 @{ Layout = null;}
 @if (null != Model.Embros && Model.TotalItemCount > 0)
 {     	    
-    <div class="navigation-filmstrip">
+    <div class="navigation-filmstrip slider">
         @foreach (var embro in Model.Embros)
         {                                       
-            <ins class="@((Model.CurrentEmbroID == embro.Id) ? "selected" : string.Empty)">
+            <ins>
                 @{ Html.RenderPartial(PartialViewName.EmbroThumbnail, embro); }
             </ins>
         }

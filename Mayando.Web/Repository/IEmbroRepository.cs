@@ -86,7 +86,8 @@ namespace Mayando.Web.Models
         void CreateLog(Log entry);
 
         int DeleteLogs(int minAge, Infrastructure.LogLevel maxLevel);
-        EmbroDetailsViewModel GetEmbroByPageNoSize(int page, int size,string criteria);
+        EmbroNavigationViewModel GetEmbroByPageNoSize(EmbroNavigationContext navContext);
+        
     
     }
 }

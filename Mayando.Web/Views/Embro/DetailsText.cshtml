@@ -7,7 +7,7 @@
 @{Layout = null;}
 
 <div id="photo-text">
-                @if (Model.Article != null){ Html.Raw(Model.Article);}
+                @if (Model.Article != null) { @Html.Raw(Model.Article); }
             </div>
             <div id="photo-details">
                 <div id="photo-dates">                    

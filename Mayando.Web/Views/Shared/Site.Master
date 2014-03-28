@@ -111,7 +111,7 @@
                 <asp:ContentPlaceHolder ID="AdminLinks" runat="server" />
             </div>
             <% } %>
-            <%= Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle)) %>
+           <%-- <%= Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle)) %>--%>
             <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
             <div class="pageflash"><%= MasterModel.PageFlash%></div>
             <% } %>

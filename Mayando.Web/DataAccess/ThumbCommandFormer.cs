@@ -16,18 +16,17 @@ namespace Mayando.Web.DataAccess
 
         public SqlCommand GetReadThumbsByCountPageCommand(int size, int page, string criteria)
         {
-            if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-            _sqlCommand.Parameters.Clear();
-            _sqlCommand.Parameters.Add(new SqlParameter("PageNo", page));
-            _sqlCommand.Parameters.Add(new SqlParameter("PageSize", size));
-            _sqlCommand.Parameters.Add(new SqlParameter("Criteria", criteria));
+            var cmd = GetCommand();
+            cmd.Parameters.Add(new SqlParameter("PageNo", page));
+            cmd.Parameters.Add(new SqlParameter("PageSize", size));
+            cmd.Parameters.Add(new SqlParameter("Criteria", criteria));
             var total = new SqlParameter("TotalItem", SqlDbType.Int);
             total.Direction = ParameterDirection.Output;
-            _sqlCommand.Parameters.Add(total);
+            cmd.Parameters.Add(total);
 
-            _sqlCommand.CommandType = CommandType.StoredProcedure;
-            _sqlCommand.CommandText = "emb.GetThumbsByPage";
-            return _sqlCommand;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.GetThumbsByPage";
+            return cmd;
         }
     }
 }

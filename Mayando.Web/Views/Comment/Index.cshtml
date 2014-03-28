@@ -1,14 +1,17 @@
 ﻿@using Mayando.Web.Infrastructure
 @using Mayando.Web.Models
+@using  Mayando.Web.ViewModels
 @model Mayando.Web.ViewModels.EmbroCommentsViewModel
            
 @{ Layout = null; }
 
-@if (Model != null)
+@if (Model.Comments != null)
 {
     var comments = Model.Comments;
-    Html.Pager(comments.PageSize, comments.PageNumber, comments.TotalItemCount);
+    @Html.Pager(comments.PageSize, comments.PageNumber, comments.TotalItemCount);
            Html.RenderPartial("List", comments);
 
 }
- @if (Model !=  null) {Html.RenderPartial("CommentEdit",new Comment(){EmbroId= Model.EmbroID});}
+ @if (Model !=  null) {
+     var pageUrl = Request.Url.PathAndQuery;
+     Html.RenderPartial("CommentEdit",new CommentEditViewModel(Request.Url.PathAndQuery, Model.EmbroID));}

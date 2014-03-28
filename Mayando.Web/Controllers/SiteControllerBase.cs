@@ -141,7 +141,7 @@ namespace Mayando.Web.Controllers
                 SetCultureForHttpRequest(requestContext.HttpContext.Request);
 
                 // Ensure that initial settings are created.
-                CheckFirstTimeInitialization();
+                //CheckFirstTimeInitialization();
 
                 // Get settings and menus.
                 IDictionary<string, string> applicationSettings;

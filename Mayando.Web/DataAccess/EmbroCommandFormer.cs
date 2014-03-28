@@ -16,53 +16,49 @@ namespace Mayando.Web.DataAccess
         //[emb].[GetEmbroByPageNoSize]
          public SqlCommand GetReadEmbroByIdCommand(int id)
          {
-             if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-             _sqlCommand.Parameters.Clear();
-             _sqlCommand.Parameters.Add(new SqlParameter("Id", id));
-             _sqlCommand.CommandType = CommandType.StoredProcedure;
-             _sqlCommand.CommandText = "emb.GetEmbroById";
-             return _sqlCommand;
+             var cmd = GetCommand();
+             cmd.Parameters.Add(new SqlParameter("Id", id));
+             cmd.CommandType = CommandType.StoredProcedure;
+             cmd.CommandText = "emb.GetEmbroById";
+             return cmd;
          }
 
          public SqlCommand GetReadEmbroByPageNoSize(int page,int size, string criteria)
          {
-             if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-             _sqlCommand.Parameters.Clear();
-             _sqlCommand.Parameters.Add(new SqlParameter("PageNo", page));
-             _sqlCommand.Parameters.Add(new SqlParameter("PageSize", size));
-             _sqlCommand.Parameters.Add(new SqlParameter("Criteria", criteria));
+             var cmd = GetCommand();
+             cmd.Parameters.Add(new SqlParameter("PageNo", page));
+             cmd.Parameters.Add(new SqlParameter("PageSize", size));
+             cmd.Parameters.Add(new SqlParameter("Criteria", criteria));
              var total = new SqlParameter("TotalItem", SqlDbType.Int) {Direction = ParameterDirection.Output};
-             _sqlCommand.Parameters.Add(total);
-             _sqlCommand.CommandType = CommandType.StoredProcedure;
-             _sqlCommand.CommandText = "emb.GetEmbroByPageNoSize";
-             return _sqlCommand;
+             cmd.Parameters.Add(total);
+             cmd.CommandType = CommandType.StoredProcedure;
+             cmd.CommandText = "emb.GetEmbroByPageNoSize";
+             return cmd;
          }
 
         public SqlCommand GetReadEmbroBinaryDataByIdCommand(int id)
         {
-            if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-            _sqlCommand.Parameters.Clear();
-            _sqlCommand.Parameters.Add(new SqlParameter("Id", id));
-            _sqlCommand.CommandType = CommandType.StoredProcedure;
-            _sqlCommand.CommandText = "emb.GetEmbroBinaryDataById";
-            return _sqlCommand;
+            var cmd = GetCommand();
+            cmd.Parameters.Add(new SqlParameter("Id", id));
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.GetEmbroBinaryDataById";
+            return cmd;
         }
 
         public SqlCommand GetReadEmbroByCountPageCommand(int size, int page, string criteria)
         {
-            if (_sqlConnection.State != ConnectionState.Open) _sqlConnection.Open();
-            _sqlCommand.Parameters.Clear();
-            _sqlCommand.Parameters.Add(new SqlParameter("PageNo", page));
-            _sqlCommand.Parameters.Add(new SqlParameter("PageSize", size));
-            _sqlCommand.Parameters.Add(new SqlParameter("Criteria", criteria));
+            var cmd = GetCommand();
+            cmd.Parameters.Add(new SqlParameter("PageNo", page));
+            cmd.Parameters.Add(new SqlParameter("PageSize", size));
+            cmd.Parameters.Add(new SqlParameter("Criteria", criteria));
             var total = new SqlParameter("TotalItem", SqlDbType.Int) {Direction = ParameterDirection.Output};
-            _sqlCommand.Parameters.Add(total);
+            cmd.Parameters.Add(total);
 
             //Uncomment this line to return the proper output value.
             //myCommand.Parameters["@out"].Direction = ParameterDirection.Output;
-            _sqlCommand.CommandType = CommandType.StoredProcedure;
-            _sqlCommand.CommandText = "emb.GetEmbrosByPage";
-            return _sqlCommand;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.GetEmbrosByPage";
+            return cmd;
         }
     }
 }

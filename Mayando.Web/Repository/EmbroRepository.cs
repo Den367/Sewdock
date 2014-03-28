@@ -65,16 +65,23 @@ namespace Mayando.Web.Infrastructure
             return null;
         }
 
-     
 
-        public EmbroDetailsViewModel GetEmbroByPageNoSize(int page, int size, string criteria)     
-        {            
-            using (SqlDataReader reader = _commands.GetReadEmbroByPageNoSize(page,size,criteria).ExecuteReader(CommandBehavior.SingleRow))
+
+        public EmbroNavigationViewModel GetEmbroByPageNoSize(EmbroNavigationContext nav)
+        {
+
+            EmbroDetailsViewModel detailsViewModel = null;
+            var cmd = _commands.GetReadEmbroByPageNoSize(nav.PageNumber, nav.PageSize, nav.Criteria);
+            using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleRow))
             {
                 if (reader.Read())
-                    return  new  EmbroDetailsViewModel(ReadEmbro(reader, false), false,false);
+                    detailsViewModel = new EmbroDetailsViewModel(ReadEmbro(reader, false), false, false);
             }
-            return null;
+            
+            var val = cmd.Parameters["TotalItem"].Value;
+            nav.TotalItemCount = Convert.IsDBNull(val) ? 0 : (int)val;
+            return new EmbroNavigationViewModel(detailsViewModel, nav);
+           
         }
 
         public EmbroideryItem GetEmbroBinaryDataById(int id)

@@ -24,6 +24,10 @@
 @section MainContent
 {
 
+    <div class="pager">
+    @{        var nav = Model.NavigationContext;}
+                      @Html.Pager(nav.PageSize, nav.PageNumber, nav.TotalItemCount, new { criteria = nav.Criteria }) 
+</div>
     @{Html.RenderAction("GetThumbsPaged", "thumb", Model.NavigationContext); }
 
 

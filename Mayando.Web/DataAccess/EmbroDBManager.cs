@@ -26,8 +26,7 @@ namespace Mayando.Web.DataAccess
         }
         public SqlCommand Command { get
         {
-            if (sqlCommand == null) sqlCommand = Connection.CreateCommand();
-            return sqlCommand;
+                       return Connection.CreateCommand();
         } }
         public SqlBulkCopy BulkCopy { get
         {

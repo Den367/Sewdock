@@ -6557,7 +6557,7 @@ nav#menu .nav-tabs .dropdown.open .dropdown-toggle {
 .btn {
   padding-top: .6em;
   font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 legend {

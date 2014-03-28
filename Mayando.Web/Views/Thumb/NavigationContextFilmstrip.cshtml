@@ -11,12 +11,10 @@
                     <div style="clear: right; margin-bottom: 5px;"></div>
                  } 
             </div>*@
-<div class="pager">
-    @{
-        var nav = Model.NavigationContext;
-
-        Html.Pager(nav.PageSize, nav.PageNumber, nav.TotalItemCount, new { criteria = nav.Criteria }); }
-</div>
+@*<div class="pager">
+    @{        var nav = Model.NavigationContext;}
+                      @Html.Pager(nav.PageSize, nav.PageNumber, nav.TotalItemCount, new { criteria = nav.Criteria }); 
+</div>*@
 <div class="navigation-filmstrip">
     @{Html.RenderPartial("ListEmbros", Model.NavigationContext);}
 
