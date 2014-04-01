@@ -3,17 +3,18 @@
 @using Mayando.Web.Infrastructure
 @using Mayando.Web.Properties
 @model Mayando.Web.ViewModels.EmbroDetailsViewModel
-
 @{Layout = null;}
 
 <h2>@{
-        if (null != Model) 
-        {var embro = Model.Embro;
+    if (null != Model)
+    {
+        var embro = Model.Embro;
         if (embro != null && embro.DisplayTitle != null)
         {
             Html.Encode(Model.Embro.DisplayTitle);
-        }}
-        }</h2>
+        }
+    }
+}</h2>
 
 <style>
     ins > div[id="@Model.Id"]
@@ -24,30 +25,15 @@
 <div id="embrocontainer">
     @{Html.RenderPartial(PartialViewName.DetailsDesign, Model); }
     <div>
-        @Html.Raw(Html.ActionLink(Resources.EmbroDownloadButtonText, ActionName.Download, "embro", new {@id = Model.Id},new{@class = "btn"}))
+        @Html.Raw(Html.ActionLink(Resources.EmbroDownloadButtonText, ActionName.Download, "embro", new { @id = Model.Id }, new { @class = "btn" }))
     </div>
 
     @*@if (!Model.HidePhotoText) 
     @*@
     @{ 
         Html.RenderPartial(PartialViewName.DetailsText, Model); 
-    } 
+    }
 </div>
 <div id="commentscontainer">
-    @{ Html.RenderAction("Index", "Comment", new {count = 5, page = 1, embroID = Model.Id}); }
-    @* @if (!Model.HidePhotoComments)?*@ 
-  @*  @{ 
-        <div id="commentscontainer">
-                
-            @{Html.RenderPartial(PartialViewName.DetailsCommentList, Model); }
-
-              @using (Html.BeginCommentsEditForm())
-                {
-                    Html.RenderPartial(PartialViewName.DetailsCommentForm, Model);
-                }
-            
-        </div>
-    } *@
-
-
+    @{ Html.RenderAction("Index", "Comment", new { count = 5, page = 1, embroID = Model.Id }); }
 </div>

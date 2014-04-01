@@ -525,4 +525,25 @@
   <data name="ButtonDeleteText" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="EmbroIsHiddenText" xml:space="preserve">
+    <value>Скрыть от посетителей?</value>
+  </data>
+  <data name="ErrorUploadingText" xml:space="preserve">
+    <value>Не удалось сохранить элемент на сервере.Измените вводимые данные и попробуйте снова</value>
+  </data>
+  <data name="SelectAFileText" xml:space="preserve">
+    <value>Выбрать файл</value>
+  </data>
+  <data name="TagsFieldLabelText" xml:space="preserve">
+    <value>Теги (разделитель точка с запятой):</value>
+  </data>
+  <data name="UploadArticleCaptionText" xml:space="preserve">
+    <value>Краткое описание:</value>
+  </data>
+  <data name="UploadButtonText" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="UploadTitleText" xml:space="preserve">
+    <value>Загрузка дизайна на сервер</value>
+  </data>
 </root>

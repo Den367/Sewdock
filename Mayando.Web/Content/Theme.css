@@ -587,8 +587,7 @@ background: gray;
 	.attach span.file:hover * { color:gray; }
 	.attach input.file_select_btn 
 	{overflow:visible;
-	 width:100%; height:100%;
-	 border-radius: 10px 10px 10px 10px;
+	 width:100%; height:100%;	 
      color: #505961;    display: block;  
      line-height: 100%;
      padding: 1px 15px 1px;

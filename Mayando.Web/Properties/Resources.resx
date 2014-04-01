@@ -552,4 +552,25 @@
   <data name="ButtonDeleteText" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="EmbroIsHiddenText" xml:space="preserve">
+    <value>Is the embro hidden for visitors?</value>
+  </data>
+  <data name="ErrorUploadingText" xml:space="preserve">
+    <value>The item could not be saved. Please correct any errors and try again.</value>
+  </data>
+  <data name="SelectAFileText" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="TagsFieldLabelText" xml:space="preserve">
+    <value>Tags (semicolon separated):</value>
+  </data>
+  <data name="UploadArticleCaptionText" xml:space="preserve">
+    <value>Article:</value>
+  </data>
+  <data name="UploadButtonText" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="UploadTitleText" xml:space="preserve">
+    <value>Upload embro on server</value>
+  </data>
 </root>

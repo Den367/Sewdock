@@ -394,6 +394,15 @@ namespace Mayando.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is the embro hidden for visitors?.
+        /// </summary>
+        public static string EmbroIsHiddenText {
+            get {
+                return ResourceManager.GetString("EmbroIsHiddenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please try again or notify the site administrator..
         /// </summary>
         public static string ErrorDescription {
@@ -417,6 +426,15 @@ namespace Mayando.Web.Properties {
         public static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The item could not be saved. Please correct any errors and try again..
+        /// </summary>
+        public static string ErrorUploadingText {
+            get {
+                return ResourceManager.GetString("ErrorUploadingText", resourceCulture);
             }
         }
         
@@ -1087,6 +1105,15 @@ namespace Mayando.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select file.
+        /// </summary>
+        public static string SelectAFileText {
+            get {
+                return ResourceManager.GetString("SelectAFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a file.
         /// </summary>
         public static string SelectFileButtonTitle {
@@ -1204,6 +1231,15 @@ namespace Mayando.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tags (semicolon separated):.
+        /// </summary>
+        public static string TagsFieldLabelText {
+            get {
+                return ResourceManager.GetString("TagsFieldLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Tags.
         /// </summary>
         public static string TagsShowAll {
@@ -1263,6 +1299,33 @@ namespace Mayando.Web.Properties {
         public static string TimeZoneOffsetInfo {
             get {
                 return ResourceManager.GetString("TimeZoneOffsetInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Article:.
+        /// </summary>
+        public static string UploadArticleCaptionText {
+            get {
+                return ResourceManager.GetString("UploadArticleCaptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string UploadButtonText {
+            get {
+                return ResourceManager.GetString("UploadButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload embro on server.
+        /// </summary>
+        public static string UploadTitleText {
+            get {
+                return ResourceManager.GetString("UploadTitleText", resourceCulture);
             }
         }
         

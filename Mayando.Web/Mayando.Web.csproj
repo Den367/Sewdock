@@ -973,7 +973,6 @@
     <Content Include="Themes\Embroidery\Content\Images\rss.png" />
     <Content Include="Themes\Embroidery\Content\print-styles.css" />
     <Content Include="Themes\Embroidery\Content\Theme.css" />
-    <Content Include="Views\Embro\UploadEmbro.ascx" />
     <Content Include="Views\Embro\Upload.aspx" />
     <Content Include="Views\Comment\CommentDetails.cshtml" />
     <Content Include="Views\Contact\ContactForm.cshtml" />
@@ -997,6 +996,7 @@
     <Content Include="Views\Embro\DetailsText.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Views\Embro\Upload.cshtml" />
     <None Include="Views\Thumb\EmbroThumbnail.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Web.config">
