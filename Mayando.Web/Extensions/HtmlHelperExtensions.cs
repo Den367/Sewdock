@@ -787,7 +787,7 @@ namespace Mayando.Web.Extensions
         /// <returns>An anchor tag.</returns>
         public static string ActionLinkAdminIndex(this HtmlHelper html, string linkText)
         {
-            return html.ActionLink(linkText, ActionName.Index, AdminController.ControllerName);
+            return html.ActionLink(linkText, ActionName.Index, AdminController.ControllerName, null, htmlAttributes:new {@class = "btn"});
         }
 
         /// <summary>

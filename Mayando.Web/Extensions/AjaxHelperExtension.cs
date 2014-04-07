@@ -14,7 +14,7 @@ namespace Mayando.Web.Extensions
             var builder = new TagBuilder("img");
             builder.MergeAttribute("src", string.Format("data:image;base64,{0}",imageBase64Data));
             builder.MergeAttribute("width", "100");
-            builder.MergeAttribute("height", "100");
+            builder.MergeAttribute("height", "auto");
             var link = helper.ActionLink("[replaceme]", actionName, controllerName,routeValues, ajaxOptions).ToString();
 
             return MvcHtmlString.Create(link.Replace("[replaceme]", builder.ToString(TagRenderMode.SelfClosing)));

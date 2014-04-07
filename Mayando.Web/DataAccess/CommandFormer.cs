@@ -9,7 +9,7 @@ using Mayando.Web.Models;
 namespace Mayando.Web.DataAccess
 {
     [ CLSCompliant(false)]
-    public class CommandFormer
+    public class CommandFormer:IDisposable
     {
         protected readonly SqlConnection _sqlConnection;
         //protected readonly SqlCommand cmd;
@@ -79,6 +79,13 @@ namespace Mayando.Web.DataAccess
             param.Value = Scope;
             cmd.Parameters.Add(param);
             return cmd;
+        }
+
+
+
+        public void Dispose()
+        {
+            if (_sqlConnection != null) _sqlConnection.Close();
         }
     }
 }

@@ -2,6 +2,7 @@
 @using Mayando.Web.Extensions
 @using Mayando.Web.Infrastructure
 @using Mayando.Web.Properties
+
 @model Mayando.Web.ViewModels.EmbroDetailsViewModel
 @{Layout = null;}
 
@@ -26,6 +27,24 @@
     @{Html.RenderPartial(PartialViewName.DetailsDesign, Model); }
     <div>
         @Html.Raw(Html.ActionLink(Resources.EmbroDownloadButtonText, ActionName.Download, "embro", new { @id = Model.Id }, new { @class = "btn" }))
+        @if (User.Identity.IsAuthenticated)
+            {
+                var user = (Membership.GetUser());
+                if (User.IsAdministrator() || (user != null && ((Guid) ((user.ProviderUserKey) ?? Guid.NewGuid()) == Model.Embro.UserID)))
+                {
+                    @Ajax.ActionLink(@Resources.EmbroDeleteButtonText,"ConfirmDelete",new {id = Model.Id, returnUrl = Request.Url.AbsoluteUri}, new AjaxOptions
+                 {
+                     UpdateTargetId = "embro-delete-view",
+                     InsertionMode = InsertionMode.Replace,
+                     HttpMethod                   = "POST",
+                     Url = Url.Action("ConfirmDelete", "Embro", new { @id = Model.Id })
+                      
+                 })   
+                }
+
+            }
+        
+        <div id="embro-delete-view"></div>
     </div>
 
     @*@if (!Model.HidePhotoText) 

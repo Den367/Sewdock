@@ -9,18 +9,22 @@
                 @Html.ActionLinkAccountLogOn(Resources.AccountLogOn)
  } *@
 
-
-@if (Request.IsAuthenticated) {
     
-       
-        @Resources.LabelTextHello
+@if (Request.IsAuthenticated)
+{
+      
+    @Resources.LabelTextHello<span>  </span>
     
     @Html.ActionLink(User.Identity.Name, "ChangePassword", "Account", null, new { @class = "username" })
-        @Html.ActionLink(Resources.AccountLogOff, "LogOff", "Account");
-   
-} else {
+    <span>  @Html.ActionLink(Resources.AccountLogOff, "LogOff", "Account")</span>
+    
 
-    @* <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", data_dialog_title = "Registration" })</li>*@
-   @Html.ActionLink(Resources.AccountLogOn, "Index", "Account")
-   
 }
+else
+{
+
+@* <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", data_dialog_title = "Registration" })</li>*@
+    @Html.ActionLink(Resources.AccountLogOn, "Index", "Account")
+   
+     }
+       

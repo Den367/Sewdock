@@ -22,7 +22,7 @@ namespace EmbroideryFile
                     coord.X -= minX;
                 });
             var result = from needle in design.Blocks
-                         select new {color = needle.color.Name, needle};
+                         select new {color = needle.Color.Name, needle};
             return Serializer.Serialize(result);
         }
     }

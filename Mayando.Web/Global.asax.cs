@@ -86,7 +86,7 @@ namespace Mayando.Web
             // Register services with our Ninject DI Container
             //RegisterServices(kernel);
 
-             RegisterMyDependencyResolver();    
+             //RegisterMyDependencyResolver();    
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
             // Tell ASP.NET MVC 3 to use our Ninject DI Container

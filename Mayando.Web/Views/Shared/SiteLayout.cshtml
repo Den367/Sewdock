@@ -29,14 +29,7 @@
             </head>
 
     <body>
-        <style type="text/css">
-            .align_center_to_right
-            {
-                margin-left: auto;
-                margin-right: auto;
-                width: 1024px;
-            }
-        </style>
+
         <div class="page align_center_to_right">
             <span>
                 @{ Html.RenderPartial(PartialViewName.LogOnUserControl.ToString()); }
@@ -48,7 +41,7 @@
                 @if (masterViewModel != null)
                 {
                     <a href="@masterViewModel.SiteData.HomepageUrl">
-                        <img src="@Url.Content("~/content/images/svg/sew-dock.svg")" alt="Sew Dock" width="800" height="128" style="border: 0;" />
+                        <img src="@Url.Content("~/content/images/sew-dock-beta.gif")" alt="Sew Dock" width="1084" height="255" style="border: 0;" />
                     </a>
                 }
             </div>
@@ -67,7 +60,7 @@
                     if (IsSectionDefined("AdminLinks"))
                     {
                         @RenderSection("AdminLinks", false)
-                        ;
+                      
                     }
                     
                     if (masterViewModel != null)
@@ -77,14 +70,14 @@
                 
                 }
                 @Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle))
-                @if ((masterViewModel != null)  && (!string.IsNullOrEmpty(masterViewModel.PageFlash)))
+              @*  @if ((masterViewModel != null)  && (!string.IsNullOrEmpty(masterViewModel.PageFlash)))
                 {
                     <div class="pageflash">@masterViewModel.PageFlash</div>
-                }
+                }*@
                 @if (IsSectionDefined("MainContent"))
                 {
                     @RenderSection("MainContent", false)
-                    ;
+                    
                 }
                 @RenderBody()
             </div>

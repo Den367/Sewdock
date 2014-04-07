@@ -15,8 +15,8 @@ namespace EmbroideryFile
     {
         Point _translateStart;
         private readonly List<CoordsBlock> _blocks;
-        readonly int _width;
-        readonly int _height;
+         int _width;
+         int _height;
         float _xscale;
         float _yscale;
 
@@ -37,16 +37,7 @@ namespace EmbroideryFile
 
             _blocks = blocks;
 
-            if (WidthGTOREQHeight())
-            {
-                _width = size;
-                _height = size*GetHeight()/GetWidth();
-            }
-            else
-            {
-                _width = size*GetWidth()/GetHeight();
-                _height = size;
-            }
+          CalculateScaling(size);
             CalcTranslate();
         }
 
@@ -55,14 +46,34 @@ namespace EmbroideryFile
             return GetWidth() >= GetHeight();
         }
 
+        private void CalculateScaling(int size)
+        {
+            var width = GetWidth();
+            var height = GetHeight();
+            if (WidthGTOREQHeight())
+            {
+                _width = size;
+                _height = size * height / width;
+
+            }
+            else
+            {
+                _height = size;
+                _width = size * width / height;
+                
+            }
+
+
+            _xscale = ((float)_width) / ((float)width);
+            _yscale = ((float)_height) / ((float)height);
+        }
+
         /// <summary>
         /// 
         /// </summary>
         void CalcTranslate()
         {
-           _xscale = ((float)_width) / ((float)GetWidth());
-            _yscale = ((float)_width) / ((float)GetHeight());
-
+           
             _translateStart.X = -(int)(GetXMin() * _xscale);
             _translateStart.Y = -(int)(GetYMin() * _yscale); 
 
@@ -146,7 +157,7 @@ namespace EmbroideryFile
             return (_blocks.Where(b => b.Jumped != true).Select(b =>
                                  new stitchBlock()
                                      {
-                                         color = b.color,
+                                         color = b.Color,
                                          colorIndex = ci++,
                                          stitches = b.AsPoints(xscale, yscale),
                                          stitchesInBlock = b.Count

@@ -58,11 +58,21 @@ namespace Mayando.Web.Infrastructure
             using (SqlDataReader reader = _commands.GetReadEmbroByIdCommand(id).ExecuteReader(CommandBehavior.SingleRow))
             {
                 if (reader.Read())
-               
+
                     return ReadEmbro(reader, false);
-               
+
             }
             return null;
+        }
+
+        public bool EmbroDeleteById(int id)
+        {
+            using (var cmd = _commands.GetEmbroDeleteByIdCommand(id))
+            {
+                cmd.ExecuteNonQuery();
+
+            }
+            return true;
         }
 
 

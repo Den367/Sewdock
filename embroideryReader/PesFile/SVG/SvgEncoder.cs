@@ -11,7 +11,8 @@ namespace EmbroideryFile
 {
     public class SvgEncoder :ISvgEncode
     {
-      
+        private const int Width = 600;
+        private const int Height = 600;
         XmlTextWriter _xWrite;
         Stream stream;
         EmbroideryData embro;
@@ -47,23 +48,11 @@ namespace EmbroideryFile
             double xScale = 1.0;
             double yScale = 1.0;
             
-            //xWrite = new XmlTextWriter(stream, Encoding.Unicode);
-            //xWrite.Formatting = Formatting.Indented;
-            ////xWrite.WriteStartDocument(true);
-            //xWrite.WriteStartElement("svg");
-            //xWrite.WriteAttributeString("xmlns", "svg", null, "http://www.w3.org/2000/svg");
-            //xWrite.WriteAttributeString("xmlns", null, null, "http://www.w3.org/2000/svg");
-            //xWrite.WriteAttributeString("pagecolor", "#ffffff");
-
-            //xWrite.WriteAttributeString("bordercolor", "#666666");
-            //xWrite.WriteAttributeString("borderopacity", "1.0");
-            //xWrite.WriteAttributeString("version", "1.1");
-            //xWrite.WriteAttributeString("showgrid", "false");
-            //xWrite.WriteAttributeString("preserveAspectRatio", "xMidYMid meet");
+          
             WriteSvgStartWithAttr();
-
-            WriteWidth(embro.Width);
-            WriteHeight(embro.Height);            
+           
+            WriteWidth(Width);
+            WriteHeight(Height);            
 
 
             WriteViewBox(0 , 0 , embro.Width , embro.Height );
@@ -72,18 +61,19 @@ namespace EmbroideryFile
             //double shiftY = (embro.Ymax - embro.Ymin) / 2;
             double shiftY = - embro.Ymin;
             _xWrite.WriteStartElement("g");
-            switch (embro.Type)
-            {
-                case EmbroType.Pes:
-                case EmbroType.Pec:
-                    xScale = 1.0; yScale = 1.0;
-                    break;
-                case EmbroType.Dst:
-              xScale = 1.0; yScale = -1.0;
+        //    switch (embro.Type)
+        //    {
+        //        case EmbroType.Pes:
+        //        case EmbroType.Pec:
+        //            xScale = 1.0; yScale = 1.0;
+        //            break;
+        //        case EmbroType.Dst:
+        //      xScale = 1.0; yScale = -1.0;
           
-            break;
-        }
+        //    break;
+        //}
             //xWrite.WriteAttributeString("transform", string.Format("translate({0},{1}) scale({2},{3})", shiftX, shiftY, xScale, yScale));
+            xScale = 1.0; yScale = 1.0;
             _xWrite.WriteAttributeString("transform", string.Format("scale({0},{1})",  xScale, yScale));
             // polylines
             WriteStitchBlocks(embro);
@@ -315,7 +305,7 @@ namespace EmbroideryFile
                 {
                     if (!(block.Jumped || block.Stop))
                     {
-                        FillLinesInfo(block, block.color, ci);
+                        FillLinesInfo(block, block.Color, ci);
                         ci++;
                     }
                 });

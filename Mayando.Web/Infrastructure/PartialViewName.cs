@@ -48,6 +48,7 @@ namespace Mayando.Web.Infrastructure
         Tools,
         Menu,
         Selected,
-        CommentEdit
+        CommentEdit,
+        ConfirmDelete
     }
 }

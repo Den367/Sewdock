@@ -150,12 +150,15 @@ namespace EmbroideryFile
            
         }
 
-        public void ShiftXY( int x, int y)
+        public void ShiftXY(int x, int y)
         {
             Blocks.SelectMany(block => block.AsEnumerable()).ToList().ForEach(coord => { coord.Y += y; coord.X += x; });
         }
 
-
+        public void ShiftToZero()
+        {
+            ShiftXY(GetXCoordMin(), GetYCoordMin());
+        }
 
         public override string ToString()
         {

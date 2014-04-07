@@ -143,35 +143,7 @@ namespace Mayando.Web.Controllers
                     }
                     embro.Tags = tagList;
                     _repo.SaveEmbro(fileUpload.InputStream,embro,ThumbnailWidth);
-                    //using (Stream embroStream = fileUpload.InputStream)
-                    //{
-                    //    byte[] bytes = new byte[fileUpload.ContentLength];
-                    //    embroStream.Read(bytes, 0, fileUpload.ContentLength);
-                    //    embroStream.Position = 0;
-                    //    EmbroideryParserFactory factory = new EmbroideryParserFactory(embroStream);
-                    //    IGetEmbroideryData embroDatum = factory.CreateParser();
-                    //    embro.Data = bytes;  
-                    //    var design = embroDatum.Design;
-                    //    embro.Summary = design.ToString();
-                    //    using (Stream svg = new MemoryStream())
-                    //    {
-                    //        SvgEncoder svgEncoder = new SvgEncoder(svg, embroDatum.Design);
-                    //        svgEncoder.WriteSvg();
-                    //        embro.Svg = svgEncoder.ReadSvgString();
-                    //    }
-                    //    using (Stream png = new MemoryStream())
-                    //    {
-                    //        StitchToBmp pngEncoder = new StitchToBmp(design.Blocks, ThumbnailWidth);
-                    //        pngEncoder.FillStreamWithPng(png);
-                    //        embro.Png = Convert.ToBase64String(png.ToByteArray());
-                    //    }
-                      
-                    //    embro.Json = design.ToJsonCoords();                        
-
-                    //if (!embro.Hidden) embro.Published = DateTime.UtcNow;
-                       
-                    //    _repo.SaveEmbro(embro);
-                    //}                    
+                  
                    
                 }
               
@@ -214,11 +186,30 @@ namespace Mayando.Web.Controllers
         }
 
 
-        [Description("Allows the user to delete a embro.")]
-        [AuthorizeAdministrator]
-        public ActionResult Delete([Description("The embro id.")]int id)
+        [Description("Allows the user to confirm deletion a embro in a normal view")]
+        public ActionResult Delete(EmbroideryItem item)
+        {           
+            return View(item);
+        }
+
+        [Description("Allows the user to confirm deletion a embro  in a partioal")]
+
+
+
+        public ActionResult ConfirmDelete([Description("The embro id.")]int id, [Description("Url to redirect")]string returnUrl)
         {
-            return ViewForDelete<EmbroideryItem>("Embro", p => p.Title, r => r.GetEmbroById(id));
+            // return ViewForDelete<EmbroideryItem>("Embro", p => p.Title, r => r.GetEmbroById(id));
+            return PartialView(new EmbroConfirmDeleteViewModel(id,returnUrl ?? Request.RawUrl));
+        }
+
+         
+      
+        [Authorize]
+        public ActionResult DeleteConfirmed([Description("The embro id.")]int id, string returnUrl)
+        {
+            
+            _repo.EmbroDeleteById(id);
+            return RedirectToAction(ActionName.Index); 
         }
 
 
@@ -239,7 +230,7 @@ namespace Mayando.Web.Controllers
                         coord.X -= minX;
                     });
                 var result = from needle in design.Blocks
-                             select new {color = needle.color.Name, needle};
+                             select new {color = needle.Color.Name, needle};
                 return this.Json(result, "application/json", JsonRequestBehavior.AllowGet);
             }
         }

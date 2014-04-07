@@ -274,7 +274,7 @@ namespace EmbroideryFile.QR
             var result = new List<CoordsBlock>();
             foreach (var listCoord in listCoords)
             { 
-                var block = new CoordsBlock{color = Color.Black};
+                var block = new CoordsBlock{Color = Color.Black};
                 block.AddRange(listCoord);
                 result.Add(block);
             }

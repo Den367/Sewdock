@@ -525,6 +525,12 @@
   <data name="ButtonDeleteText" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="EmbroDeleteButtonText" xml:space="preserve">
+    <value>Удалить с сервера</value>
+  </data>
+  <data name="EmbroDeleteConfirmText" xml:space="preserve">
+    <value>Вы собираетесь удалить вышивку.Вы уверены?</value>
+  </data>
   <data name="EmbroIsHiddenText" xml:space="preserve">
     <value>Скрыть от посетителей?</value>
   </data>

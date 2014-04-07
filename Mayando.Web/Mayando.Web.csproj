@@ -133,7 +133,7 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing">
       <Private>True</Private>
@@ -250,6 +250,7 @@
     <Compile Include="ViewModels\CommentEditViewModel.cs" />
     <Compile Include="ViewModels\EmbroBoundViewModel.cs" />
     <Compile Include="ViewModels\EmbroCommentsViewModel.cs" />
+    <Compile Include="ViewModels\EmbroConfirmDeleteViewModel.cs" />
     <Compile Include="ViewModels\EmbroDetailsViewModel.cs" />
     <Compile Include="Models\EmbroideryItem.cs" />
     <Compile Include="Models\EmbroideryType.cs" />
@@ -333,6 +334,7 @@
     <Content Include="Content\Images\Flags\gb.png" />
     <Content Include="Content\Images\Flags\it.png" />
     <Content Include="Content\Images\Flags\ru.png" />
+    <Content Include="Content\Images\Sew-dock-beta.png" />
     <Content Include="Content\Images\Sew-dock.svg" />
     <Content Include="Content\jquery-ui-1.8.9.custom.css" />
     <Content Include="Content\polyglot-language-switcher.css" />
@@ -973,10 +975,9 @@
     <Content Include="Themes\Embroidery\Content\Images\rss.png" />
     <Content Include="Themes\Embroidery\Content\print-styles.css" />
     <Content Include="Themes\Embroidery\Content\Theme.css" />
-    <Content Include="Views\Embro\Upload.aspx" />
     <Content Include="Views\Comment\CommentDetails.cshtml" />
     <Content Include="Views\Contact\ContactForm.cshtml" />
-    <Content Include="Views\Shared\Delete.cshtml" />
+    <Content Include="Views\Shared\ConfirmDeleteItem.cshtml" />
     <Content Include="Views\Qrcode\QrcodeView.cshtml" />
     <Content Include="Views\Qrcode\QrcodeForm.cshtml" />
     <Content Include="Views\Image\Thumbnail.cshtml" />
@@ -992,6 +993,8 @@
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <None Include="Properties\PublishProfiles\beta.pubxml" />
+    <Content Include="Views\Embro\ConfirmDelete.cshtml" />
+    <Content Include="Views\Embro\Delete.cshtml" />
     <None Include="Views\Embro\DetailsDesign.cshtml" />
     <Content Include="Views\Embro\DetailsText.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

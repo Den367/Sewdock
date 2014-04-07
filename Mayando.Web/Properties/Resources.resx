@@ -552,6 +552,12 @@
   <data name="ButtonDeleteText" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="EmbroDeleteButtonText" xml:space="preserve">
+    <value>Delete from server</value>
+  </data>
+  <data name="EmbroDeleteConfirmText" xml:space="preserve">
+    <value>You are going to delete embroidery. Are your sure? </value>
+  </data>
   <data name="EmbroIsHiddenText" xml:space="preserve">
     <value>Is the embro hidden for visitors?</value>
   </data>

@@ -101,8 +101,6 @@ namespace EmbroideryFile
                         //! COLOR SWITCH & start a new block                        
                         if (currentCoordList.Count > 0)
                         {
-                            //currentCoordList.colorIndex = colorIndex;
-                            //currentCoordList.color = color;
                             ResultCoordList.Add(currentCoordList);
                         }
                         ResultCoordList.Add(new CoordsBlock() { Stop = true});
@@ -110,13 +108,7 @@ namespace EmbroideryFile
                         colorIndex = colorList[colorNum];
                         currentCoordList = new CoordsBlock();
                         
-                        //currentCoordList.colorIndex  = colorIndex;
-                        //color = ColorIndex.ColorByIndex(colorIndex);
-                        //currentCoordList.color = color;
-                        
-                        //result.ColorMap.Add(colorNum, colorIndex);
-                        //if (!result.ColourInfo.ContainsKey(colorIndex)) result.ColourInfo.Add(colorIndex, color);
-
+                       
                         SetColorInfo(currentCoordList, colorNum, colorIndex, result);
                         //read useless(?) byte
                         reader.ReadByte();
@@ -135,7 +127,7 @@ namespace EmbroideryFile
                             currentCoordList = new CoordsBlock();
                             
                             currentCoordList.colorIndex = colorIndex;
-                            currentCoordList.color = ColorIndex.ColorByIndex(colorIndex);
+                            currentCoordList.Color = ColorIndex.ColorByIndex(colorIndex);
 
 
                            
@@ -208,7 +200,7 @@ namespace EmbroideryFile
             block.colorIndex = colorIndex;
             if (!result.ColorMap.ContainsKey(colorNum)) result.ColorMap.Add(colorNum, colorIndex);
             Color color =  ColorIndex.ColorByIndex(colorIndex);
-            block.color = color;
+            block.Color = color;
             if (!data.ColourInfo.ContainsKey(colorIndex)) data.ColourInfo.Add(colorIndex, color);
         }
 
@@ -218,7 +210,7 @@ namespace EmbroideryFile
             result.Jumped = true;
             result.Add(new Coords() { X = X1, Y = Y1 });
             result.Add(new Coords() { X = X2, Y = Y2 });
-            result.color = color;
+            result.Color = color;
             return result;
         }
     }

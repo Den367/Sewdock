@@ -110,10 +110,10 @@ namespace EmbroideryFile
            _design.Ymax = _header.Ymax;
            _design.Xmin = _header.Xmin;
            _design.Ymin = _header.Ymin;
-           //_design.ColorChangeCount = _header.ColorChangeCount;
-           //_design.JumpsBlocksCount = _design.Blocks.Count(b => b.Jumped == true);
-           //_design.StitchBlockCount = _header.StitchBlockCount;
-           //_design.TotalStitchCount = _header.TotalStitchCount;
+           _design.ColorChangeCount = _header.ColorChangeCount;
+           _design.JumpsBlocksCount = _design.Blocks.Count(b => b.Jumped == true);
+           _design.StitchBlockCount = _header.StitchBlockCount;
+           _design.TotalStitchCount = _header.TotalStitchCount;
            _design.Type = EmbroType.Dst;
        }
 
@@ -126,8 +126,8 @@ namespace EmbroideryFile
             _header = new DstHeader(embroStream);
                 _inputStream.Position = 512;
                 _design.Blocks = ReadStitches();
-                //info.Header.
-           
+            //_design.ShiftToZero();
+
         }
        
 
@@ -138,7 +138,7 @@ namespace EmbroideryFile
         /// </summary>
         /// <param name="stream">Suggested  Position has been specified already</param>
         /// <returns></returns>
-        List<CoordsBlock> ReadStitches()
+        List<CoordsBlock> ReadStitchesOld()
         {
             List<CoordsBlock> ResultCoordList = new List<CoordsBlock>();
             CoordsBlock currentCoordList = new CoordsBlock();
@@ -171,7 +171,7 @@ namespace EmbroideryFile
                                 blockIndex++;
                             }
                             curAbsX = curAbsX + dX; curAbsY = curAbsY + dY;
-                            currentCoordList.Add(new Coords { X = curAbsX, Y = curAbsY });                           
+                            currentCoordList.Add(new Coords { X = curAbsX, Y = curAbsY });
                             break;
                         case DstStitchType.JUMP:
                             if (jumpFlag != true)
@@ -185,7 +185,7 @@ namespace EmbroideryFile
                                 }
                                 currentCoordList = new CoordsBlock();
                                 currentCoordList.Jumped = true;
-                               
+
                             }
                             curAbsX = curAbsX + dX; curAbsY = curAbsY + dY;
                             //currentCoordList.Add(new Coords { X = curAbsX, Y = curAbsY });
@@ -197,11 +197,11 @@ namespace EmbroideryFile
                             if (currentCoordList.Count > 0)
                             {
                                 ResultCoordList.Add(currentCoordList);
-                                blockIndex++;                               
+                                blockIndex++;
                             }
                             _design.ColorMap.Add(blockIndex, coCo);
                             _design.ColourInfo.Add(coCo, Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
-                            ResultCoordList.Add( GetStopBlock());
+                            ResultCoordList.Add(GetStopBlock());
                             currentCoordList = new CoordsBlock();
                             blockIndex++;
                             break;
@@ -216,7 +216,92 @@ namespace EmbroideryFile
                 }
                 else endFileFlag = true;
 
-               
+
+
+            }
+            return ResultCoordList;
+        }
+
+        List<CoordsBlock> ReadStitches()
+        {
+            List<CoordsBlock> ResultCoordList = new List<CoordsBlock>();
+            CoordsBlock currentCoordList = new CoordsBlock();
+            int n;
+            byte[] stitch = new byte[3];
+            int coCo = 0;
+            int dX, dY, curAbsX = 0, curAbsY = 0;
+            int blockIndex = 0;
+            bool endFileFlag = false, jumpFlag = false;//, endBlockFlag = false, colorChangeFlag = false;
+            Color color;
+            Random rand = new Random();
+            _design.ColorMap.Add(blockIndex, coCo);
+            color = Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256));
+            _design.ColourInfo.Add(coCo, color);
+            //READ STITCH RECORDS
+            while (endFileFlag != true)
+            {
+                n = _inputStream.Read(stitch, 0, 3);
+                if (n == 3)
+                {
+                    dX = decode_record_dx(stitch[0], stitch[1], stitch[2]);
+                    dY = decode_record_dy(stitch[0], stitch[1], stitch[2]);
+                    switch (GetStitchType(stitch[2]))
+                    {
+
+                        case DstStitchType.NORMAL:
+                            if (jumpFlag)
+                            {
+                                jumpFlag = false;
+                                ResultCoordList.Add(currentCoordList);
+                                currentCoordList = new CoordsBlock(color);
+                                blockIndex++;
+                            }
+                            curAbsX = curAbsX + dX; curAbsY = curAbsY - dY;
+                            currentCoordList.Add(new Coords { X = curAbsX, Y = curAbsY });
+                            break;
+                        case DstStitchType.JUMP:
+                            if (jumpFlag != true)
+                            {
+                                //endBlockFlag = true;
+                                jumpFlag = true;
+                                if (currentCoordList.Count > 0)
+                                {
+                                    ResultCoordList.Add(currentCoordList);
+                                    blockIndex++;
+                                }
+                                currentCoordList = new CoordsBlock(color) {Jumped = true};
+                            }
+                            curAbsX = curAbsX + dX; curAbsY = curAbsY - dY;
+                            //currentCoordList.Add(new Coords { X = curAbsX, Y = curAbsY });
+                            break;
+                        case DstStitchType.STOP:
+                            coCo++;
+                            //endBlockFlag = true;
+                            //colorChangeFlag = true;
+                            if (currentCoordList.Count > 0)
+                            {
+                                ResultCoordList.Add(currentCoordList);
+                                blockIndex++;
+                            }
+                            _design.ColorMap.Add(blockIndex, coCo);
+                            color = Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256));
+                            _design.ColourInfo.Add(coCo, color);
+                            ResultCoordList.Add(GetStopBlock());
+                            currentCoordList = new CoordsBlock(color);
+                            blockIndex++;
+                            break;
+                        case DstStitchType.END:
+                            //endBlockFlag = true;
+                            endFileFlag = true;
+                            break;
+                        case DstStitchType.UNKNOWN:
+                            endFileFlag = true;
+                            break;
+                    }
+                }
+                else endFileFlag = true;
+
+
 
             }
             return ResultCoordList;

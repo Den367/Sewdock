@@ -1,0 +1,9 @@
+﻿@using Mayando.Web.Properties
+@model Mayando.Web.ViewModels.EmbroConfirmDeleteViewModel
+
+@{
+    Layout = null;
+}
+
+<p>@Resources.EmbroDeleteConfirmText</p>
+@Html.ActionLink(@Resources.EmbroDeleteButtonText,"DeleteConfirmed", new {id = Model.ID, returnUrl = Model.ReturnUrl })

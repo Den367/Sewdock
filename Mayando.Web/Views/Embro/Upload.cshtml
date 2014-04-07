@@ -4,11 +4,11 @@
 @model Mayando.Web.Models.EmbroideryItem
 
 @{
-    ViewBag.Title = Resources.UploadTitleText;
+   
     Layout = "~/Views/Shared/SiteLayout.cshtml";
 }
 @section TitleContent{
-    <h2>@Resources.UploadTitleText</h2>
+    @Resources.UploadTitleText
 }
 
 @section MainContent
@@ -16,7 +16,7 @@
 
     @Html.ValidationSummary(Resources.ErrorUploadingText) 
     <fieldset>
-        <legend>EmbroideryItem</legend>
+        <legend>@Resources.UploadTitleText</legend>
         <div id="dialog" title="Upload files">
             @using (Html.BeginForm("Upload", "Embro", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
@@ -29,13 +29,12 @@
                 </div>
                 <p>
                     <label for="Title" class="optional">Title:</label>
-                    @Html.TextBox("Title", Model.Title) ;
-                    @Html.ValidationMessage("Title", "*") ;
+                    @Html.TextBox("Title", Model.Title) 
+                    @Html.ValidationMessage("Title", "*") 
                 </p>
                 <p>
-                    @Html.CheckBox("Hidden", Model.Hidden);
-                    <label for="Hidden" class="inline required">@Resources.EmbroIsHiddenText</label>
-                    @Html.ValidationMessage("Hidden", "*");
+                    @Html.CheckBox("Hidden", Model.Hidden)<label for="Hidden" class="inline required">@Resources.EmbroIsHiddenText</label>
+                    @Html.ValidationMessage("Hidden", "*")
                 </p>
                 <p>
                     <label for="TagList" class="optional">@Resources.TagsFieldLabelText</label>

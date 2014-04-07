@@ -118,7 +118,7 @@ namespace EmbroideryFile
         public string DesignName { get{
                 StringBuilder name = new StringBuilder();
                 for (int i = 3; i < 19; i++)
-                    name.Append(designName[i]);
+                    name.Append(Convert.ToChar(designName[i]));
                 return name.ToString();            
             }
             set { string name = value;
@@ -134,7 +134,7 @@ namespace EmbroideryFile
             get {
             StringBuilder count = new StringBuilder();
             for (int i = 3; i < 10; i++)
-                 count.Append(stitchCount[i]);
+                 count.Append(Convert.ToChar(stitchCount[i]));
             return Convert.ToInt32(count.ToString());
         }
             set 
@@ -152,7 +152,7 @@ namespace EmbroideryFile
         public int ColorChangeCount { get {
             StringBuilder count = new StringBuilder();
             for (int i = 3; i < 6; i++)
-                 count.Append(colorChangeCount[i]);
+                 count.Append(Convert.ToChar(colorChangeCount[i]));
             return Convert.ToInt32(count.ToString());
         }
             set
@@ -172,7 +172,7 @@ namespace EmbroideryFile
         public int Xmax { get{
         StringBuilder value = new StringBuilder();
             for (int i = 3; i < 8; i++)
-                 value.Append(xMax[i]);
+                 value.Append(Convert.ToChar(xMax[i]));
             return Convert.ToInt32(value.ToString());
     }
             set {
@@ -192,7 +192,7 @@ namespace EmbroideryFile
             {
                 StringBuilder value = new StringBuilder();
                 for (int i = 3; i < 8; i++)
-                    if (xMin[i] != 0x20) value.Append(xMin[i]);
+                    if (xMin[i] != 0x20) value.Append(Convert.ToChar(xMin[i]));
                 return -Convert.ToInt32(value.ToString());
             }
             set
@@ -212,7 +212,7 @@ namespace EmbroideryFile
             {
                 StringBuilder value = new StringBuilder();
                 for (int i = 3; i < 8; i++)
-                    if (yMax[i] != 0x20) value.Append(yMax[i]);
+                    if (yMax[i] != 0x20) value.Append(Convert.ToChar(yMax[i]));
                 return Convert.ToInt32(value.ToString());
             }
             set
@@ -232,7 +232,7 @@ namespace EmbroideryFile
             {
                 StringBuilder value = new StringBuilder();
                 for (int i = 3; i < 8; i++)
-                    if (yMin[i] != 0x20) value.Append(yMin[i]);
+                    if (yMin[i] != 0x20) value.Append(Convert.ToChar(yMin[i]));
                 return -Convert.ToInt32(value.ToString());
             }
             set
@@ -252,7 +252,7 @@ namespace EmbroideryFile
             {
                 StringBuilder value = new StringBuilder();
                 for (int i = 3; i < 9; i++)
-                    if (xOffset[i] != 0x20) value.Append(xOffset[i]);
+                    if (xOffset[i] != 0x20) value.Append(Convert.ToChar(xOffset[i]));
                 return Convert.ToInt32(value.ToString());
             }
             set
@@ -272,7 +272,7 @@ namespace EmbroideryFile
             {
                 StringBuilder value = new StringBuilder();
                 for (int i = 3; i < 9; i++)
-                    if (yOffset[i] != 0x20) value.Append(yOffset[i]);
+                    if (yOffset[i] != 0x20) value.Append(Convert.ToChar(yOffset[i]));
                 return Convert.ToInt32(value.ToString());
             }
             set
@@ -292,7 +292,7 @@ namespace EmbroideryFile
              {
                  StringBuilder value = new StringBuilder();
                  for (int i = 3; i < 9; i++)
-                     if (mX[i] != 0x20) value.Append(mX[i]);
+                     if (mX[i] != 0x20) value.Append(Convert.ToChar(mX[i]));
                  return Convert.ToInt32(value.ToString());
              }
              set
@@ -311,7 +311,7 @@ namespace EmbroideryFile
              {
                  StringBuilder value = new StringBuilder();
                  for (int i = 3; i < 9; i++)
-                     if (mY[i] != 0x20) value.Append(mY[i]);
+                     if (mY[i] != 0x20) value.Append(Convert.ToChar(mY[i]));
                  return Convert.ToInt32(value.ToString());
              }
              set

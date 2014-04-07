@@ -2,7 +2,7 @@
 @using Mayando.Web.Extensions
 @using Mayando.Web.Infrastructure
 @{ Layout = null;}
-<div id="@Model.Id">      
+<div id="@Model.Id" class="btn">      
     @Ajax.ImageActionLink(Model.PngBase64Image,"Index","Embro",new {@current = Model.Id}, new AjaxOptions
                  {
                      UpdateTargetId = "detailspage",

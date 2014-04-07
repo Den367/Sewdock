@@ -9,7 +9,7 @@
 
 
 @section TitleContent{
-    @if (Model.EmbroDetails != null)
+    @if (Model != null && Model.EmbroDetails != null)
     {
         @Html.Encode(Model.EmbroDetails.Title);
     }
@@ -34,19 +34,23 @@
 }
 
     <div id="detailspage">
+         @if (Model != null)
+         {
+             if ( Model.EmbroDetails != null)
+              {
 
-        @if (Model.EmbroDetails != null)
-        {
-
-
-            Html.RenderPartial(PartialViewName.Details, Model.EmbroDetails);
-        }
-        else if (Model.NavigationContext.Current != null)
-        {
-            Html.RenderAction("Details", "Embro", Model.NavigationContext.Current);
-        }
-        else
-        {
-            Html.RenderAction("Details", "Embro", Model.NavigationContext);
-        }
+                  Html.RenderPartial(PartialViewName.Details, Model.EmbroDetails);
+              }
+              else if (Model.NavigationContext != null)
+              {
+                  if (Model.NavigationContext.Current != null)
+                  {
+                      Html.RenderAction("Details", "Embro", Model.NavigationContext.Current);
+                  }
+                  else
+                  {
+                      Html.RenderAction("Details", "Embro", Model.NavigationContext);
+                  }
+              }
+         }
     </div>

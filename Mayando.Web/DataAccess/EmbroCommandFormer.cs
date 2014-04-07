@@ -14,6 +14,15 @@ namespace Mayando.Web.DataAccess
     {
     }
         //[emb].[GetEmbroByPageNoSize]
+         public SqlCommand GetEmbroDeleteByIdCommand(int id)
+         {
+             var cmd = GetCommand();
+             cmd.Parameters.Add(new SqlParameter("Id", id));
+             cmd.CommandType = CommandType.StoredProcedure;
+             cmd.CommandText = "emb.EmbroDeleteById";
+             return cmd;
+         }
+
          public SqlCommand GetReadEmbroByIdCommand(int id)
          {
              var cmd = GetCommand();

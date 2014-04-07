@@ -376,6 +376,24 @@ namespace Mayando.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete from server.
+        /// </summary>
+        public static string EmbroDeleteButtonText {
+            get {
+                return ResourceManager.GetString("EmbroDeleteButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are going to delete embroidery. Are your sure? .
+        /// </summary>
+        public static string EmbroDeleteConfirmText {
+            get {
+                return ResourceManager.GetString("EmbroDeleteConfirmText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download embroidery file.
         /// </summary>
         public static string EmbroDownloadButtonText {

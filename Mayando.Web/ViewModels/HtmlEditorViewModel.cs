@@ -8,7 +8,7 @@ namespace Mayando.Web.ViewModels
         public int Height { get; private set; }
 
         public HtmlEditorViewModel(string formFieldName, string text)
-            : this(formFieldName, text, 25)
+            : this(formFieldName, text, 5)
         {
         }
 

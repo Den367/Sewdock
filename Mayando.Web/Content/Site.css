@@ -157,7 +157,7 @@ label.optional
 
 #admincontainer  #admincontainer a:active,  a.admin:active
 {
-      background-color: rgb(FF,FF,FF);
+      background-color: rgb(255,255,255);
       border: solid 2px gray;
 }
 
@@ -642,3 +642,8 @@ div ins {
 
 }
 
+.align_center_to_right{
+                margin-left: auto;
+                margin-right: auto;
+                width: 1024px;
+            }

@@ -26,9 +26,21 @@ namespace EmbroideryFile
         /// <summary>
         /// Drawing color info <see cref="System.Drawing.Color"/>
         /// </summary>        
-        public Color color{ get; set; }
+        public Color Color{ get; set; }
         public Int32 colorIndex { get; set; }
 
-       
+        public CoordsBlock(Color color)
+        {
+
+            Color = color;
+        }
+
+        public CoordsBlock()
+        {
+
+           // Color = Color.Black;
+        }
+
+
     }
 }

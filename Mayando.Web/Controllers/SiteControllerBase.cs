@@ -643,14 +643,14 @@ namespace Mayando.Web.Controllers
                 if (notificationLevel.HasValue && notificationLevel.Value > LogLevel.Information)
                 {
                     var loggingPageFlash = string.Format(CultureInfo.CurrentCulture, "There are new {0}s. Go to the <a href=\"{1}\">event log</a> to see the details.", notificationLevel.Value.ToString().ToLowerInvariant(), Url.Action(ActionName.EventLog, AdminController.ControllerName));
-                    this.MasterViewModel.AddToPageFlash(loggingPageFlash);
+                    if (MasterViewModel != null) this.MasterViewModel.AddToPageFlash(loggingPageFlash);
                 }
             }
 
             // Append a demo site pageflash if needed (except for the logged on administrator).
             if (SiteData.DemoMode && !this.User.IsAdministrator())
             {
-                this.MasterViewModel.AddToPageFlash(Resources.DemoModePageFlash);
+                if (MasterViewModel != null) this.MasterViewModel.AddToPageFlash(Resources.DemoModePageFlash);
             }
         }
 

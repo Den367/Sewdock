@@ -1,0 +1,20 @@
+﻿@using Mayando.Web.Extensions
+@using Mayando.Web.Infrastructure
+@model Mayando.Web.Models.EmbroideryItem
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+@section TitleContent{
+    @if (Model != null)
+    {
+        @Html.Encode(Model.Title)
+    }
+}
+
+@section MainContent
+{
+    @{Html.RenderPartial(PartialViewName.ConfirmDelete, Model.Id); }
+}
