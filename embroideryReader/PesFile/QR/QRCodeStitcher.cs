@@ -77,27 +77,7 @@ namespace EmbroideryFile.QR
             return blocks;
         }
 
-/*
-        public List<List<Coords>> GenerateQRCodeBoxedTiledStitches()
-        {
-            var blocks = new List<List<Coords>>();
-            int rectSize = GetRectSize();
-            // rectangle left top
-            blocks.AddRange(GetRectangleSatin(0, 0, rectSize - 1, rectSize - 1));
-            blocks.Add(GenerateBoxStitchBlock(2, 2, rectSize - 4));
-            blocks.AddRange(GetLaneCellSatinStitches(GetLaneList(0, rectSize + 1, rectSize, _dimension - rectSize - 1)));
-            blocks.AddRange(GetRectangleSatin(0, _dimension - rectSize, rectSize - 1, _dimension - 1));
-            blocks.Add(GenerateBoxStitchBlock(2, _dimension - rectSize + 2, rectSize - 4));
 
-
-            blocks.AddRange(GetLaneCellSatinStitches(GetLaneList(rectSize + 1, 0, _dimension - rectSize - 1, _dimension - 1)));
-
-            blocks.AddRange(GetRectangleSatin(_dimension - rectSize, 0, _dimension - 1, rectSize - 1));
-            blocks.Add(GenerateBoxStitchBlock(_dimension - rectSize + 2, 2, rectSize - 4));
-            blocks.AddRange(GetLaneCellSatinStitches(GetLaneList(_dimension - rectSize, rectSize + 1, _dimension - 1, _dimension - 1)));
-            return blocks;
-        }
-*/
         /// <summary>
         /// Create stitches for filled box
         /// </summary>
@@ -275,6 +255,7 @@ namespace EmbroideryFile.QR
             foreach (var listCoord in listCoords)
             { 
                 var block = new CoordsBlock{Color = Color.Black};
+                listCoord.ForEach(coord => coord.Y = - coord.Y);
                 block.AddRange(listCoord);
                 result.Add(block);
             }
@@ -285,7 +266,6 @@ namespace EmbroideryFile.QR
         public List<List<Coords>> GetQRCodeStitches()
         {
            
-            // return GetDownwardSatinStitches(GetLaneList());
            
                 Init();
                 return GenerateQRCodeStitchesBoxed();
@@ -443,75 +423,7 @@ namespace EmbroideryFile.QR
         bool _state;
         bool _endLaneFlag;
         int _laneLen;
-/*
-        void ConsumeCell(int j, int i)
-        {
-            if (_cells[j][i] == true)
-            {
-                // begin lane at the top
-                if ((i == 0))
-                {
-                    _dot1.X = j;
-                    _dot1.Y = i; //= new Coords() { X = i, Y = j };
-                    _curLane.Dot1 = _dot1;
-                    _laneLen = 1;
-                    _state = true;
-                }
-                else if ((_state == false))
-                {
-                    // single dot at the bottom
-                    if (i == _len)
-                    {
-                        _dot1 = new Coords { X = j, Y = i };
-                        _curLane.Dot1 = _dot1;
-                        _dot2 = new Coords {X = j, Y = i};
-                        _curLane.Dot2 = _dot2;
-                        _curLane.Length = 1;
-                        _curLane.Lowest = true;
-                        _endLaneFlag = true;
-                    }
-                    // begin lane
-                    else
-                    {
-                        _dot1.X = j;
-                        _dot1.Y = i; //= new Coords() { X = i, Y = j };
-                        _curLane.Dot1 = _dot1;
-                        _laneLen = 1;
-                        _state = true;
-                    }
-                }
-                else if ((i == _len))
-                {
-                    //   end of lane at the bottom
-                    _dot2 = new Coords() { X = j, Y = i };
-                    _curLane.Dot2 = _dot2;
-                    _curLane.Length = ++_laneLen;
-                    _curLane.Lowest = true;
-                    _endLaneFlag = true;
-                }  // in lane
-                else
-                {
-                    _laneLen++;
-                }
-            }
-            // end lane not an edge
-            else if (_state)
-            {
-                _dot2 = new Coords() { X = j, Y = i - 1 };
-                _curLane.Dot2 = _dot2;
-                _curLane.Length = _laneLen;
-                _state = false;
-                _endLaneFlag = true;
-            }
-            if (_endLaneFlag == true)
-            {
-                _lines.Add(_curLane);
-                _endLaneFlag = false;
-            }
 
-
-        }
-*/
 
         int _topY, _leftX, _bottomY, _rightX;
 
@@ -649,31 +561,7 @@ namespace EmbroideryFile.QR
 
         }
 
-/*
-        /// <summary>
-        /// Generates list of lane from unbreakable d sequence of code dots in from top to bottom side of QR Code
-        /// </summary>
-        /// <returns>Returns list Lane with coords of start, end Dot and length of sequence</returns>
-        private List<Lane> GetLaneList()
-        {
 
-
-
-            for (int j = 0; j <= _len; j = j + 2)  //X
-            {
-                for (int i = 0; i <= _len; i++) // Y               
-                {
-                    ConsumeCell(j, i);
-                }
-                if (j >= _len) break;
-                for (int i = _len; i >= 0; i--) // Y               
-                {
-                    ConsumeCell(j + 1, i);
-                }
-            }
-            return _lines;
-        }
-*/
 
         private List<Lane> GetLaneList(int x1, int y1, int x2, int y2)
         {
@@ -787,9 +675,35 @@ namespace EmbroideryFile.QR
             return reslult;
         }
 
-       
+        private List<CoordsBlock> GetNegativatedYListOfCoordsBlock(List<List<Coords>> listBlocks)
+        {
+              List<CoordsBlock> reslult = new List<CoordsBlock>();
+            CoordsBlock coordsBlock;
+            CoordsBlock prevBlock = null;
+            foreach (var block in listBlocks)
+            {
+                if (prevBlock != null)
+                {
+                    var jumpBlock = new CoordsBlock() { Jumped = true};
+                    jumpBlock.Add(prevBlock.Last());
+                    jumpBlock.Add(block.First());
+                    reslult.Add(jumpBlock);
+                }
+                coordsBlock = new CoordsBlock();
+                foreach (var coords in block)
+                {
+                    coords.Y = - coords.Y;                   
+                    coordsBlock.Add(coords);
+                }
+                reslult.Add(coordsBlock);
+                prevBlock = coordsBlock;
+
+            }
+            return reslult;
+        }
+        }
+
         #endregion [Private block]
 
        
     }
-}

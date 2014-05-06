@@ -1,5 +1,6 @@
 ﻿
-namespace Mayando.ProviderModel
+
+namespace Mayando.Web.Infrastructure
 {
     /// <summary>
     /// Defines a setting that is persisted by the Mayando host.

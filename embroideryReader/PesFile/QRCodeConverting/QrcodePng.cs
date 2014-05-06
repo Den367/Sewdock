@@ -31,7 +31,7 @@ namespace EmbroideryFile.QRCode
             _stitchGen = new QrCodeStitcher{Info = new QRCodeStitchInfo {QrCodeText = qRCodeText}};
             
 
-            _bitmapCreator = new StitchToBmp(_stitchGen.GetQRCodeStitchBlocks(), width, height);
+            _bitmapCreator = new StitchToBmp(_stitchGen.GetQRCodeStitchBlocks(), width);
             
            
          

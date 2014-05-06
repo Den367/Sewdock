@@ -20,25 +20,16 @@ namespace EmbroideryFile
         float _xscale;
         float _yscale;
 
+        
 
-
-        public StitchToBmp(List<CoordsBlock> blocks, int width, int height)
-        {
-
-            _blocks = blocks;
-            _width = width;
-            _height = height;
-
-            CalcTranslate();
-        }
-
+     
         public StitchToBmp(List<CoordsBlock> blocks, int size)
         {
 
             _blocks = blocks;
-
-          CalculateScaling(size);
+              CalculateScaling(size);
             CalcTranslate();
+        
         }
 
         private bool WidthGTOREQHeight()
@@ -154,6 +145,8 @@ namespace EmbroideryFile
         IEnumerable<stitchBlock> GetScaledPointBlock(float xscale, float yscale)
         {
             int ci = 0;
+            if (0.0 == xscale) xscale = 1.0f;
+            if (0.0 == yscale) yscale = 1.0f;
             return (_blocks.Where(b => b.Jumped != true).Select(b =>
                                  new stitchBlock()
                                      {
