@@ -1,11 +1,15 @@
 ﻿@using JelleDruyts.Web.Mvc
-@using Mayando.Web.Infrastructure
 @model IEnumerable<Mayando.Web.ViewModels.MenuViewModel>
 <div id="menucontainer">
-    <ul id="menu">
+    <ul id="menu" class="breadcrumbs">
         @foreach (var menu in Model)
         {
-            <li class="btn @{ Html.RenderPartial("Selected", menu.Selected); }">
+            
+        <li class="@if (menu.Selected)
+                   {
+                       @Html.Raw("selected")
+                   }
+                       ">
                 @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip))
             </li>
         } 

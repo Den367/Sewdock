@@ -33,7 +33,7 @@ namespace Mayando.Web.Repository
                     var thumb = ReadThumb(reader);
                     thumbs.Add(new EmbroThumbnailViewModel
                         {
-                            PngBase64Image = thumb.Png,TagList = thumb.TagList, DownloadCount = thumb.DownloadsCount, Summary = thumb.Summary,Id = thumb.Id 
+                           Title = thumb.Title,PngBase64Image = thumb.Png,TagList = thumb.TagList, DownloadCount = thumb.DownloadsCount, Summary = thumb.Summary,Id = thumb.Id 
                         });                  
 
                 } while (reader.Read());

@@ -42,7 +42,7 @@
         </div>
         <div id="main">
             <% if (Page.User.CanSeeAdministratorContent()) { %>
-            <div id="admincontainer">
+           <%-- <div id="admincontainer">
                 <%= Html.ActionLinkAdminIndex("Site Administration")%> |
                 <%= Html.ActionLinkAccountLogOff("Log Off")%>
                 <%= Html.ActionLinkAccountChangePassword("Change Password")%> |
@@ -50,7 +50,7 @@
                 <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
                 <%= Html.ActionLinkPageCreate("Create Page")%> |
                 <asp:ContentPlaceHolder ID="AdminLinks" runat="server" />
-            </div>
+            </div>--%>
             <% } %>
             <%= Html.ValidationSummary(Html.Encode(Resources.ValidationSummaryGenericTitle)) %>
             <% if(!string.IsNullOrEmpty(MasterModel.PageFlash)) { %>
@@ -59,7 +59,7 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div id="footer" style="clear: both;">
-            <%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
+            <%= MasterModel.SiteData.Settings.Footer%>  &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
         </div>
     </div>
 </body>

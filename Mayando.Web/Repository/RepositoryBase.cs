@@ -14,6 +14,14 @@ namespace Mayando.Web.Repository
         protected DataTablesFormer tableFormer;
         protected EmbroDBManager manager;
 
+        public RepositoryBase()
+        {
+            tableFormer = factory.TablesHolder;
+            manager = factory.Manager;
+            tableFormer.FillEmbroColumnMapping(manager.BulkCopy);
+        }
+
+
         protected bool IsDBNull(SqlDataReader reader, string columnName)
         {
             return reader.GetValue(reader.GetOrdinal(columnName)) == DBNull.Value;
@@ -24,12 +32,16 @@ namespace Mayando.Web.Repository
             return reader.GetValue(columnNum) == DBNull.Value;
         }
 
-        public RepositoryBase()
+        protected string GetStringFromReader(SqlDataReader reader, string fieldName)
         {
-            tableFormer = factory.TablesHolder;
-            manager = factory.Manager;
-            tableFormer.FillEmbroColumnMapping(manager.BulkCopy);
+            string value = string.Empty;
+            if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
+                value = reader.GetString(reader.GetOrdinal(fieldName));
+            return value;
         }
+
+        
+
 
         #region [Disposable]
         private bool disposed = false; // to detect redundant calls

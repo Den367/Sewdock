@@ -28,6 +28,7 @@ namespace Mayando.Web.Infrastructure
         }
         private void AddBindings()
         {
+            ninjectKernel.Bind<ILinksRepository>().To<LinksRepository>().InSingletonScope();
             ninjectKernel.Bind<IEmbroRepository>().To<EmbroRepository>().InSingletonScope();
             ninjectKernel.Bind<IThumbRepository>().To<ThumbRepository>().InSingletonScope();
             ninjectKernel.Bind<ICommentRepository>().To<CommentRepository>().InSingletonScope();

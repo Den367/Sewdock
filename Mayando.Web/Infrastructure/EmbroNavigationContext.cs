@@ -128,7 +128,7 @@ namespace Mayando.Web.Infrastructure
 
         public EmbroNavigationContext()
         {
-            PageSize = 5;
+            PageSize = 7;
             PageNumber = 1;
         }
 

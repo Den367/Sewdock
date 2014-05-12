@@ -9,6 +9,7 @@ using Mayando.Web.Controllers;
 using Mayando.Web.Extensions;
 using Mayando.Web.Infrastructure;
 using Mayando.Web.Models;
+using Mayando.Web.Repository;
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
 using NinjectAdapter;
@@ -115,6 +116,7 @@ namespace Mayando.Web
         public static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IEmbroRepository>().To<EmbroRepository>().InSingletonScope();
+            kernel.Bind<ILinksRepository>().To<LinksRepository>().InSingletonScope();
             kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
 
         }

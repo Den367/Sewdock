@@ -22,39 +22,8 @@
             } catch (e) {alert(e.message);}
             window.location.reload(); // reload 
         }
-       // 
-                  ,afterLoad: function(evt){
-
-                      //                    alert("The selected language has been loaded");
-
-                      //                },
-                      //                beforeOpen: function(evt){
-                      //                    alert("before open");
-
-                      //                },
-                      //                afterOpen: function(evt){
-                      //                    alert("after open");
-                      //                },
-                      //                beforeClose: function(evt){
-                      //                    alert("before close");
-                      //                },
-                      //                afterClose: function(evt){
-                      //                    alert("after close");
-                                      }
-                  });
-
-                //$(".lang-picker a." + Globalize.culture().name.toLowerCase()).prependTo($(".lang-picker"));
-                ////$("#polyglotLanguageSwitcher:first-child") + Globalize.culture().name.toLowerCase()).prependTo($(".lang-picker"));
-                //$(".lang-picker a").click(function () {
-                //    if ($(this).hasClass(Globalize.culture().name.toLowerCase()))
-                //        return false; // do nothing
-                //    try {
-                //        $.cookie("_culture", $(this).attr("class"), { expires: 365, path: '/' });
-                //    } catch (e) {
-                //        alert(e.message);
-                //    }
-                //   window.location.reload(); // reload   
-                //});
+                  ,afterLoad: function(evt){}
+                  });           
             });
            
         </script>
@@ -77,7 +46,7 @@
 			<select id="polyglot-language-options">
 				<option id="en" value="en">English</option>
 				<option id="ru" value="ru">Русский</option>
-				<option id="de" value="de">Deutsch</option>				
+				<option id="de" value="de" disabled="disabled">Deutsch</option>				
 			</select>
 		</form>
 	</div>
@@ -106,8 +75,8 @@
                 <%= Html.ActionLinkAccountChangePassword("Change Password")%> 
                 <%= Html.ActionLinkTagsIndex("Tags")%>
                 <%= Html.ActionLinkPhotoUpload("Upload Embro")%>
-                <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
-                <%= Html.ActionLinkPageCreate("Create Page")%> 
+               <%-- <%= Html.ActionLinkGalleryCreate("Create Gallery")%>
+                <%= Html.ActionLinkPageCreate("Create Page")%> --%>
                 <asp:ContentPlaceHolder ID="AdminLinks" runat="server" />
             </div>
             <% } %>
