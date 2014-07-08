@@ -12,9 +12,9 @@ namespace Mayando.Web.ViewModels
 {
     public class RegisterViewModel :CaptchaBase
     {
-        
 
-        [Required(ErrorMessageResourceType = typeof (Resources), ErrorMessageResourceName = "RegisterViewModel_Email_ErrorMessage")]
+
+        [Required(ErrorMessageResourceType = typeof(Resources), ErrorMessageResourceName = "RegisterViewModel_Email_ErrorMessage")]
         public string Email { get; set; }
 
         [Required(ErrorMessageResourceType = typeof (Resources), ErrorMessageResourceName = "RegisterViewModel_Password_ErrorMessage")]
@@ -23,16 +23,7 @@ namespace Mayando.Web.ViewModels
         [Compare("Password", ErrorMessageResourceType = typeof (Resources), ErrorMessageResourceName = "RegisterViewModel_ConfirmPassword_ErrorMessage")]
         public string ConfirmPassword { get; set; }
 
-      
-
-        [Required(ErrorMessageResourceType = typeof(Resources),
-            ErrorMessageResourceName = "RegisterViewModel_Email_ErrorMessage")]
-
-
-
-
-        public string AvatarPath { get; set; }
-        [Required]
+         [Required(ErrorMessageResourceType = typeof(Resources), ErrorMessageResourceName = "RegisterViewModel_UserName_ErrorMessage")]
         public string UserName { get; set; }
         #region [Validation]
         #endregion [Validation]

@@ -40,6 +40,7 @@ namespace Mayando.Web.Infrastructure
         private void AddBindings()
         {
             // put additional bindings here
+            kernel.Bind<IAboutRepository>().To<AboutRepository>().InSingletonScope();
             kernel.Bind<IEmbroRepository>().To<EmbroRepository>().InSingletonScope();
             kernel.Bind<IThumbRepository>().To<ThumbRepository>().InSingletonScope();
             kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();

@@ -103,6 +103,12 @@ namespace Mayando.Web.Controllers
 
         #region Properties
 
+     
+
+      
+
+       
+
         /// <summary>
         /// Gets the site data for this request.
         /// </summary>
@@ -831,5 +837,6 @@ namespace Mayando.Web.Controllers
         }
 
         #endregion
+
     }
 }

@@ -14,12 +14,13 @@ namespace Mayando.Web.DataAccess
     {
     }
 
-        public SqlCommand GetReadThumbsByCountPageCommand(int size, int page, string criteria)
+        public SqlCommand GetReadThumbsByCountPageCommand(int size, int page, string criteria, Guid userID)
         {
             var cmd = GetCommand();
             cmd.Parameters.Add(new SqlParameter("PageNo", page));
             cmd.Parameters.Add(new SqlParameter("PageSize", size));
             cmd.Parameters.Add(new SqlParameter("Criteria", criteria));
+            cmd.Parameters.Add(new SqlParameter("UserID", userID));
             var total = new SqlParameter("TotalItem", SqlDbType.Int);
             total.Direction = ParameterDirection.Output;
             cmd.Parameters.Add(total);

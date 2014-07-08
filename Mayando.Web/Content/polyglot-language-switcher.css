@@ -25,7 +25,7 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 /* Generic
 /* ---------------------------------------------------------------------- */
 #polyglotLanguageSwitcher, #polyglotLanguageSwitcher * {
-	margin: 0;
+	margin-right: 5%;
 	padding: 0; 
 	outline: none;
 }

@@ -32,6 +32,15 @@ namespace Mayando.Web.DataAccess
              return cmd;
          }
 
+         public SqlCommand GetReadEmbroJsonByIdCommand(int id)
+         {
+             var cmd = GetCommand();
+             cmd.Parameters.Add(new SqlParameter("Id", id));
+             cmd.CommandType = CommandType.StoredProcedure;
+             cmd.CommandText = "emb.GetEmbroJsonById";
+             return cmd;
+         }
+
          public SqlCommand GetReadEmbroByPageNoSize(int page,int size, string criteria)
          {
              var cmd = GetCommand();

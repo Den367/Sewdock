@@ -9,12 +9,13 @@
     <% 
         Html.RenderPartial(PartialViewName.HtmlHeaders, MasterModel); %>
 </head>
+    <%-- <%  Html.RenderPartial("LanguageSwitch");%>--%>
         <script type="text/javascript">
             $(document).ready(function () {
                          $('#polyglotLanguageSwitcher').polyglotLanguageSwitcher(
    {
        effect: 'fade',
-       openMode: 'hover',              testMode: false,                
+       openMode: 'click',              testMode: false,                
        onChange:
         function(evt){            
             try {                
@@ -87,7 +88,7 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div id="footer">
-            <%= MasterModel.SiteData.Settings.Footer%> - &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
+            <%= MasterModel.SiteData.Settings.Footer%>  &copy; <%= MasterModel.Now.Year%> <%= Html.Encode(MasterModel.SiteData.Settings.OwnerName)%> - <%= Html.TimeZoneInfo() %>
         </div>
     </div>
 </body>

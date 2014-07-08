@@ -69,6 +69,7 @@ namespace Mayando.Web.Infrastructure
         QrcodeForm,
         GetQrSvg,
         GetQrPng,
-        Download
+        Download,
+        ContourSvg
     }
 }

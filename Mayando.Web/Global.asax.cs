@@ -30,21 +30,16 @@ namespace Mayando.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-           routes.MapRoute(
-                RouteNameDefault,
-                url:"{controller}/{action}/{page}/{count}",
-              defaults:new { controller = "embro", action = "index", page = 1, count = 5 });
-            routes.MapRoute(
-          "embro/detailsbyid",
-           "embro/detailsbyid/{id}",
-           new { controller = "embro", action = "detailsbyid", id = UrlParameter.Optional }
-       );
+         
+           
+
 
             routes.MapRoute(
                 "embro/details/id/by/context/criteria",
                 string.Format(CultureInfo.InvariantCulture, "{0}/{1}", EmbroController.ControllerName, ActionName.Details.ToActionString()) + "/{id}/by/{context}/{criteria}",
                 new { controller = EmbroController.ControllerName, action = ActionName.Details.ToActionString(), criteria = UrlParameter.Optional }
             );
+          
 
             routes.MapRoute(
               "embro/index/page/count/criteria",
@@ -55,16 +50,30 @@ namespace Mayando.Web
             routes.MapRoute(
                           "embro/index/id",
                           url: "embro/index/{id}",
-                        defaults: new { controller = "embro", action = "index", page = 1, count = 5 }
+                        defaults: new { controller = "embro", action = "index", page = 1, count = 7 }
                     );
+
+            routes.MapRoute(
+                     "contour/contoursvg/countryname/size",
+                     "contour/contoursvg/{countryname}/{size}",
+                     new { controller = ContourController.ControllerName, action = ActionName.ContourSvg.ToActionString(), countryName = "Russia", size = 400 }
+                 );
 
             routes.MapRoute(
                           "embro/index/page/count",
                           url: "embro/index/{page}/{count}",
-                        defaults: new { controller = "embro", action = "index", page = 1, count = 5 }
+                        defaults: new { controller = "embro", action = "index", page = 1, count = 7 }
                     );
 
-
+            routes.MapRoute(
+     RouteNameDefault,
+     url: "{controller}/{action}/{page}/{count}",
+   defaults: new { controller = "embro", action = "index", page = 1, count = 7 });
+            routes.MapRoute(
+          "embro/detailsbyid",
+           "embro/detailsbyid/{id}",
+           new { controller = "embro", action = "detailsbyid", id = UrlParameter.Optional }
+       );
 
             routes.MapRoute(
                 "Root",
@@ -115,9 +124,10 @@ namespace Mayando.Web
         #region [Ninject]
         public static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IEmbroRepository>().To<EmbroRepository>().InSingletonScope();
-            kernel.Bind<ILinksRepository>().To<LinksRepository>().InSingletonScope();
-            kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
+            //kernel.Bind<IEmbroRepository>().To<EmbroRepository>().InSingletonScope();
+            //kernel.Bind<ILinksRepository>().To<LinksRepository>().InSingletonScope();
+            //kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
+            //kernel.Bind<IContourRepository>().To<ContourRepository>().InSingletonScope();
 
         }
 

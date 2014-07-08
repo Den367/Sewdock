@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Security;
 using Mayando.Web.Models;
 using Mayando.Web.ViewModels;
 
@@ -93,6 +95,9 @@ namespace Mayando.Web.Infrastructure
         /// Current id of embroidery for details
         /// </summary>
         public int CurrentEmbroID { get; set; }
+
+        public Guid UserID { get; set; }
+
         #endregion
 
         #region Constructors
@@ -130,6 +135,9 @@ namespace Mayando.Web.Infrastructure
         {
             PageSize = 7;
             PageNumber = 1;
+            var user = Membership.GetUser();
+            if (null != user )
+            UserID = (Guid) user.ProviderUserKey;
         }
 
         #endregion

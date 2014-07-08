@@ -40,8 +40,6 @@ namespace Mayando.Web.Controllers
 
         #endregion
 
-        #region Properties
-
         public IFormsAuthentication FormsAuth
         {
             get;
@@ -51,10 +49,8 @@ namespace Mayando.Web.Controllers
         public IMembershipService MembershipService
         {
             get;
-            private set;
+            protected set;
         }
-
-        #endregion
 
         #region Actions
         [Description("Allows the user to send an email to the website owner.")]
@@ -128,6 +124,7 @@ namespace Mayando.Web.Controllers
             {
                 MembershipService.CreateUser(userView.UserName, userView.Password, userView.Email);
             }
+            else return View(userView);
             return RedirectToHomepage();
         }
 
@@ -249,6 +246,8 @@ namespace Mayando.Web.Controllers
         }
     }
 
+
+    #region [Membership]
     public interface IMembershipService
     {
         int MinPasswordLength { get; }
@@ -261,7 +260,7 @@ namespace Mayando.Web.Controllers
 
     public class AccountMembershipService : IMembershipService
     {
-        private MembershipProvider _provider;
+        protected MembershipProvider _provider;
 
         public AccountMembershipService()
             : this(null)
@@ -283,8 +282,8 @@ namespace Mayando.Web.Controllers
 
         public bool ValidateUser(string userName, string password)
         {
-                        return _provider.ValidateUser(userName, password);
-            
+            return _provider.ValidateUser(userName, password);
+
         }
 
         public bool CheckEmailExist(string eMail)
@@ -309,4 +308,6 @@ namespace Mayando.Web.Controllers
             return currentUser.ChangePassword(oldPassword, newPassword);
         }
     }
+    #endregion
+
 }

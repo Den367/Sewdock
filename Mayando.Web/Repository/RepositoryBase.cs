@@ -40,6 +40,22 @@ namespace Mayando.Web.Repository
             return value;
         }
 
+        protected Guid? GetGuidFromReader(SqlDataReader reader, string fieldName)
+        {
+            Guid? value = null;
+            if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
+                value = reader.GetGuid(reader.GetOrdinal(fieldName));
+            return value;
+        }
+
+        protected int? GetInt32FromReader(SqlDataReader reader, string fieldName)
+        {
+          
+            if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
+                return reader.GetInt32(reader.GetOrdinal(fieldName));
+            return null;
+        }
+
         
 
 

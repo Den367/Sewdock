@@ -93,7 +93,7 @@ namespace Mayando.Web.Models
 
         public string XmlTags { set { tagList = Converter.FromTagXmled(value); } }
 
-        public Guid UserID { get; set; }
+        public Guid? UserID { get; set; }
 
         public int TypeID
         {

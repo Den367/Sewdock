@@ -1,8 +1,10 @@
 ﻿
 <!-- begin language switcher -->
     
-<div id="polyglotLanguageSwitcher" style="width: 64px; float:right;">
-
+<div id="polyglotLanguageSwitcher" style="width: 20%; float:right;">
+       <link href="@Url.Content("~/content/polyglot-language-switcher.css")" type="text/css" rel="stylesheet">
+    <script src="@Url.Content("~/Scripts/jquery.polyglot.language.switcher.js")" type="text/javascript" defer></script>  
+ 
     <form action="#">
         <select id="polyglot-language-options">
             <option id="en" value="en">English</option>
@@ -10,29 +12,26 @@
             <option id="de" value="de" disabled="disabled">Deutsch</option>				
         </select>
     </form>
- <script type="text/javascript">
-            $(document).ready(function() {
-                $('#polyglotLanguageSwitcher').polyglotLanguageSwitcher(
-                    {
-                        effect: 'fade',
-                        testMode: false,
-                        onChange:
-                            function(evt) {
-                                try {
-                                    $.cookie("_culture", evt.selectedItem, { expires: 365, path: '/' });
-                                } catch(e) {
-                                    alert(e.message);
-                                }
-                                window.location.reload(); // reload 
-                            }
-                        // 
-                        ,
-                        afterLoad: function(evt) {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#polyglotLanguageSwitcher').polyglotLanguageSwitcher(
+                {
+                    effect: 'fade',
+                    openMode: 'click', testMode: false,
+                    onChange:
+                        function (evt) {
+                            try {
+                                $.cookie("_culture", evt.selectedItem, { expires: 365, path: '/' });
+                            } catch (e) { alert(e.message); }
+                            window.location.reload(); // reload 
                         }
-                    });
-            });
+                    , afterLoad: function (evt) { }
+                });
+        });
 
-        </script>
+    </script>
+
+      
 </div>
 
 	<!-- end language switcher -->

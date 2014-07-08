@@ -14,49 +14,7 @@
 @section MainContent
 {
 
-    @Html.ValidationSummary(Resources.ErrorUploadingText) 
-    <fieldset>
-        <legend>@Resources.UploadTitleText</legend>
-        <div id="dialog" title="Upload files">
-            @using (Html.BeginForm("Upload", "Embro", FormMethod.Post, new {enctype = "multipart/form-data"}))
-            {
-                <div class="attach"> 
-                    <input id="file_fake" type="text" readonly="readonly" value="@Resources.EmbroFileToBeUploadName" /> 
-                    <span class="file" title="@Resources.SelectAFileText">
-                        <input type="file" id="fileUpload" name="fileUpload" class="file_select" onchange=" document.getElementById('file_fake').value = this.value "/>
-                        <input type="button" class="file_select_btn" value="@Resources.SelectFileButtonTitle"  />
-                    </span>
-                </div>
-                <p>
-                    <label for="Title" class="optional">Title:</label>
-                    @Html.TextBox("Title", Model.Title) 
-                    @Html.ValidationMessage("Title", "*") 
-                </p>
-                <p>
-                    @Html.CheckBox("Hidden", Model.Hidden)<label for="Hidden" class="inline required">@Resources.EmbroIsHiddenText</label>
-                    @Html.ValidationMessage("Hidden", "*")
-                </p>
-                <p>
-                    <label for="TagList" class="optional">@Resources.TagsFieldLabelText</label>
-                    @{Html.RenderPartial(PartialViewName.InputTags); }
-                </p>@*
-
-            <p>
-                <label for="DatePublished" class="required">Date Published:</label>
-                @Html.TextBox("DatePublished", Model.Published.ToEditString()) ;
-                @Html.ValidationMessage("DatePublished", "*") ;
-            </p>*@
-                <p>
-                    <label for="Article" class="optional">@Resources.UploadArticleCaptionText</label>
-                    @Html.ValidationMessage("Text", "*") 
-                </p>
-                Html.RenderPartialHtmlEditor("Article", Model.Article);
-                <p>
-                    <input type="submit" value="@Resources.UploadButtonText" class="submit"/>
-                </p>
-            } 
-        </div>
-    </fieldset>
+  @{ Html.RenderPartial("UploadForm", Model); }
 }
         <script type="text/javascript" src="@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/tiny_mce_init.js")"></script>
