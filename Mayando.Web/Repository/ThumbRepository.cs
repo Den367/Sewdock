@@ -43,7 +43,10 @@ namespace Mayando.Web.Repository
             cmd.Connection.Close();
             context.TotalItemCount = (int)cmd.Parameters["TotalItem"].Value;
             context.Embros = thumbs;
-            if (thumbs.Count() > 1) context.CurrentEmbroID = thumbs[0].Id;
+            if (thumbs.Any())
+            { 
+                context.CurrentEmbroID = thumbs[0].Id;
+            }
             return context;
         }
 

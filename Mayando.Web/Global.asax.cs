@@ -39,12 +39,12 @@ namespace Mayando.Web
                 string.Format(CultureInfo.InvariantCulture, "{0}/{1}", EmbroController.ControllerName, ActionName.Details.ToActionString()) + "/{id}/by/{context}/{criteria}",
                 new { controller = EmbroController.ControllerName, action = ActionName.Details.ToActionString(), criteria = UrlParameter.Optional }
             );
-          
+
 
             routes.MapRoute(
               "embro/index/page/count/criteria",
               string.Format(CultureInfo.InvariantCulture, "{0}/{1}", EmbroController.ControllerName, ActionName.Index.ToActionString()) + "/{page}/{count}/{criteria}",
-              new { controller = EmbroController.ControllerName, action = ActionName.Index.ToActionString(), page = 1, count = 2, criteria = UrlParameter.Optional }
+              new { controller = EmbroController.ControllerName, action = ActionName.Index.ToActionString(), page = 1, count = 5, criteria = UrlParameter.Optional }
           );
 
             routes.MapRoute(

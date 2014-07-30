@@ -34,7 +34,7 @@ namespace Mayando.Web.Controllers
             _repo = repo;
         }
 
-       
+        //[OutputCache(Duration = 15, VaryByParam = "*")]
         public ActionResult GetThumbsPaged(EmbroNavigationContext pagingInfo)
         {
             var navigationContext = _repo.GetNavigationContextByCountPage(pagingInfo);
@@ -43,7 +43,11 @@ namespace Mayando.Web.Controllers
 if (MasterViewModel != null) navigationContext.Embros.ToList().ForEach(e => this.MasterViewModel.AddKeywords(e.TagList));            
 
             // Create the ViewModel and show the View.
-            EmbroDetailsViewModel embroDetailsViewModel = this.GetEmbroDetailsViewModel(navigationContext.Current, false, false);
+                if (navigationContext.Current != null)
+                {
+
+                }
+                EmbroDetailsViewModel embroDetailsViewModel = this.GetEmbroDetailsViewModel(navigationContext.Current, false, false);
 
             navigationContext.ShowFilmstrip = true;
             var model = new EmbroNavigationViewModel(embroDetailsViewModel, navigationContext);

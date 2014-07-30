@@ -11,6 +11,7 @@ namespace Mayando.Web.ViewModels
         {
             this.EmbroDetails = embroDetails;
             this.NavigationContext = navigationContext;
+           
         }
     }
 }

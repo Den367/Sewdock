@@ -11,7 +11,14 @@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <fieldset>
-       <div class="control-group">
+         <p>
+            <label class="control-label" for="CaptchaPicture" id="captcha">
+                @Html.TextBox("Captcha", Model.Captcha, new {@readonly="readonly",@overflow="scroll"})
+            </label>
+            @Html.TextBox("UserInputCaptcha", Model.UserInputCaptcha)
+            @Html.ValidationMessage("UserInputCaptcha", "*")
+        </p>
+        <div class="control-group">
             <label class="control-label" for="UserName">
                 @Resources.AccountRegisterUserName
             </label>
@@ -48,8 +55,10 @@
             </div>
         </div>
        
+        
+
         <div class="control-group">
-            <label class="control-label" for="CaptchaPicture" id="Captcha">
+            <label class="control-label" for="CaptchaPicture" id="captcha">
                 @Html.TextBox("Captcha", Model.Captcha, new {@readonly="readonly",@overflow="scroll"})
             </label>
             <div class="controls" >

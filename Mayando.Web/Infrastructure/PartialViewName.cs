@@ -51,6 +51,7 @@ namespace Mayando.Web.Infrastructure
         CommentEdit,
         ConfirmDelete,
         PlainMap,
-        CountryMapTabs
+        CountryMapTabs,
+        ToolButtons
     }
 }
