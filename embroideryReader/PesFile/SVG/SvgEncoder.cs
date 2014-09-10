@@ -61,18 +61,7 @@ namespace EmbroideryFile
             //double shiftY = (embro.Ymax - embro.Ymin) / 2;
             double shiftY = - embro.Ymin;
             _xWrite.WriteStartElement("g");
-        //    switch (embro.Type)
-        //    {
-        //        case EmbroType.Pes:
-        //        case EmbroType.Pec:
-        //            xScale = 1.0; yScale = 1.0;
-        //            break;
-        //        case EmbroType.Dst:
-        //      xScale = 1.0; yScale = -1.0;
-          
-        //    break;
-        //}
-            //xWrite.WriteAttributeString("transform", string.Format("translate({0},{1}) scale({2},{3})", shiftX, shiftY, xScale, yScale));
+       
             xScale = 1.0; yScale = 1.0;
             _xWrite.WriteAttributeString("transform", string.Format("scale({0},{1})",  xScale, yScale));
             // polylines
@@ -201,39 +190,10 @@ namespace EmbroideryFile
         }
 
 
-        string GetScaledSvg(XElement gE, int scalePercent)
-        {
- 
-            XAttribute widthXAttr = gE.Attribute("width");
-            XAttribute heightXAttr = gE.Attribute("height");
-            XAttribute viewBoxXAttr = gE.Attribute("viewBox");
-            double X1, Y1, X2, Y2;
-            double centerX, centerY;
-            double width, height;
-            if (viewBoxXAttr != null)
-            {
-                string[] bounds = viewBoxXAttr.Value.Split(' ');
-                if (bounds.Length == 4)
-                {
-                    X1 = Convert.ToDouble(bounds[0]);
-                    Y1 = Convert.ToDouble(bounds[1]);
-                    X2 = Convert.ToDouble(bounds[2]);
-                    Y2 = Convert.ToDouble(bounds[3]);
-                    width = Math.Abs(X2 - X1);
-                    height = Math.Abs(Y2 - Y1);
-                    centerX = X1 + width / 2;
-                    centerY = Y1 + height / 2;
-                }
-            }
-            return string.Empty;
-
-        }
+     
       
 
-        void SetViewBox(float minX, float minY, float width, float height)
-        {
-            _xWrite.WriteAttributeString("viewBox", string.Format("{0} {1} {2} {3})",minX, height, width, height));
-        }
+      
 
         void WriteViewBox(float minX, float minY, float width, float height)
         {
@@ -260,34 +220,7 @@ namespace EmbroideryFile
             _xWrite.WriteEndElement();
 
         }
-        /// <summary>
-        /// Depricated
-        /// </summary>
-        /// <param name="stBlocks"></param>
-        void FillLinesInfo(List<stitchBlock> stBlocks)
-        {
-            if (stBlocks.Count == 0) return;
-            Point point;
-            Color colour ;
-            StringBuilder draw = new StringBuilder();
-            foreach (var block in stBlocks)
-            {
-                draw.Clear();
-                for (int i = 0; i < block.stitches.Count();i++ )
-                {
-                     point = block.stitches[i];
-                     draw.AppendFormat("{0} {1},", point.X, point.Y);
-                }
-                colour = block.color; 
-                draw.Remove(draw.Length - 1, 1); // remove last comma
-                _xWrite.WriteStartElement("polyline");               
-                if (colour != null) _xWrite.WriteAttributeString("stroke", (colour == null) ? "rgb(0,0,0)" : string.Format("rgb({0},{1},{2})", colour.R, colour.G, colour.B));
-                _xWrite.WriteAttributeString("fill", "none");
-                _xWrite.WriteAttributeString("points", draw.ToString());
-                _xWrite.WriteEndElement();
-            }
-
-        }
+     
 
         void WriteStitchBlocks(EmbroideryData info)
         {
@@ -325,22 +258,7 @@ namespace EmbroideryFile
             WriteStitchBlocks(blocks);
         }
 
-        void FillColorInfo(XElement gE, Dictionary<int, int> colorMap, Dictionary<int, string> colorInfo)
-        {
-            XAttribute stroke;
-            int ci = 0;
-            foreach (XElement needle in gE.Elements())
-            {
-                if (colorMap.ContainsKey(ci) && colorInfo.ContainsKey(colorMap[ci]))
-                {
-                    stroke = new XAttribute("stroke", colorInfo[colorMap[ci]]);
-                    needle.Add(stroke);
-                }
-                ci++;
-            }
-        }
-
-
+      
 
         int XCoordMin(List<CoordsBlock> blocks)
         {
@@ -362,17 +280,7 @@ namespace EmbroideryFile
             return blocks.SelectMany(block => block.AsEnumerable()).Max(coord => coord.Y);
         }
 
-        void ShiftXY2(List<CoordsBlock> blocks, int x, int y)
-        {
-            foreach (CoordsBlock block in blocks)
-            {
-                foreach (Coords coord in block)
-                {
-                    coord.Y += y; coord.X += x; 
-                } 
-            }
-            blocks.SelectMany(block => block.AsEnumerable()).ToList().ForEach(coord => { coord.Y += y; coord.X += x; });
-        }
+       
 
         void ShiftXY(List<CoordsBlock> blocks, int x, int y)
         {

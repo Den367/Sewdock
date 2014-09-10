@@ -1,5 +1,6 @@
 ﻿@using Mayando.Web.Extensions
 @using Mayando.Web.Infrastructure
+@using Mayando.Web.Properties
 @model Mayando.Web.Models.EmbroideryItem
 
 @{
@@ -16,5 +17,6 @@
 
 @section MainContent
 {
+    <h3>@string.Format("{0} {1}",Resources.DeletionHeader, Model.DisplayTitle)</h3>
     @{Html.RenderPartial(PartialViewName.ConfirmDelete, Model.Id); }
 }

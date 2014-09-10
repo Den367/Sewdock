@@ -121,8 +121,17 @@ namespace EmbroideryFile
                     name.Append(Convert.ToChar(designName[i]));
                 return name.ToString();            
             }
-            set { string name = value;
-            Buffer.BlockCopy( Encoding.ASCII.GetBytes(name.PadLeft(16 - name.Length, ' ')), 0, designName, 3, 16);
+            set
+            {
+                var name = value;
+                
+                if (name.Length > 16) name = name.Substring(0, 16);
+                var len = name.Length;
+                for (int i = 3;  i < len + 3;i++)
+                {
+                    designName[i] =Convert.ToByte(name[i - 3]);
+                }
+               // Buffer.BlockCopy(Encoding.ASCII.GetBytes(name.PadRight(20 - name.Length, ' ')), 0, designName, 3, 16);
             }
         }
         /// <summary>

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Security;
+using CaptchaMvc.Attributes;
 using Mayando.Web.Infrastructure;
 using Mayando.Web.Properties;
 using Mayando.Web.ViewModels;
@@ -107,17 +108,22 @@ namespace Mayando.Web.Controllers
             return View(newUserView);
         }
 
-        [HttpPost]
+         [HttpPost, CaptchaVerify("Captcha is not valid")]
         public ActionResult Register(RegisterViewModel userView)
         {
-            if (!userView.IsCaptchaMatched())
+             if (!ModelState.IsValid)
+             {
+                 TempData["ErrorMessage"] = Mayando.Web.Properties.Resources.CaptchaIsNotValidMessageText;
+                 return View(userView);
+             }
+             if (!userView.IsCaptchaMatched())
             {
-                ModelState.AddModelError("Captcha", Resources.AccountController_Register_Текст_с_картинки_введен_неверно);
+                ModelState.AddModelError("Captcha", Mayando.Web.Properties.Resources.AccountController_Register_Текст_с_картинки_введен_неверно);
             }
             
             if (MembershipService.CheckEmailExist( userView.Email))
             {
-                ModelState.AddModelError("Email", Resources.AccountController_Register_Пользователь_с_таким_email_уже_зарегистрирован);
+                ModelState.AddModelError("Email", Mayando.Web.Properties.Resources.AccountController_Register_Пользователь_с_таким_email_уже_зарегистрирован);
             }
 
             if (ModelState.IsValid)
@@ -125,6 +131,7 @@ namespace Mayando.Web.Controllers
                 MembershipService.CreateUser(userView.UserName, userView.Password, userView.Email);
             }
             else return View(userView);
+            TempData["Message"] = Mayando.Web.Properties.Resources.AccountRegisterSuccessfull;
             return RedirectToHomepage();
         }
 

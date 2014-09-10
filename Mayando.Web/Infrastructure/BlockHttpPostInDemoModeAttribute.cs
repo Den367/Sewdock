@@ -36,7 +36,7 @@ namespace Mayando.Web.Infrastructure
                             // Show an error page with the demo mode page flash message to indicate that this action was not allowed.
                             var controllerName = (string)filterContext.RouteData.Values["controller"];
                             var actionName = (string)filterContext.RouteData.Values["action"];
-                            var model = new HandleErrorInfo(new UnauthorizedAccessException(Resources.DemoModePageFlash), controllerName, actionName);
+                            var model = new HandleErrorInfo(new UnauthorizedAccessException(Mayando.Web.Properties.Resources.DemoModePageFlash), controllerName, actionName);
                             filterContext.Result = new ViewResult { ViewName = ViewName.Error.ToString(), MasterName = MasterPageName.Basic.ToString(), ViewData = new ViewDataDictionary<HandleErrorInfo>(model), TempData = filterContext.Controller.TempData };
                         }
                     }

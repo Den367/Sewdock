@@ -1,23 +1,34 @@
 ﻿@using Mayando.Web.Infrastructure
 @using Mayando.Web.Properties
 @using Mayando.Web.Extensions
+@using Web.Ajax.Paging
 
-@model JelleDruyts.Web.Mvc.Paging.IPagedList<Mayando.Web.Models.Comment>
+@*@model JelleDruyts.Web.Mvc.Paging.IPagedList<Mayando.Web.Models.Comment>*@
+ @model Web.Ajax.Paging.IPagedList<Mayando.Web.Models.Comment>
 
 @{Layout = null;}
 
-@{Page.Title = Html.Encode(Resources.CommentsTitle);}
 
-<div id="commentindexpage">
+
+
     @if (Model != null)
     {
-        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount);        
+       
         if (!Model.Any())
         {
             @Resources.PhotoCommentsEmpty;            
         }
         else
         {
+            <div class="pager">@Ajax.Pager(string.Empty, Model.PageSize, Model.PageIndex, Model.TotalItemCount, "Index", "Comment", new AjaxOptions
+                             {
+                                 UpdateTargetId = "commentindexpage",
+                                 InsertionMode = InsertionMode.Replace,
+                                 HttpMethod = "POST",
+                                 Url = Url.Action("Index", "Comment", new {@embroId = Model.FirstOrDefault().EmbroId, @page = Model.PageIndex, @count = Model.PageSize})
+
+                             })</div>
+            //@Html.Pager(Model.PageSize, Model.PageIndex, Model.TotalItemCount, "index");
             <table class="list">
                 <tbody>               
                     @{foreach (var comment in Model.OrderBy(c => c.DatePublished))
@@ -31,9 +42,9 @@
                     }
                 </tbody>
             </table>
-            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount);           
+                 
         }
     }
-</div>
+
 
 

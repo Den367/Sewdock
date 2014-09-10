@@ -120,7 +120,7 @@ namespace Mayando.Web.Models
                     this.UserSettings = new Dictionary<string, string>();
                 }
 
-                this.AvailableThemes = ThemedWebFormViewEngine.GetAvailableThemes(requestContext.HttpContext);
+                //this.AvailableThemes = ThemedWebFormViewEngine.GetAvailableThemes(requestContext.HttpContext);
 
                 var url = requestContext.HttpContext.Request.Url;
                 var uriBuilder = new UriBuilder(url.Scheme, url.Host, url.Port);

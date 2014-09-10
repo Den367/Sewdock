@@ -1,19 +1,22 @@
 ﻿@using Mayando.Web.Extensions
 @using Mayando.Web.Infrastructure
 @using Mayando.Web.Properties
-@model Mayando.Web.Models.EmbroideryItem
+@model Mayando.Web.ViewModels.UploadFormViewModel
 
 @{
    
     Layout = "~/Views/Shared/SiteLayout.cshtml";
 }
 @section TitleContent{
+
     @Resources.UploadTitleText
+
 }
 
 @section MainContent
 {
-
-  @{ Html.RenderPartial("UploadForm", Model); }
+    <div id="uploadform-content">
+        @{ Html.RenderPartial("UploadForm", Model); }
+        </div>
 }
-     
+

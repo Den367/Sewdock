@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using Mayando.Web.Enumerations;
 using Mayando.Web.Infrastructure;
  using Mayando.Web.Properties;
 namespace Mayando.Web.ViewModels
@@ -51,12 +52,12 @@ namespace Mayando.Web.ViewModels
         public string Company { get; set; }
         public string Notes { get; set; }
         [StringLength(24)]
-        [Display(ResourceType = typeof (Resources), Description = "LongitudeText")]
-        [RegularExpression(@"^-?([1]?[1-7][1-9]|[1]?[1-8][0]|[1-9]?[0-9])\.{1}\d{1,6}", ErrorMessageResourceType = typeof (Resources), ErrorMessageResourceName = "IncorrectNumberValue")]
+        [Display(ResourceType = typeof(Mayando.Web.Properties.Resources), Description = "LongitudeText")]
+        [RegularExpression(@"^-?([1]?[1-7][1-9]|[1]?[1-8][0]|[1-9]?[0-9])\.{1}\d{1,6}", ErrorMessageResourceType = typeof(Mayando.Web.Properties.Resources), ErrorMessageResourceName = "IncorrectNumberValue")]
         public string Longitude { get; set; }
       [StringLength(24)]
-        [Display(ResourceType = typeof (Resources), Description = "LatitudeText")]
-        [RegularExpression(@"^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}", ErrorMessageResourceType = typeof (Resources), ErrorMessageResourceName = "IncorrectNumberValue")]
+      [Display(ResourceType = typeof(Mayando.Web.Properties.Resources), Description = "LatitudeText")]
+        [RegularExpression(@"^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}", ErrorMessageResourceType = typeof(Mayando.Web.Properties.Resources), ErrorMessageResourceName = "IncorrectNumberValue")]
         public string Latitude { get; set; }
         public QrcodeFormKind FormKind {get;set;}
         public string QrcodeSvgResult { get; set; }

@@ -322,13 +322,14 @@ namespace EmbroideryFile
             CoordsBlock prevBlock = null;
             foreach (CoordsBlock stitches in Blocks)
             {
-               
+                WriteTrimStitch();
                 stitchCount = stitches.Count;
                 if (prevBlock != null &&  stitchCount > 1)
                 {
                     prevCoords = stitches.First();
                     WriteJumpsSeqByte(prevCoords, prevBlock.Last());
-                    
+                   
+                   
                 }
                 if (stitchCount > 1) prevBlock = stitches;
                 for (i = 1; i < stitchCount; i++)
@@ -344,8 +345,9 @@ namespace EmbroideryFile
                 //        prevCoords = coords;
                 //    }
                 blockIndex++;
+                WriteTrimStitch();
                 // after each block place a STOP stitch if it has not been jumped
-                //if (!stitches.Jumped) _outputStream.Write(encode_record(0, 0, DstStitchType.STOP), 0, 3);
+                // _outputStream.Write(encode_record(0, 0, DstStitchType.STOP), 0, 3);
 
                 //if (stitches.Count > 0) prevCoords = stitches.Last();
 
@@ -445,13 +447,18 @@ namespace EmbroideryFile
                         encode_record((negX ? -1 : 1)*deltaX, (negY ? -1 : 1)*deltaY, DstStitchType.JUMP), 0, 3);
                 }
             }
-
+            
 
             if ((lastX != 0) || (lastY != 0))
             {
                 _outputStream.Write(encode_record((negX ? -1 : 1) * lastX, (negY ? -1 : 1) * lastY, DstStitchType.JUMP), 0, 3);
             }
 
+        }
+
+        private void WriteTrimStitch()
+        {
+            _outputStream.Write(encode_record(0, 0, DstStitchType.JUMP), 0, 3);
         }
 
         void WriteDstStitch(Coords coords, Coords prevCoords)

@@ -45,8 +45,11 @@ namespace EmbroideryFile.QR
         }
         #endregion [Constructors]
 
-
-
+        #region [Stitch generation]
+        /// <summary>
+        /// Scan first column to get the size of rectangle
+        /// </summary>
+        /// <returns>size of qr-code auxilary rectangular block</returns>
         int GetRectSize()
         {
             bool[][] m = _info.Matrix;
@@ -262,6 +265,9 @@ namespace EmbroideryFile.QR
             return result;
 
         }
+
+        #endregion [Stitch generation]
+
         #region [Public Methods]
         public List<List<Coords>> GetQRCodeStitches()
         {
@@ -279,6 +285,10 @@ namespace EmbroideryFile.QR
             return GetListCoordsBlock(GetQRCodeStitches());
         }
 
+        public List<CoordsBlock> GetQRCodeInvertedYStitchBlocks()
+        {
+            return GetListCoordsBlock(GetNegativatedYListOfCoordsBlock(GetQRCodeStitches()));
+        }
 
         public int GetDesignXOffset { get; private set; }
 
@@ -322,6 +332,7 @@ namespace EmbroideryFile.QR
             int columnLength = _cellSize * length;
             int startX = cellHorizonPos * _cellSize;
             int startY = cellVerticalPos * _cellSize;
+            block.Add(new Coords { X = startX + _cellSize, Y = startY });
             for (curY = 0; curY < columnLength; curY = curY + _dY)
             {
                 for (curX = (curY == 0) ? 0 : _dX; (curX < _cellSize) && (curY < columnLength); curX = curX + _dX)
@@ -348,7 +359,7 @@ namespace EmbroideryFile.QR
             curX = _cellSize;
             curY = columnLength;
             block.Add(new Coords { X = startX + curX, Y = startY + curY });
-            block.Add(new Coords { X = startX, Y = startY + curY });
+            //block.Add(new Coords { X = startX, Y = startY + curY });
             return block;
         }
         private List<Coords> GenerateVerticalTiledColumnStitchBlock(int cellHorizonPos, int cellVerticalPos, int length)
@@ -427,6 +438,11 @@ namespace EmbroideryFile.QR
 
         int _topY, _leftX, _bottomY, _rightX;
 
+        /// <summary>
+        /// Check cell to stop current lane or start  new in the down direction
+        /// </summary>
+        /// <param name="j"></param>
+        /// <param name="i"></param>
         void ConsumeRelativeCellDown(int j, int i)
         {
             if (_cells[j][i] == true)
@@ -562,7 +578,14 @@ namespace EmbroideryFile.QR
         }
 
 
-
+        /// <summary>
+        /// Gets list of vertical string for specified rectangular area
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
         private List<Lane> GetLaneList(int x1, int y1, int x2, int y2)
         {
             try
@@ -601,7 +624,7 @@ namespace EmbroideryFile.QR
             catch (Exception ex)
             {
                 {}
-                throw ex;
+                throw;
             }
            
         }
@@ -609,7 +632,7 @@ namespace EmbroideryFile.QR
 
 
         /// <summary>
-        /// Generates sequence of stitch blocks (columns) 
+        /// Generates sequence of stitch blocks (columns) by list of lanes
         /// </summary>
 
 
@@ -619,10 +642,19 @@ namespace EmbroideryFile.QR
             int ln = 0;
             foreach (var lane in lanes)
             {
-                blockList.Add(lane.Dot2.Y > lane.Dot1.Y
-                                  ? GenerateVerticalColumnStitchBlock(lane.Dot1.X, lane.Dot1.Y, lane.Length)
-                                  : ReverseCoords(GenerateVerticalColumnStitchBlock(lane.Dot2.X, lane.Dot2.Y,
-                                                                                    lane.Length)));
+               
+                List<Coords> satin = null;
+
+
+                if (((lane.Length == 1) && ((lane.Dot1.X % 2) == 0)) || ((lane.Length > 1) && (lane.Dot2.Y > lane.Dot1.Y)))
+                {
+                      satin = GenerateVerticalColumnStitchBlock(lane.Dot1.X, lane.Dot1.Y, lane.Length);                    
+                }
+                else
+                {                    
+                     satin = ReverseCoords(GenerateVerticalColumnStitchBlock(lane.Dot2.X, lane.Dot2.Y, lane.Length));
+                }
+               blockList.Add(satin);
                 ln++;
             }
             return blockList;
@@ -682,21 +714,24 @@ namespace EmbroideryFile.QR
             CoordsBlock prevBlock = null;
             foreach (var block in listBlocks)
             {
-                if (prevBlock != null)
-                {
-                    var jumpBlock = new CoordsBlock() { Jumped = true};
-                    jumpBlock.Add(prevBlock.Last());
-                    jumpBlock.Add(block.First());
-                    reslult.Add(jumpBlock);
-                }
+                //  if (prevBlock != null)
+                //{
+                //    var jumpBlock = new CoordsBlock() { Jumped = true };
+                //    jumpBlock.Add(prevBlock.Last());
+                //    var first = block.First();
+                //    first.Y = - first.Y;
+                //    jumpBlock.Add(first);
+                //    reslult.Add(jumpBlock);
+                //}
                 coordsBlock = new CoordsBlock();
                 foreach (var coords in block)
                 {
                     coords.Y = - coords.Y;                   
                     coordsBlock.Add(coords);
                 }
+             
                 reslult.Add(coordsBlock);
-                prevBlock = coordsBlock;
+                //prevBlock = coordsBlock;
 
             }
             return reslult;

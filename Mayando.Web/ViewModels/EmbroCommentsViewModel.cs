@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using JelleDruyts.Web.Mvc.Paging;
+//using JelleDruyts.Web.Mvc.Paging;
 using Mayando.Web.Models;
+using Web.Ajax.Paging;
 
 namespace Mayando.Web.ViewModels
 {

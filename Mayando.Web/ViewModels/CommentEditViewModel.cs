@@ -8,13 +8,12 @@ namespace Mayando.Web.ViewModels
     public class CommentEditViewModel:CaptchaBase
     {
         public Mayando.Web.Models.Comment Comment { get; private set; }
-        public string PageURL {get;private set;}
+        public string ReturnURL {get;private set;}
 
-        public CommentEditViewModel(string url, int id)
+        public CommentEditViewModel( int embroId,int id = 0)
         {
-            PageURL = url;
-
-            Comment = new Models.Comment() { EmbroId = id };
+           
+            Comment = new Models.Comment { EmbroId = embroId,Id = id};
         }
     }
 }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Mayando.Web.Models;
+using Web.Ajax.Paging;
 
 namespace Mayando.Web.Repository
 {
     public interface ICommentRepository
     {
-        JelleDruyts.Web.Mvc.Paging.IPagedList<Comment> GetCommentsForEmbro(int id, int pageNo, int pageSize);
+       IPagedList<Comment> GetCommentsForEmbro(int id, int pageNo, int pageSize);
         bool EditComment(Comment comment);
-        void DeleteComment(int id);
+        bool DeleteComment(int id, Guid? userId);
     }
 }

@@ -1,23 +1,29 @@
-﻿@using Mayando.Web.Extensions
-@using Mayando.Web.Infrastructure
+﻿@using CaptchaMvc.HtmlHelpers
 @using Mayando.Web.Properties
 @model Mayando.Web.ViewModels.RegisterViewModel
 @{
     Layout = "~/Views/Shared/SiteLayout.cshtml";
 }
-
+<link rel="stylesheet" href="@Url.Content("~/Content/styles/font-face.css")" type="text/css"  />
            @Html.ValidationSummary(true, Resources.LogOnFailed)
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+<style>
+    #register-form
+    {
+        position: relative;
+        min-height:640px;
+    }
+    #register-form-fieldset {
+        padding: 5%;
+        width: 50%;
+        position: absolute;
+        display: block;
+        left: 0%;
+    }
+</style>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal",id="register-form" }))
 {
-    <fieldset>
-         <p>
-            <label class="control-label" for="CaptchaPicture" id="captcha">
-                @Html.TextBox("Captcha", Model.Captcha, new {@readonly="readonly",@overflow="scroll"})
-            </label>
-            @Html.TextBox("UserInputCaptcha", Model.UserInputCaptcha)
-            @Html.ValidationMessage("UserInputCaptcha", "*")
-        </p>
+   <fieldset id="register-form-fieldset">
+        
         <div class="control-group">
             <label class="control-label" for="UserName">
                 @Resources.AccountRegisterUserName
@@ -53,16 +59,18 @@
                 @Html.ValidationMessage("ConfirmPassword")
                 @Html.Password("ConfirmPassword", Model.ConfirmPassword)
             </div>
+            <div>
+             @Html.MathCaptcha(Resources.ButtonRefreshText, Resources.FieldInput, Resources.RequiredFieldValidationMessage, false)
+                </div>
         </div>
        
-        
-
+       
         <div class="control-group">
             <label class="control-label" for="CaptchaPicture" id="captcha">
                 @Html.TextBox("Captcha", Model.Captcha, new {@readonly="readonly",@overflow="scroll"})
             </label>
             <div class="controls" >
-                @Html.ValidationMessage("Captcha")
+               @Html.ValidationMessage("UserInputCaptcha", "*")
                 @Html.TextBox("UserInputCaptcha", Model.UserInputCaptcha)
             </div>
         </div>
@@ -72,7 +80,7 @@
             </button>
             @Html.ActionLink(@Resources.CancelButtonText, "Index", null, null, new { @class = "btn" })
         </div>
-    </fieldset>
+  </fieldset>
 }
 <style media="screen" type="text/css">
 

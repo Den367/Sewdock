@@ -13,14 +13,14 @@ namespace Mayando.Web.Models
 public class LogOnModel
 {
     [Required]
-    [Display(Name = "AccountLogonUserLabelText", ResourceType = typeof(Resources))]
+    [Display(Name = "AccountLogonUserLabelText", ResourceType = typeof(Mayando.Web.Properties.Resources))]
     public string UserName { get; set; }
 
     [Required]    
     [DataType(DataType.Password)]
-    [Display(Name = "AccountLogonPasswordLabelText", ResourceType = typeof(Resources))]
+    [Display(Name = "AccountLogonPasswordLabelText", ResourceType = typeof(Mayando.Web.Properties.Resources))]
     public string Password { get; set; }
 
-    [Display(Name = "AccountLogonRememberMeCheckBoxText", ResourceType = typeof(Resources))]
+    [Display(Name = "AccountLogonRememberMeCheckBoxText", ResourceType = typeof(Mayando.Web.Properties.Resources))]
     public bool RememberMe { get; set; }
 }}

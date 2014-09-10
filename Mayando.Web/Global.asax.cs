@@ -3,13 +3,13 @@ using System.Reflection;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
-using EmbroideryFile;
+using CaptchaMvc.Infrastructure;
+
 using JelleDruyts.Web.Mvc;
 using Mayando.Web.Controllers;
 using Mayando.Web.Extensions;
 using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
-using Mayando.Web.Repository;
+
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
 using NinjectAdapter;
@@ -30,8 +30,8 @@ namespace Mayando.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-         
            
+            
 
 
             routes.MapRoute(
@@ -53,6 +53,12 @@ namespace Mayando.Web
                         defaults: new { controller = "embro", action = "index", page = 1, count = 7 }
                     );
 
+
+   routes.MapRoute("comment/viewforeditcomment/embroid", "comment/viewforeditcomment/{id}/{embroid}", new { controller = "comment", action = "viewforeditcomment", id = "", embroid = "" });
+            routes.MapRoute("comment/delete/id/embroid", "comment/delete/{id}/{embroid}", new { controller = "comment", action = "delete", id = "", embroid = "" });
+            routes.MapRoute("comment/addcomment", "comment/addcomment", new { controller = "comment", action = "addcomment" });
+            routes.MapRoute("comment/index", "comment/index/{embroid}", new { controller = "comment", action = "index",embroid="" });
+
             routes.MapRoute(
                      "contour/contoursvg/countryname/size",
                      "contour/contoursvg/{countryname}/{size}",
@@ -65,14 +71,13 @@ namespace Mayando.Web
                         defaults: new { controller = "embro", action = "index", page = 1, count = 7 }
                     );
 
+       
+
             routes.MapRoute(
      RouteNameDefault,
      url: "{controller}/{action}/{page}/{count}",
    defaults: new { controller = "embro", action = "index", page = 1, count = 7 });
-            routes.MapRoute(
-          "embro/detailsbyid",
-           "embro/detailsbyid/{id}",
-           new { controller = "embro", action = "detailsbyid", id = UrlParameter.Optional }
+            routes.MapRoute("embro/detailsbyid","embro/detailsbyid/{id}",new { controller = "embro", action = "detailsbyid", id = UrlParameter.Optional }
        );
 
             routes.MapRoute(
@@ -89,6 +94,8 @@ namespace Mayando.Web
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         protected void Application_Start()
         {
+            //CaptchaUtils.CaptchaManager.StorageProvider = new SessionStorageProvider();
+            CaptchaUtils.CaptchaManager.StorageProvider = new CookieStorageProvider();
             Logger.Log(LogLevel.Information, string.Format(CultureInfo.InvariantCulture, "Application started (v{0}).", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
             // Create Ninject DI Kernel
             //IKernel kernel = new StandardKernel();
@@ -99,9 +106,7 @@ namespace Mayando.Web
              //RegisterMyDependencyResolver();    
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
-            // Tell ASP.NET MVC 3 to use our Ninject DI Container
-            //DependencyResolver.SetResolver(new NinjectServiceLocator(kernel));
-           
+          
             
             RegisterRoutes(RouteTable.Routes);
 
@@ -109,7 +114,7 @@ namespace Mayando.Web
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new WebFormViewEngine());
             ViewEngines.Engines.Add(new RazorViewEngine());              
-            ViewEngines.Engines.Add(new ThemedWebFormViewEngine());
+            //ViewEngines.Engines.Add(new ThemedWebFormViewEngine());
             
            
         }

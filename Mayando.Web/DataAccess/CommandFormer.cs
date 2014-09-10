@@ -57,7 +57,7 @@ namespace Mayando.Web.DataAccess
         {
             var cmd = GetCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "emb.CommentEdit";
+            cmd.CommandText = "emb.CommentEdit";           
             cmd.Parameters.Add(new SqlParameter("EmbroID", comment.EmbroId));
             cmd.Parameters.Add(new SqlParameter("ExternalID", comment.ExternalID));
             cmd.Parameters.Add(new SqlParameter("Text", comment.Text));
@@ -66,7 +66,7 @@ namespace Mayando.Web.DataAccess
             cmd.Parameters.Add(new SqlParameter("AuthorEmail", comment.AuthorEmail));
             cmd.Parameters.Add(new SqlParameter("AuthorUrl", comment.AuthorUrl));
             cmd.Parameters.Add(new SqlParameter("DatePublished", comment.DatePublished));
-
+            cmd.Parameters.Add(new SqlParameter("CommentID", comment.Id));
             return cmd;
         }
 
@@ -81,7 +81,18 @@ namespace Mayando.Web.DataAccess
             return cmd;
         }
 
+        public SqlCommand GetDeleteCommentCommand(int id, Guid? userID )
+        {
+            var cmd = GetCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.CommentDelete";
+            cmd.Parameters.Add(new SqlParameter("CommentID", id));
+            cmd.Parameters.Add(new SqlParameter("userID", userID));
+            var resultParam = new SqlParameter("Result", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            cmd.Parameters.Add(resultParam);
 
+            return cmd;
+        }
 
         public void Dispose()
         {

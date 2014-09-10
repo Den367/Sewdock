@@ -49,7 +49,7 @@ namespace Mayando.Web.Models
                 this.authorName = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    this.errors["AuthorName"] = Resources.ValidationAuthorNameEmpty;
+                    this.errors["AuthorName"] =  Mayando.Web.Properties.Resources.ValidationAuthorNameEmpty;
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace Mayando.Web.Models
                 this.authorEmail = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    this.errors["AuthorEmail"] = Resources.ValidationAuthorEmailEmpty;
+                    this.errors["AuthorEmail"] =  Mayando.Web.Properties.Resources.ValidationAuthorEmailEmpty;
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace Mayando.Web.Models
                     }
                     catch (FormatException)
                     {
-                        this.errors["AuthorEmail"] = Resources.ValidationAuthorEmailInvalid;
+                        this.errors["AuthorEmail"] =  Mayando.Web.Properties.Resources.ValidationAuthorEmailInvalid;
                     }
                 }
             }
@@ -90,7 +90,7 @@ namespace Mayando.Web.Models
                 this.text = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    this.errors["Text"] = Resources.ValidationTextEmpty;
+                    this.errors["Text"] =  Mayando.Web.Properties.Resources.ValidationTextEmpty;
                 }
             }
         }

@@ -36,7 +36,7 @@ namespace Mayando.Web.Controllers
             var body = form.Text;
             Mailer.SendNotificationMail(this.SiteData.Settings, subject, body, false, false, form.AuthorEmail, form.AuthorName);
             RememberPreferences(form.AuthorName, form.AuthorEmail, null, form.RememberMe);
-            SetPageFlash(Resources.PageFlashMessageSent);
+            SetPageFlash(Mayando.Web.Properties.Resources.PageFlashMessageSent);
             return RedirectToHomepage();
         }
 

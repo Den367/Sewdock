@@ -4,14 +4,14 @@
 }
 
 @section TitleContent {
-
+    
     Delete @Model.ItemName
-
+        
 }
 
 
 <div id="deletepage">
-    <h2>Delete @Model.ItemName</h2>
+    <h3>Delete @Model.ItemName</h3>
     <p>Are you sure you want to delete &quot;@Model.ItemDescription&quot;?</p>
     @using (Html.BeginForm()) { 
         @Html.Hidden("returnUrl")

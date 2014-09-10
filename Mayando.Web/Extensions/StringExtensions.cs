@@ -91,7 +91,7 @@ namespace Mayando.Web.Extensions
             var trimmed = value.Substring(0, maxLength - Ellipsis.Length).Trim() + Ellipsis;
             if (!string.IsNullOrEmpty(moreLinkUrl))
             {
-                var link = JelleDruyts.Web.Mvc.HtmlHelperExtensions.Link(moreLinkUrl, Resources.GalleryPhotoLinkMore);
+                var link = JelleDruyts.Web.Mvc.HtmlHelperExtensions.Link(moreLinkUrl, Mayando.Web.Properties.Resources.GalleryPhotoLinkMore);
                 trimmed += " " + link;
             }
             return trimmed;

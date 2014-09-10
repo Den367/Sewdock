@@ -34,7 +34,8 @@ namespace Mayando.Web.Extensions
         /// <returns><see langword="true"/> if the principal is an administrator, <see langword="false"/> otherwise.</returns>
         public static bool IsAdministrator(this IPrincipal principal)
         {
-            return (principal == null ? false : principal.IsInRole(SiteData.GlobalAdministratorRoleName));
+            var result = (principal == null ? false : principal.IsInRole(SiteData.GlobalAdministratorRoleName));
+            return result;
         }
 
         #endregion

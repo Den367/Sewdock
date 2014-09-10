@@ -52,6 +52,9 @@ namespace Mayando.Web.Infrastructure
         ConfirmDelete,
         PlainMap,
         CountryMapTabs,
-        ToolButtons
+        ToolButtons,
+        WorldGlobe,
+        Loading,
+        Design
     }
 }

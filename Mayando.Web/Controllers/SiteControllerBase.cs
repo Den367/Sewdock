@@ -30,6 +30,11 @@ namespace Mayando.Web.Controllers
     [SessionState(SessionStateBehavior.Disabled)]
     public abstract class SiteControllerBase : Controller
     {
+        protected override bool DisableAsyncSupport
+        {
+            get { return true; }
+        }
+
         protected readonly IEmbroRepository Repo;
 
         #region Constants
@@ -137,7 +142,7 @@ namespace Mayando.Web.Controllers
         /// Executes the specified request context.
         /// </summary>
         /// <param name="requestContext">The request context.</param>
-        protected override void Execute(RequestContext requestContext)
+        protected override void Initialize(RequestContext requestContext)
         {
             try
             {
@@ -188,25 +193,28 @@ namespace Mayando.Web.Controllers
                     {
                         Logger.LogException(ex);
                     }
-                    try
-                    {
-                        // Create and store master view model.
-                       // if (!ControllerContext.IsChildAction)
+                try
+                {
+                    // Create and store master view model.
+                    // if (!ControllerContext.IsChildAction)
+                   
+
                         this.MasterViewModel = new MasterViewModel(this.SiteData, this.SiteData.Settings.Keywords,
                                                                    DateTimeOffset.UtcNow.AdjustFromUtc());
                         this.ViewData[ViewDataKeyMasterViewModel] = this.MasterViewModel;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.LogException(ex);
-                    }
-                    // Set the theme.
+                    
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex);
+                }
+                // Set the theme.
                     var theme = requestContext.HttpContext.Request.Params["theme"];
                     if (string.IsNullOrEmpty(theme))
                     {
                         theme = this.SiteData.Settings.Theme;
                     }
-                    ThemedWebFormViewEngine.SetThemeForRequest(requestContext, theme);
+                    //ThemedWebFormViewEngine.SetThemeForRequest(requestContext, theme);
 
                     // Set default form values.
                     SetViewDataFromCookie(requestContext, "AuthorName");
@@ -215,7 +223,7 @@ namespace Mayando.Web.Controllers
                     SetViewDataFromCookie(requestContext, "RememberMe");
 
                     // Execute the actual request.
-                    base.Execute(requestContext);
+                    base.Initialize(requestContext);
                
             }
             catch (Exception exc)
@@ -228,6 +236,18 @@ namespace Mayando.Web.Controllers
         #endregion
 
         #region Helper Methods
+        protected Guid? GetUserProviderKey()
+        {
+            if (User == null) return null;
+            var membershipUser = Membership.GetUser(User.Identity.Name);
+            if (membershipUser != null)
+            {
+                var providerUserKey = membershipUser.ProviderUserKey;
+                if (providerUserKey != null)
+                    return (Guid)providerUserKey;
+            }
+            return null;
+        }
 
         /// <summary>
         /// GeD:\workshop\Mayando.Web\Controllers\FeedsController.csts the menu view model.
@@ -305,64 +325,64 @@ namespace Mayando.Web.Controllers
 
                     // Check if first-time database initialization must be performed.
                     var currentVersion = SiteData.GlobalAssemblyVersion.ToString();
-                    //var shouldWriteVersion = false;
-                    var settings = repositoryRead.GetSettings(SettingsScope.Application);
-                      if (settings.Count == 0)
-                    {
-                        using (var repositoryWrite = GetRepository())
-                        {
-                            // No settings are present yet so the application has never run before. Load some default data.
-                            repositoryWrite.EnsureSettings(SettingsScope.Application, ApplicationSettings.GetSettingDefinitions());
-                            // shouldWriteVersion = true;
+                    ////var shouldWriteVersion = false;
+                    //var settings = repositoryRead.GetSettings(SettingsScope.Application);
+                    //  if (settings.Count == 0)
+                    //{
+                    //    using (var repositoryWrite = GetRepository())
+                    //    {
+                    //        // No settings are present yet so the application has never run before. Load some default data.
+                    //        repositoryWrite.EnsureSettings(SettingsScope.Application, ApplicationSettings.GetSettingDefinitions());
+                    //        // shouldWriteVersion = true;
 
-                            var photosMenu = new Menu
-                            {
-                                Sequence = 0,
-                                Title = "Embroideries",
-                                Url = "~/embro/latest",
-                                ToolTip = "Go to my latest embros",
-                                OpenInNewWindow = false
-                            };
-                            repositoryWrite.CreateMenu(photosMenu);
-                            logDetails.AppendFormat(CultureInfo.CurrentCulture, "Created \"{0}\" menu.", photosMenu.Title);
-                            logDetails.AppendLine();
+                    //        var photosMenu = new Menu
+                    //        {
+                    //            Sequence = 0,
+                    //            Title = "Embroideries",
+                    //            Url = "~/embro/latest",
+                    //            ToolTip = "Go to my latest embros",
+                    //            OpenInNewWindow = false
+                    //        };
+                    //        repositoryWrite.CreateMenu(photosMenu);
+                    //        logDetails.AppendFormat(CultureInfo.CurrentCulture, "Created \"{0}\" menu.", photosMenu.Title);
+                    //        logDetails.AppendLine();
 
-                            var archiveMenu = new Menu
-                            {
-                                Sequence = 1,
-                                Title = "Archives",
-                                Url = "~/embros/published",
-                                ToolTip = "Show a chronological overview of my photos",
-                                OpenInNewWindow = false
-                            };
-                            repositoryWrite.CreateMenu(archiveMenu);
-                            logDetails.AppendFormat(CultureInfo.CurrentCulture, "Created \"{0}\" menu.", archiveMenu.Title);
-                            logDetails.AppendLine();
+                    //        var archiveMenu = new Menu
+                    //        {
+                    //            Sequence = 1,
+                    //            Title = "Archives",
+                    //            Url = "~/embros/published",
+                    //            ToolTip = "Show a chronological overview of my photos",
+                    //            OpenInNewWindow = false
+                    //        };
+                    //        repositoryWrite.CreateMenu(archiveMenu);
+                    //        logDetails.AppendFormat(CultureInfo.CurrentCulture, "Created \"{0}\" menu.", archiveMenu.Title);
+                    //        logDetails.AppendLine();
 
-                            var contactMenu = new Menu
-                            {
-                                Sequence = 2,
-                                Title = "Contact",
-                                Url = "~/contact",
-                                ToolTip = "Contact me",
-                                OpenInNewWindow = false
-                            };
-                            repositoryWrite.CreateMenu(contactMenu);
+                    //        var contactMenu = new Menu
+                    //        {
+                    //            Sequence = 2,
+                    //            Title = "Contact",
+                    //            Url = "~/contact",
+                    //            ToolTip = "Contact me",
+                    //            OpenInNewWindow = false
+                    //        };
+                    //        repositoryWrite.CreateMenu(contactMenu);
 
-                            var logonMenu = new Menu
-                            {
-                                Sequence = 2,
-                                Title = Resources.AccountLogOn,
-                                Url = "~/Account/Logon",
-                                ToolTip = "Logging in",
-                                OpenInNewWindow = false
-                            };
-                            repositoryWrite.CreateMenu(logonMenu);
-                            logDetails.AppendFormat(CultureInfo.CurrentCulture, "Created \"{0}\" menu.", contactMenu.Title);
-                            logDetails.AppendLine();
-                            //repositoryWrite.CommitChanges();
-                        }
-                    }
+                    //        var logonMenu = new Menu
+                    //        {
+                    //            Sequence = 2,
+                    //            Title = Resources.AccountLogOn,
+                    //            Url = "~/Account/Logon",
+                    //            ToolTip = "Logging in",
+                    //            OpenInNewWindow = false
+                    //        };
+                    //        repositoryWrite.CreateMenu(logonMenu);
+                    //        logDetails.AppendFormat(CultureInfo.CurrentCulture, "Created \"{0}\" menu.", contactMenu.Title);
+                    //        logDetails.AppendLine();
+                    //        //repositoryWrite.CommitChanges();
+                    //    }
+                    //}
 
 
 
@@ -654,10 +674,10 @@ namespace Mayando.Web.Controllers
             }
 
             // Append a demo site pageflash if needed (except for the logged on administrator).
-            if (SiteData.DemoMode && !this.User.IsAdministrator())
-            {
-                if (MasterViewModel != null) this.MasterViewModel.AddToPageFlash(Resources.DemoModePageFlash);
-            }
+            //if (SiteData.DemoMode && !this.User.IsAdministrator())
+            //{
+            //    if (MasterViewModel != null) this.MasterViewModel.AddToPageFlash(Resources.DemoModePageFlash);
+            //}
         }
 
         #endregion

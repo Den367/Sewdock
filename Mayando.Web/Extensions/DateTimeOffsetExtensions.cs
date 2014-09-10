@@ -42,22 +42,22 @@ namespace Mayando.Web.Extensions
             if (adjusted.Date == today.Date)
             {
                 // Today.
-                return string.Format(CultureInfo.CurrentCulture, Resources.TimeTodayAtTime, adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeTodayAtTime, adjusted.ToShortTimeString());
             }
             else if (adjusted.Date == today.Date.AddDays(-1))
             {
                 // Yesterday.
-                return string.Format(CultureInfo.CurrentCulture, Resources.TimeYesterdayAtTime, adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeYesterdayAtTime, adjusted.ToShortTimeString());
             }
             else if (adjusted > today.AddMonths(-10))
             {
                 // In the last 10 months, show only the day and month.
-                return string.Format(CultureInfo.CurrentCulture, Resources.TimeOnDateAtTime, adjusted.ToMonthDateString(), adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeOnDateAtTime, adjusted.ToMonthDateString(), adjusted.ToShortTimeString());
             }
             else
             {
                 // Older, use the full date.
-                return string.Format(CultureInfo.CurrentCulture, Resources.TimeOnDateAtTime, adjusted.ToShortDateString(), adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeOnDateAtTime, adjusted.ToShortDateString(), adjusted.ToShortTimeString());
             }
         }
 
@@ -156,7 +156,7 @@ namespace Mayando.Web.Extensions
         /// <returns>The time as observed in the configured <see cref="TimeZone"/>.</returns>
         public static DateTimeOffset AdjustFromUtc(this DateTimeOffset value)
         {
-            return Adjust(value, v => TimeZoneInfo.ConvertTime(v, TimeZone));
+            return Adjust(value, v => TimeZoneInfo.ConvertTime(v, TimeZone ?? TimeZoneInfo.Utc));
         }
 
         /// <summary>

@@ -125,7 +125,6 @@
     <Compile Include="CoordsBlock.cs" />
     <Compile Include="PES\PecFile.cs" />
     <Compile Include="PES\PecReader.cs" />
-    <Compile Include="QRCodeConverting\QRCodeConvertorFactory.cs" />
     <Compile Include="QRCodeConverting\QrcodeCreate.cs" />
     <Compile Include="QRCodeConverting\QrcodeDst.cs" />
     <Compile Include="QRCodeConverting\QrcodePng.cs" />
@@ -148,7 +147,7 @@
     <Compile Include="StreamToByteArrayExt.cs" />
     <Compile Include="SVG\ISvgEncode.cs" />
     <Compile Include="SVG\SvgEncoder.cs" />
-    <Compile Include="XmlHelper.cs" />
+    <Compile Include="ZigZagger.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

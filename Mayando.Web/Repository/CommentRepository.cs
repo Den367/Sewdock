@@ -4,9 +4,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using JelleDruyts.Web.Mvc.Paging;
+//using JelleDruyts.Web.Mvc.Paging;
 using Mayando.Web.Infrastructure;
 using Mayando.Web.Models;
+using Web.Ajax.Paging;
 
 namespace Mayando.Web.Repository
 {
@@ -15,7 +16,7 @@ namespace Mayando.Web.Repository
     {
         #region [Comments]
 
-        public JelleDruyts.Web.Mvc.Paging.IPagedList<Comment> GetCommentsForEmbro(int id, int pageNo, int pageSize)
+        public IPagedList<Comment> GetCommentsForEmbro(int id, int pageNo, int pageSize)
         {
 
             using (var cmd = factory.Commands.GetGetCommentsCommand(id, pageNo, pageSize))
@@ -51,40 +52,49 @@ namespace Mayando.Web.Repository
 
         }
 
-        public void DeleteComment(int id)
-        {
-            throw new NotImplementedException();
-        }
+         public bool DeleteComment(int id, Guid? userID)
+         {
 
-        #endregion[Comments]
+             try
+             {
+                 var cmd = factory.Commands.GetDeleteCommentCommand(id, userID);
+                 cmd.ExecuteScalar();
+                 var result = cmd.Parameters["Result"].Value;
+                 return Convert.ToBoolean(result);
+                
+             }
+             catch (Exception ex)
+             {
+                 Logger.LogException(ex);
+
+                 return false;
+             }
+         }
+
+         #endregion[Comments]
 
         private IList<Comment> ReadComments(SqlDataReader reader)
         {
             var result = new List<Comment>();
 
-            do
-            {
-
-                result.Add(ReadComment(reader));
-
-            } while (reader.Read());
+            do result.Add(ReadComment(reader));
+            while (reader.Read());
             return result;
         }
 
         private Comment ReadComment(SqlDataReader reader)
         {
-            var comment = new Comment();
-            if (!IsDBNull(reader, "EmbroId")) comment.Id = reader.GetInt32(reader.GetOrdinal("EmbroId"));
-
-            if (!IsDBNull(reader, "Text")) comment.Text = reader.GetString(reader.GetOrdinal("Text"));
-            if (!IsDBNull(reader, "AuthorIsOwner"))
-                comment.AuthorIsOwner = reader.GetBoolean(reader.GetOrdinal("AuthorIsOwner"));
-            if (!IsDBNull(reader, "AuthorName")) comment.AuthorName = reader.GetString(reader.GetOrdinal("AuthorName"));
-            if (!IsDBNull(reader, "AuthorEmail"))
-                comment.AuthorEmail = reader.GetString(reader.GetOrdinal("AuthorEmail"));
-            if (!IsDBNull(reader, "AuthorUrl")) comment.AuthorUrl = reader.GetString(reader.GetOrdinal("AuthorUrl"));
-            if (!IsDBNull(reader, "DatePublished"))
-                comment.DatePublished = reader.GetDateTimeOffset(reader.GetOrdinal("DatePublished"));
+            var comment = new Comment
+                {
+                    EmbroId = (int) GetInt32FromReader(reader, "EmbroId"),
+                    Id = (int) GetInt32FromReader(reader, "Id"),
+                    Text = GetStringFromReader(reader, "Text"),
+                    AuthorIsOwner = (bool) GetBooleanFromReader(reader, "AuthorIsOwner"),
+                    AuthorName = GetStringFromReader(reader, "AuthorName"),
+                    AuthorEmail = GetStringFromReader(reader, "AuthorEmail"),
+                    AuthorUrl = GetStringFromReader(reader, "AuthorUrl"),
+                    DatePublished = (DateTimeOffset) GetDateTimeOffsetFromReader(reader, "DatePublished")
+                };
             return comment;
 
         }

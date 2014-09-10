@@ -156,9 +156,9 @@ namespace JelleDruyts.Web.Mvc.Paging
             sb.Append("</span>");
 
             // Page Sizes
-            sb.AppendFormat("<span class=\"{0}\">", StyleNamePageSizesSpan);
-            RenderPageSizerHtml(sb);
-            sb.Append("</span>");
+            //sb.AppendFormat("<span class=\"{0}\">", StyleNamePageSizesSpan);
+            //RenderPageSizerHtml(sb);
+            //sb.Append("</span>");
 
             // Close
             sb.Append("</div>");
@@ -180,7 +180,7 @@ namespace JelleDruyts.Web.Mvc.Paging
             }
 
             int start = 1;
-            int end = pageCount;
+            int end = pageCount ;
 
             if (pageCount > nrOfPagesToDisplay)
             {

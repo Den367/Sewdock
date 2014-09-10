@@ -28,10 +28,10 @@ namespace Mayando.Web.Controllers
         public ActionResult Index([Description("The top number of tags to show.")]int? count)
         {
             var links = new List<LinkListItem>();
-            links.Add(new LinkListItem(this.Url.Action(ActionName.Index), Resources.TagsShowAll, count != null));
+            links.Add(new LinkListItem(this.Url.Action(ActionName.Index), Mayando.Web.Properties.Resources.TagsShowAll, count != null));
             foreach (var i in new int[] { 100, 50, 25, 10 })
             {
-                links.Add(new LinkListItem(this.Url.Action(ActionName.Index, new { count = i }), string.Format(CultureInfo.CurrentCulture, Resources.TagsShowTop, i), count != i));
+                links.Add(new LinkListItem(this.Url.Action(ActionName.Index, new { count = i }), string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TagsShowTop, i), count != i));
             }
             return ViewFor(ViewName.Index, r => new TagsViewModel(GetTagInfos(r.GetTagCounts(count)), count, links));
         }

@@ -1,4 +1,5 @@
 ﻿@model Mayando.Web.Models.Comment
+@using System.Globalization
 @using Mayando.Web.Extensions
 @using Mayando.Web.Infrastructure
 @using JelleDruyts.Web.Mvc
@@ -7,7 +8,7 @@
     Layout = null;
     }
 <div id="@Model.Id" class="comment @(Model.AuthorIsOwner ? " comment-owner" : string.Empty)" >
-    @if (User.IsAdministrator() || Model.AuthorIsOwner) {Html.ActionLink(Resources.ButtonDeleteText, "Delete", new {@id = Model.Id, @returnUrl = Request.Url.PathAndQuery}, new {@class = "btn"});}
+  
     <div class="comment-title">
         @(
     Resources.PhotoCommentsBy)
@@ -22,7 +23,30 @@
         <div class="comment-gravatar">
             <img src="@Url.Gravatar(Model.AuthorEmail, 60, Url.ThemedContent("~/content/anonymous.png"))" height="60" width="60" alt="Gravatar" />
         </div>
+        @if (User.IsAdministrator() || Model.AuthorIsOwner)
+        {
+            var routeValues = new RouteValueDictionary();
+            routeValues.Add("id", Model.Id.ToString(CultureInfo.InvariantCulture));
+            routeValues.Add("embroId", Model.EmbroId.ToString(CultureInfo.InvariantCulture));
 
+            var htmlAttributes = new Dictionary<string, object>();
+            htmlAttributes.Add("class","btn");
+
+            var ajaxOptions = new AjaxOptions
+                {
+                    Url = Url.Action("Delete", "Comment", routeValues),
+                    OnSuccess = "hideDeletedComment"                                            
+                };
+            @Ajax.ActionLink(Resources.ButtonDeleteText, "Delete", "Comment", routeValues,ajaxOptions, htmlAttributes );                                          
+        }
+ 
         <div class="comment-text">@Html.EncodeWithLineBreaks(Model.Text)</div>
     </div>
 </div>
+<script type="text/javascript"> 
+    
+    function hideDeletedComment(result) {
+        var path = "table.list div#" + result.id;       
+        $(path).hide('slow');       
+    }
+</script>

@@ -10,5 +10,6 @@ namespace EmbroideryFile
         QRCodeStitchInfo Info { get; set; }      
        List<List<Coords>> GetQRCodeStitches();
        List<CoordsBlock> GetQRCodeStitchBlocks();
+       List<CoordsBlock> GetQRCodeInvertedYStitchBlocks();
     }
 }

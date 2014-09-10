@@ -14,11 +14,11 @@ namespace EmbroideryFile
     public class StitchToBmp
     {
         Point _translateStart;
-        private readonly List<CoordsBlock> _blocks;
+        private readonly IEnumerable<CoordsBlock> _blocks;
          int _width;
          int _height;
-        float _xscale;
-        float _yscale;
+        float _scale;
+       
 
         
 
@@ -45,18 +45,18 @@ namespace EmbroideryFile
             {
                 _width = size;
                 _height = size * height / width;
-
+                _scale = ((float)_width) / ((float)width);
             }
             else
             {
                 _height = size;
                 _width = size * width / height;
-                
+                _scale = ((float)_height) / ((float)height);     
             }
 
 
-            _xscale = ((float)_width) / ((float)width);
-            _yscale = ((float)_height) / ((float)height);
+          
+           
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace EmbroideryFile
         void CalcTranslate()
         {
            
-            _translateStart.X = -(int)(GetXMin() * _xscale);
-            _translateStart.Y = -(int)(GetYMin() * _yscale); 
+            _translateStart.X = -(int)(GetXMin() * _scale);
+            _translateStart.Y = -(int)(GetYMin() * _scale); 
 
         }
         
@@ -115,7 +115,7 @@ namespace EmbroideryFile
                     Pen tempPen;
                     xGraph.TranslateTransform(_translateStart.X, _translateStart.Y);
                     xGraph.FillRectangle(Brushes.Transparent, 0, 0, _width, _height);                   
-                    IEnumerable<stitchBlock> tmpblocks = GetScaledPointBlock(_xscale,_yscale);
+                    IEnumerable<stitchBlock> tmpblocks = GetScaledPointBlock(_scale,_scale);
                     //for (int i = 0; i < tmpblocks.Count; i++)
                         foreach (var stitchBlock in tmpblocks)
                        
@@ -142,7 +142,7 @@ namespace EmbroideryFile
 
        
 
-        IEnumerable<stitchBlock> GetScaledPointBlock(float xscale, float yscale)
+        public IEnumerable<stitchBlock> GetScaledPointBlock(float xscale, float yscale)
         {
             int ci = 0;
             if (0.0 == xscale) xscale = 1.0f;

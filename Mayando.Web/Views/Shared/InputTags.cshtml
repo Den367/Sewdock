@@ -1,5 +1,10 @@
-﻿
-                @Html.TextBox("TagList")
-                <span title="Separate multiple tags with commas" class="help">?</span>
+﻿@using Mayando.Web.Properties
+<style>
+    .taglist-field { width: 50%;
+        display: inline;
+    }
+</style>
+                @Html.TextBox("TagList" , "tagme",new {@id = "tagList-textbox", @class = "taglist-field" })
+<label> @Resources.TagsFieldHintText</label>
                 @Html.ValidationMessage("TagList", "*")
 

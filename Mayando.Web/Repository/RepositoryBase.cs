@@ -50,12 +50,43 @@ namespace Mayando.Web.Repository
 
         protected int? GetInt32FromReader(SqlDataReader reader, string fieldName)
         {
-          
+
             if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
                 return reader.GetInt32(reader.GetOrdinal(fieldName));
             return null;
         }
 
+        protected bool? GetBooleanFromReader(SqlDataReader reader, string fieldName)
+        {
+
+            if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
+                return reader.GetBoolean(reader.GetOrdinal(fieldName));
+            return null;
+        }
+
+        protected DateTime? GetDateTimeFromReader(SqlDataReader reader, string fieldName)
+        {
+
+            if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
+                return reader.GetDateTime(reader.GetOrdinal(fieldName));
+            return null;
+        }
+
+        protected DateTimeOffset? GetDateTimeOffsetFromReader(SqlDataReader reader, string fieldName)
+        {
+
+            if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
+                return reader.GetDateTimeOffset(reader.GetOrdinal(fieldName));
+            return null;
+        }
+
+         protected T GetValueFromReader<T>(SqlDataReader reader, string fieldName)
+        {
+
+            //if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
+                return (T)reader.GetValue(reader.GetOrdinal(fieldName));
+            
+        }
         
 
 

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using EmbroideryFile;
 using EmbroideryFile.QRCode;
+using Mayando.Web.Interfaces;
 
 namespace Mayando.Web.Infrastructure
 {
@@ -15,9 +16,9 @@ namespace Mayando.Web.Infrastructure
     public class PngImageResult : ActionResult
     {
         private const string ImageFormat = "image/png";
-        private readonly QrcodePng _png;
+        private readonly IWritePng2Stream _png;
 
-        public PngImageResult(QrcodePng png)
+        public PngImageResult(IWritePng2Stream png)
         {
 
             _png = png;
