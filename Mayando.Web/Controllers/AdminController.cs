@@ -3,12 +3,12 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
 using JelleDruyts.Web.Mvc.Discovery;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
-using Mayando.Web.ViewModels;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
+using Myembro.Models;
+using Myembro.ViewModels;
 
-namespace Mayando.Web.Controllers
+namespace Myembro.Controllers
 {
     [Description("Handles actions that have to do with administrative tasks.")]
     [AuthorizeAdministrator]

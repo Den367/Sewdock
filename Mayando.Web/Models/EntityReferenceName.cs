@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     /// <summary>
     /// Defines the available names of entity references.

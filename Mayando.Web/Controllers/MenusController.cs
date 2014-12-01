@@ -1,11 +1,11 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
+using Myembro.Models;
 
-namespace Mayando.Web.Controllers
+namespace Myembro.Controllers
 {
     [Description("Handles actions that have to do with menus.")]
     [AuthorizeAdministrator]

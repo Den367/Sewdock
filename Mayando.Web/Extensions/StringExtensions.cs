@@ -2,10 +2,10 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Mayando.Web.Properties;
+using Myembro.Properties;
 using System.IO;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="String"/> instances.
@@ -91,7 +91,7 @@ namespace Mayando.Web.Extensions
             var trimmed = value.Substring(0, maxLength - Ellipsis.Length).Trim() + Ellipsis;
             if (!string.IsNullOrEmpty(moreLinkUrl))
             {
-                var link = JelleDruyts.Web.Mvc.HtmlHelperExtensions.Link(moreLinkUrl, Mayando.Web.Properties.Resources.GalleryPhotoLinkMore);
+                var link = JelleDruyts.Web.Mvc.HtmlHelperExtensions.Link(moreLinkUrl, Myembro.Properties.Resources.GalleryPhotoLinkMore);
                 trimmed += " " + link;
             }
             return trimmed;

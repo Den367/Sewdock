@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Represents the possible purposes for date and time display.

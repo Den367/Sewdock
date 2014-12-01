@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Repository;
-using Mayando.Web.ViewModels;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
+using Myembro.Repository;
+using Myembro.ViewModels;
 
-namespace Mayando.Web.Controllers
+namespace Myembro.Controllers
 {
-    public class ThumbController :   SiteControllerBase
+    public class ThumbController : SiteControllerBase
     {
         private readonly IThumbRepository _repo;
 
@@ -26,7 +26,7 @@ namespace Mayando.Web.Controllers
 
         public ActionResult Index()
         {
-            return GetThumbsPaged(pagingInfo: new EmbroNavigationContext ());
+            return GetThumbsPaged(pagingInfo: new EmbroNavigationContext(GetUserProviderKey()));
         }
 
         public ThumbController(IThumbRepository repo)
@@ -39,23 +39,31 @@ namespace Mayando.Web.Controllers
         {
             var navigationContext = _repo.GetNavigationContextByCountPage(pagingInfo);
             if (navigationContext != null)
-            {                          
-if (MasterViewModel != null) navigationContext.Embros.ToList().ForEach(e => this.MasterViewModel.AddKeywords(e.TagList));            
+            {
+                if (MasterViewModel != null) navigationContext.Embros.ToList().ForEach(e => this.MasterViewModel.AddKeywords(e.TagList));
 
-            // Create the ViewModel and show the View.
+                // Create the ViewModel and show the View.
                 if (navigationContext.Current != null)
                 {
 
                 }
                 EmbroDetailsViewModel embroDetailsViewModel = this.GetEmbroDetailsViewModel(navigationContext.Current, false, false);
 
-            navigationContext.ShowFilmstrip = true;
-            var model = new EmbroNavigationViewModel(embroDetailsViewModel, navigationContext);
+                navigationContext.ShowFilmstrip = true;
+                var model = new EmbroNavigationViewModel(embroDetailsViewModel, navigationContext);
 
-            return View(ViewName.NavigationContextFilmstrip, model); }
+                return View(ViewName.NavigationContextFilmstrip, model);
+            }
             return View(ViewName.NavigationContextFilmstrip);
+        }
+
+        public ActionResult GetThumbByID(int embroID)
+        {
+            var pngWriter = _repo.GetEmbroByID(embroID);
+            return new PngImageResult(pngWriter);
+
         }
     }
 
-   
+
 }

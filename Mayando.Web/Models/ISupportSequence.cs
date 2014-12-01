@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     /// <summary>
     /// Indicates that an entity supports a sequence number.

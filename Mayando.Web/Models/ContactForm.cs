@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Mail;
-using Mayando.Web.Properties;
+using Myembro.Properties;
 
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     public class ContactForm : IDataErrorInfo
     {
@@ -49,7 +49,7 @@ namespace Mayando.Web.Models
                 this.authorName = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    this.errors["AuthorName"] =  Mayando.Web.Properties.Resources.ValidationAuthorNameEmpty;
+                    this.errors["AuthorName"] =  Myembro.Properties.Resources.ValidationAuthorNameEmpty;
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace Mayando.Web.Models
                 this.authorEmail = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    this.errors["AuthorEmail"] =  Mayando.Web.Properties.Resources.ValidationAuthorEmailEmpty;
+                    this.errors["AuthorEmail"] =  Myembro.Properties.Resources.ValidationAuthorEmailEmpty;
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace Mayando.Web.Models
                     }
                     catch (FormatException)
                     {
-                        this.errors["AuthorEmail"] =  Mayando.Web.Properties.Resources.ValidationAuthorEmailInvalid;
+                        this.errors["AuthorEmail"] =  Myembro.Properties.Resources.ValidationAuthorEmailInvalid;
                     }
                 }
             }
@@ -90,7 +90,7 @@ namespace Mayando.Web.Models
                 this.text = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    this.errors["Text"] =  Mayando.Web.Properties.Resources.ValidationTextEmpty;
+                    this.errors["Text"] =  Myembro.Properties.Resources.ValidationTextEmpty;
                 }
             }
         }

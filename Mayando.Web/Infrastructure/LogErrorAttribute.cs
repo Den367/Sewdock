@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Logs unhandled errors when they occur.

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Restricts access of callers to the administrator role.

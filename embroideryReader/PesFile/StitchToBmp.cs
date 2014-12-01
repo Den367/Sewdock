@@ -53,10 +53,7 @@ namespace EmbroideryFile
                 _width = size * width / height;
                 _scale = ((float)_height) / ((float)height);     
             }
-
-
-          
-           
+   
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class SettingViewModel
     {

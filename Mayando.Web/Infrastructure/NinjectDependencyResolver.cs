@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using EmbroideryFile;
-using Mayando.Web.Models;
-using Mayando.Web.Repository;
+using Myembro.Models;
+using Myembro.Repository;
 using Ninject;
 using Ninject.Syntax;
 using NuGet;
 using IDependencyResolver = System.Web.Mvc.IDependencyResolver;
 
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {

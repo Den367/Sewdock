@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class SynchronizationStatus
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     public enum EmbroideryType : int
     {

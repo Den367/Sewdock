@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using System.Web;
 using System.Xml.Linq;
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class EmbroideryBounds
     {

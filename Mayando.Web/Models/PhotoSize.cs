@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     public enum EmbroSize
     {

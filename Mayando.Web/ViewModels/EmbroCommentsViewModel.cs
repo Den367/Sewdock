@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 //using JelleDruyts.Web.Mvc.Paging;
-using Mayando.Web.Models;
+using Myembro.Models;
 using Web.Ajax.Paging;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class EmbroCommentsViewModel
     {
@@ -16,6 +16,6 @@ namespace Mayando.Web.ViewModels
             Comments = comments;
         }
         public int EmbroID { get; private set; }
-        public IPagedList<Mayando.Web.Models.Comment> Comments { get; private set; }
+        public IPagedList<Myembro.Models.Comment> Comments { get; private set; }
     }
 }

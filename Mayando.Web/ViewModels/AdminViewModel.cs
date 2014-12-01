@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class AdminViewModel
     {

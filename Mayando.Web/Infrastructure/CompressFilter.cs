@@ -5,7 +5,7 @@ using System.Web;
 using System.IO.Compression;
 using System.Web.Mvc;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     public class CompressAttribute : ActionFilterAttribute
     {

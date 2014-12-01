@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 
-namespace Mayando.Web.DataAccess
+namespace Myembro.DataAccess
 {
     public class SqlCmdParameter
     {

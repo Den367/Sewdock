@@ -55,6 +55,9 @@ namespace EmbroideryFile
         /// Width of embroidery design (0.1 mm)
         /// </summary>
         public int Width { get; set; }
+
+        public int ScaledWidth { get; set; }
+        public int ScaledHeight { get; set; }
         /// <summary>
         /// Height of embroidery design (0.1 mm)
         /// </summary>
@@ -152,7 +155,57 @@ namespace EmbroideryFile
 
         public void ShiftXY(int x, int y)
         {
-            Blocks.SelectMany(block => block.AsEnumerable()).ToList().ForEach(coord => { coord.Y += y; coord.X += x; });
+             x = -x;
+             y = -y;
+            foreach (var block in Blocks)
+            {
+                foreach (var stitch in block)
+                {
+                    var X = stitch.X + x;
+                    var Y = stitch.Y + y;
+                    stitch.X = X;
+                    stitch.Y = Y;
+                }
+            }
+            //Blocks.SelectMany(block => block.AsEnumerable()).ToList().ForEach(coord => { coord.Y += y; coord.X += x; });
+        }
+
+        private int GetWidth()
+        {
+            int xmin = GetXCoordMin();
+            int xmax = GetXCoordMax();
+            return Math.Abs(xmax - xmin);
+        }
+
+     
+
+        private int GetHeight()
+        {
+            int ymin = GetYCoordMin();
+            int ymax = GetYCoordMax();
+            return Math.Abs(ymax - ymin);
+        }
+
+
+        private bool WidthGTOREQHeight()
+        {
+            return GetWidth() >= GetHeight();
+        }
+
+        private float GetScaling(int size)
+        {
+            var width = GetWidth();
+            var height = GetHeight();
+            if (width >= height)
+            {
+
+                return ((float)size / (float)width);
+            }
+            else
+            {
+                return ((float)size / (float)height);
+            }
+
         }
 
         public void ShiftToZero()
@@ -160,9 +213,46 @@ namespace EmbroideryFile
             ShiftXY(GetXCoordMin(), GetYCoordMin());
         }
 
+
+        public void Resize(int size)
+        {
+            ShiftToZero();
+            var scale = GetScaling(size);
+            ScaledWidth = (int)(Width * scale);
+            ScaledHeight = (int)(Height * scale);
+            foreach (var block in Blocks)
+            {
+                foreach (var stitch in block)
+                {
+                    stitch.X = (int)(stitch.X * scale);
+                    stitch.Y = (int)(stitch.Y * scale);
+                }
+            }
+
+
+            //Blocks.SelectMany(block => block.AsEnumerable()).ToList().ForEach(coord =>
+            //    {
+            //        coord.Y = (int)(coord.Y * scale); coord.X = (int)(coord.X * scale);
+            //    });
+        }
+
+        public void Centerize(int size)
+        {
+            int ymin = GetYCoordMin();
+            int ymax = GetYCoordMax();
+            int xmin = GetXCoordMin();
+            int xmax = GetXCoordMax();
+            int width = xmax - xmin;
+            int height = ymax - ymin;
+            int shiftX = (size - width) / 2 - xmin;
+            int shiftY = (size - height) / 2 - ymin;
+
+            ShiftXY(-shiftX, -shiftY);
+        }
+
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             using (XmlWriter writer = XmlWriter.Create(builder, new XmlWriterSettings { OmitXmlDeclaration = true }))
             {
                 serializer.Serialize(writer, this);

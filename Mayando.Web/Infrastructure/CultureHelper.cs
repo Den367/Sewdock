@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     public static class CultureHelper
     {

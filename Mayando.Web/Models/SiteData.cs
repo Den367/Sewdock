@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Web;
 using System.Web.Routing;
 using JelleDruyts.Web.Mvc;
-using Mayando.Web.Controllers;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.ViewModels;
+using Myembro.Controllers;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
+using Myembro.ViewModels;
 
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     /// <summary>
     /// Defines site-wide information.
@@ -290,7 +290,7 @@ namespace Mayando.Web.Models
             }
             values["controller"] = controller;
             values["action"] = action.ToActionString();
-            var url = RouteTable.Routes[MvcApplication.RouteNameDefault].GetVirtualPath(requestContext, values).VirtualPath;
+            var url = RouteTable.Routes[RouteConfig.RouteNameDefault].GetVirtualPath(requestContext, values).VirtualPath;
 
             // Prefix it with the relative path identifier so the client URL will be resolved properly.
             url = "~/" + url;

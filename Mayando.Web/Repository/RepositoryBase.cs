@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Mayando.Web.DataAccess;
+using Myembro.DataAccess;
 
-namespace Mayando.Web.Repository
+namespace Myembro.Repository
 {
      [CLSCompliant(false)]
     public class RepositoryBase:IDisposable
@@ -13,12 +13,13 @@ namespace Mayando.Web.Repository
         protected StuffFactory factory = new StuffFactory();
         protected DataTablesFormer tableFormer;
         protected EmbroDBManager manager;
-
+        protected SqlConnection _connection;
         public RepositoryBase()
         {
             tableFormer = factory.TablesHolder;
             manager = factory.Manager;
             tableFormer.FillEmbroColumnMapping(manager.BulkCopy);
+            _connection = manager.Connection;
         }
 
 
@@ -80,12 +81,32 @@ namespace Mayando.Web.Repository
             return null;
         }
 
-         protected T GetValueFromReader<T>(SqlDataReader reader, string fieldName)
+        protected int GetIntParam(SqlCommand cmd, string paramName)
+        {
+            var obj = cmd.Parameters[paramName].Value;
+            if (obj != null)
+                return (int)obj;
+            return 0;
+        }
+
+        protected object GetValueFromReader<T>(SqlDataReader reader, string fieldName)
         {
 
-            //if (reader.GetValue(reader.GetOrdinal(fieldName)) != DBNull.Value)
-                return (T)reader.GetValue(reader.GetOrdinal(fieldName));
-            
+
+            var value = reader.GetValue(reader.GetOrdinal(fieldName));
+            if (value != DBNull.Value) return (T)value;
+            return null;
+
+        }
+
+        protected object GetValueFromCommand<T>(SqlCommand cmd, string fieldName)
+        {
+
+
+            var value = cmd.Parameters[fieldName].Value;
+            if (value != DBNull.Value) return (T)value;
+            return null;
+
         }
         
 

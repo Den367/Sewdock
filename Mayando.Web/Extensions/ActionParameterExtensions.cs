@@ -1,6 +1,6 @@
-﻿using Mayando.Web.Infrastructure;
+﻿using Myembro.Infrastructure;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for action parameters in a route URL.

@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     /// <summary>
     /// Represents additional information about a <see cref="Tag"/>.

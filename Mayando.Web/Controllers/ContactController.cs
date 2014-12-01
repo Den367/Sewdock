@@ -1,11 +1,11 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
-using Mayando.Web.Properties;
+using Myembro.Infrastructure;
+using Myembro.Models;
+using Myembro.Properties;
 
-namespace Mayando.Web.Controllers
+namespace Myembro.Controllers
 {
     [Description("Handles actions that have to do with contacting the site owner.")]
     public class ContactController : SiteControllerBase
@@ -36,8 +36,8 @@ namespace Mayando.Web.Controllers
             var body = form.Text;
             Mailer.SendNotificationMail(this.SiteData.Settings, subject, body, false, false, form.AuthorEmail, form.AuthorName);
             RememberPreferences(form.AuthorName, form.AuthorEmail, null, form.RememberMe);
-            SetPageFlash(Mayando.Web.Properties.Resources.PageFlashMessageSent);
-            return RedirectToHomepage();
+            //SetPageFlash(Myembro.Properties.Resources.PageFlashMessageSent);
+            return RedirectToAction("Index","ResultInfo", new {@Title = "Contact",@Header = "Contact me",@Message= "Message has been sent."});
         }
 
         #endregion

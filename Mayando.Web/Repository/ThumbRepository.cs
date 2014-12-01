@@ -1,56 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
-using Mayando.Web.DataAccess;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
-using Mayando.Web.ViewModels;
+using Myembro.DataAccess;
+using Myembro.Infrastructure;
+using Myembro.Interfaces;
+using Myembro.Models;
+using Myembro.ViewModels;
 
-namespace Mayando.Web.Repository
+namespace Myembro.Repository
 {
      [CLSCompliant(false)]
     public class ThumbRepository : RepositoryBase,IThumbRepository
     {
         private readonly ThumbCommandFormer _commands;
+         private object locker = new object();
+
+
         public ThumbRepository ()
         {
             manager = factory.Manager;
             _commands = new ThumbCommandFormer(manager.Connection);
         }
 
-        public EmbroNavigationContext GetNavigationContextByCountPage(EmbroNavigationContext context)
-        {
-           
-            var thumbs = new List<EmbroThumbnailViewModel>();
-            var cmd = _commands.GetReadThumbsByCountPageCommand(context.PageSize, context.PageNumber, context.Criteria, context.UserID);
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (!reader.Read()) return null;
-                do
-                {
-                    var thumb = ReadThumb(reader);
-                    thumbs.Add(new EmbroThumbnailViewModel
-                        {
-                           Title = thumb.Title,PngBase64Image = thumb.Png,TagList = thumb.TagList, DownloadCount = thumb.DownloadsCount, Summary = thumb.Summary,Id = thumb.Id 
-                        });                  
+         public EmbroNavigationContext GetNavigationContextByCountPage(EmbroNavigationContext context)
+         {
+  
+             using (var cmdForm = new ThumbCommandFormer(_connection))
+             {
+            
+             var thumbs = new List<EmbroThumbnailViewModel>();
+             var cmd = cmdForm.GetReadThumbsByCountPageCommand(context.PageSize, context.PageNumber, context.Criteria,
+                                                                 context.UserID);
+             
+                 using (SqlDataReader reader = cmd.ExecuteReader())
+                 {
+                     if (!reader.Read()) return null;
+                     do
+                     {
+                         var thumb = ReadThumb(reader);
+                         thumbs.Add(new EmbroThumbnailViewModel
+                             {
+                                 Title = thumb.Title,
+                                 PngBase64Image = thumb.Png,
+                                 TagList = thumb.TagList,
+                                 DownloadCount = thumb.DownloadsCount,
+                                 Summary = thumb.Summary,
+                                 Id = thumb.Id
+                             });
 
-                } while (reader.Read());
-            }
+                     } while (reader.Read());
+                 }
 
-           
-            cmd.Connection.Close();
-            context.TotalItemCount = (int)cmd.Parameters["TotalItem"].Value;
-            context.Embros = thumbs;
-            if (thumbs.Any())
-            { 
-                context.CurrentEmbroID = thumbs[0].Id;
-            }
-            return context;
-        }
 
-            private EmbroideryItem ReadThumb(SqlDataReader reader)
+             cmd.Connection.Close();
+             context.TotalItemCount = (int) cmd.Parameters["TotalItem"].Value;
+             context.Embros = thumbs;
+             if (thumbs.Any())
+             {
+                 context.CurrentEmbroID = thumbs[0].Id;
+             }
+             return context;
+         }
+    }
+
+         public IWritePng2Stream GetEmbroByID(int embroID)
+         {
+             using (var cmdForm = new ThumbCommandFormer(manager.Connection))
+             {
+                 var cmd = cmdForm.GetReadThumbByIDCommand(embroID);
+                 cmd.ExecuteNonQuery();
+                 cmd.Connection.Close();
+                 var pngBase64String = (string)GetValueFromCommand<string>(cmd, "ThumbPng");
+                
+                return new WriteBase64Png2Stream(pngBase64String);
+             }
+         }
+
+
+         private EmbroideryItem ReadThumb(SqlDataReader reader)
             {
                 var thumb = new EmbroideryItem();
                 if (!reader.IsClosed)
@@ -79,7 +109,7 @@ namespace Mayando.Web.Repository
                     if (!IsDBNull(reader, "Html")) thumb.Html = reader.GetString(reader.GetOrdinal("Html"));
                     thumb.Summary = reader.GetString(reader.GetOrdinal("Summary"));
                     if (!IsDBNull(reader, "TypeID")) thumb.TypeID = reader.GetInt32(reader.GetOrdinal("TypeID"));
-                    if (!IsDBNull(reader, "UserID")) thumb.UserID = reader.GetGuid(reader.GetOrdinal("UserID"));
+                    if (!IsDBNull(reader, "UserID")) thumb.UserID = reader.GetString(reader.GetOrdinal("UserID"));
                     if (!IsDBNull(reader, "Downloads"))
                         thumb.DownloadsCount = reader.GetInt64(reader.GetOrdinal("Downloads"));
                 }

@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     /// <summary>
     /// Contains statistics on the current site.

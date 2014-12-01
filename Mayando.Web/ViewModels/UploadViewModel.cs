@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Mayando.Web.Infrastructure;
+using Myembro.Infrastructure;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class UploadViewModel
     {

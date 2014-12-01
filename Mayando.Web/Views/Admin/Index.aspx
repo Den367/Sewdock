@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Mayando.Web.ViewModels.AdminViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Myembro.ViewModels.AdminViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:content id="title" contentplaceholderid="TitleContent" runat="server">
 	Site Administration

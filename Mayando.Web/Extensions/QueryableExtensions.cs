@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="IQueryable"/> instances.

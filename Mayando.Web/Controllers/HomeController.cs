@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Web.Mvc;
-using Mayando.Web.Infrastructure;
+using Myembro.Infrastructure;
 
-namespace Mayando.Web.Controllers
+namespace Myembro.Controllers
 {
     [Description("Handles actions that have to do with redirecting to the proper home page.")]
     public class HomeController : SiteControllerBase

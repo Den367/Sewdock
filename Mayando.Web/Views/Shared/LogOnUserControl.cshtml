@@ -1,5 +1,6 @@
-﻿@using Mayando.Web.Properties
-@using Mayando.Web.Extensions
+﻿@using Microsoft.AspNet.Identity
+@using Myembro.Properties
+
 
 @*@if (Request.IsAuthenticated) { 
                 @Resources.LogOnWelcome <b>@Page.User.Identity.Name</b>
@@ -12,11 +13,25 @@
     
 @if (Request.IsAuthenticated)
 {
-      
-    @Resources.LabelTextHello<span>  </span>
     
-    @Html.ActionLink(User.Identity.Name, "ChangePassword", "Account", null, new { @class = "username" })
-    <span>  @Html.ActionLink(Resources.AccountLogOff, "LogOff", "Account")</span>
+    
+      using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+    @Html.AntiForgeryToken()
+
+   @* <ul class="nav navbar-nav navbar-right">
+        <li>*@
+            @Html.ActionLink(string.Format("{0} {1}{2}",Resources.LabelTextHello , User.Identity.GetUserName() , "!"), "Manage", "Account", routeValues: null, htmlAttributes: new {  @class = "username" ,title = "Manage" })
+       @* </li>
+<li>*@
+    <a href="javascript:document.getElementById('logoutForm').submit()">@Resources.AccountLogOff</a>
+@*</li>
+    </ul>*@
+    }
+    @*
+    <span>  
+    @Html.ActionLink(User.Identity.Name, "ChangePassword", "Account", null, new { @class = "username" })</span>
+    <span>  @Html.ActionLink(Resources.AccountLogOff, "LogOff", "Account")</span>*@
     
 
 }
@@ -27,4 +42,5 @@ else
     @Html.ActionLink(Resources.AccountLogOn, "Index", "Account")
    
      }
+
        

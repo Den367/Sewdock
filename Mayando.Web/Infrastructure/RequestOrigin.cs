@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Represents the possible origins for a request.

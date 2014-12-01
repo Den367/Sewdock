@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.Interfaces
+namespace Myembro.Interfaces
 {
     public interface IDesignModel
     {

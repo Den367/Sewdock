@@ -6,12 +6,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Configuration;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.DataAccess
+namespace Myembro.DataAccess
 {
     public class EmbroDBManager :IDisposable
     {
+        readonly List<SqlConnection> sqlConnections = new List<SqlConnection>();
         SqlConnection sqlConnection;
         SqlCommand sqlCommand;
         SqlBulkCopy bulkCopy;
@@ -19,9 +20,11 @@ namespace Mayando.Web.DataAccess
         ///Connection to interact with DataBase  <see cref="SqlConnection"/>
         /// </summary>
         public SqlConnection Connection { get {
-            return sqlConnection ??
-                   (sqlConnection =
-                    new SqlConnection {ConnectionString = ConfigurationManager.AppSettings["connectionString"]});
+            var newConn = new SqlConnection {ConnectionString = ConfigurationManager.AppSettings["connectionString"]};
+            newConn.Open();
+             sqlConnections.Add(newConn);
+            sqlConnection = newConn; 
+            return newConn;
         }
         }
         public SqlCommand Command { get
@@ -158,7 +161,8 @@ namespace Mayando.Web.DataAccess
         public void Dispose()
         {
             if (!_isDisposed)
-            {               
+            {
+                if (sqlConnections != null) sqlConnections.ForEach(conn => conn.Close());
                 if (sqlConnection != null) sqlConnection.Close();
                 sqlConnection = null;
                if (bulkCopy != null) bulkCopy.Close();

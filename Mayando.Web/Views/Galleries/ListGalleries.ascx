@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<ICollection<Mayando.Web.ViewModels.GalleryInfoViewModel>>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<ICollection<Myembro.ViewModels.GalleryInfoViewModel>>" %>
     <% if(Model.Count > 0) { %>
     <% if (Page.User.CanSeeAdministratorContent()) { %>
     <% using(Html.BeginGalleriesMoveForm("moveForm")) { %>

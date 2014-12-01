@@ -202,6 +202,7 @@
         }
 
         function doAction(item) {
+            
             close();
             var selectedAElement = $(item).children(":first-child");
 
@@ -241,8 +242,13 @@
 
         function init() {
             var culture = $.cookie("_culture");
-            var selectedItem;            
-            
+            var selectedItem;
+            if (culture == null) { culture = (navigator.language || navigator.userLanguage).split('-')[0];
+                if (culture != 'en') {
+                    $.cookie("_culture", culture, { expires: 1, path: '/' });
+                    window.location.reload(); // reload 
+                }
+            }
             var options = $("#" + rootElementId + " > form > select > option");
            
             if (isStaticWebSite) {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class SettingsViewModel
     {

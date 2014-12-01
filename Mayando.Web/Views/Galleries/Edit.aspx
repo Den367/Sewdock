@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Mayando.Web.Models.Gallery>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Myembro.Models.Gallery>" MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="TitleContent" runat="server">
     Edit Gallery

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Mayando.Web.ViewModels.SettingsViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Myembro.ViewModels.SettingsViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="TitleContent" runat="server">
     User-Defined Settings

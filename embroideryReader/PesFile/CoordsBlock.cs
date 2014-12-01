@@ -12,6 +12,7 @@ namespace EmbroideryFile
     /// <summary>
     /// Contains list of stitch coordinates <see cref="Coords"/> and color information 
     /// </summary>
+    [Serializable]
     sealed public class CoordsBlock:List<Coords>  
     {
        
@@ -25,7 +26,8 @@ namespace EmbroideryFile
         public bool Stop {get;set;}
         /// <summary>
         /// Drawing color info <see cref="System.Drawing.Color"/>
-        /// </summary>        
+        /// </summary>
+             
         public Color Color{ get; set; }
         public Int32 colorIndex { get; set; }
 
@@ -41,6 +43,7 @@ namespace EmbroideryFile
            // Color = Color.Black;
         }
 
+      
 
     }
 }

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Mayando.Web.Models.Page>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Myembro.Models.Page>" %>
         <%= Html.ValidationSummary("The item could not be saved. Please correct any errors and try again.") %>
         <fieldset>
             <legend>Page</legend>

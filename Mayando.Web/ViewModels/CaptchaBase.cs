@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public abstract class CaptchaBase
     {

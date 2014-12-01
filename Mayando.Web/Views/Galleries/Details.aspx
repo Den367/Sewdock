@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Mayando.Web.ViewModels.GalleryViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Myembro.ViewModels.GalleryViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="TitleContent" runat="server">
     <%= Html.Encode(Model.Gallery.Title) %>

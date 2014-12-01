@@ -1,33 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.DataAccess
+namespace Myembro.DataAccess
 {
     [ CLSCompliant(false)]
     public class CommandFormer:IDisposable
     {
-        protected readonly SqlConnection _sqlConnection;
+        protected SqlConnection _sqlConnection;
         //protected readonly SqlCommand cmd;
+        private object obj;
         public CommandFormer(SqlConnection connection)
         {
             _sqlConnection =connection;
-           
+           obj = new object();
         }
 
 
         protected SqlCommand GetCommand()
         {
-            if (_sqlConnection.State != ConnectionState.Open)
+            _sqlConnection = new SqlConnection { ConnectionString = ConfigurationManager.AppSettings["connectionString"] };
+
+            if (null != _sqlConnection)
             {
+
                 _sqlConnection.Open();
+
+                return _sqlConnection.CreateCommand();
             }
-            if (null != _sqlConnection) return _sqlConnection.CreateCommand();
-            else return null;
+            return null;
+
+
+            //return _sqlConnection.CreateCommand();
         }
       
 
@@ -39,7 +48,7 @@ namespace Mayando.Web.DataAccess
             return cmd;
         }
 
-        public SqlCommand GetGetCommentsCommand(int id, int pageNo, int pageSize)
+        public SqlCommand GetGetCommentsCommand(int id, int pageNo, int pageSize, string userId)
         {
             var cmd = GetCommand();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -47,6 +56,7 @@ namespace Mayando.Web.DataAccess
             cmd.Parameters.Add(new SqlParameter("EmbroID", id));
             cmd.Parameters.Add(new SqlParameter("PageNo", pageNo));
             cmd.Parameters.Add(new SqlParameter("PageSize", pageSize));
+            if (userId != null) cmd.Parameters.Add(new SqlParameter("UserID", userId));
             var commentCountParam = new SqlParameter("CommentCount", SqlDbType.Int);
             commentCountParam.Direction = ParameterDirection.Output;
             cmd.Parameters.Add(commentCountParam);
@@ -67,6 +77,7 @@ namespace Mayando.Web.DataAccess
             cmd.Parameters.Add(new SqlParameter("AuthorUrl", comment.AuthorUrl));
             cmd.Parameters.Add(new SqlParameter("DatePublished", comment.DatePublished));
             cmd.Parameters.Add(new SqlParameter("CommentID", comment.Id));
+            cmd.Parameters.Add(new SqlParameter("UserID", comment.UserID));
             return cmd;
         }
 
@@ -81,17 +92,39 @@ namespace Mayando.Web.DataAccess
             return cmd;
         }
 
-        public SqlCommand GetDeleteCommentCommand(int id, Guid? userID )
+        public SqlCommand GetDeleteCommentCommand(int id, string userID)
         {
             var cmd = GetCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "emb.CommentDelete";
             cmd.Parameters.Add(new SqlParameter("CommentID", id));
             cmd.Parameters.Add(new SqlParameter("userID", userID));
-            var resultParam = new SqlParameter("Result", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            var resultParam = new SqlParameter("Result", SqlDbType.Int) { Direction = ParameterDirection.Output };
             cmd.Parameters.Add(resultParam);
 
             return cmd;
+        }
+
+
+        public SqlCommand GetGetCommentCommand(int id)
+        {
+            var cmd = GetCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.GetCommentByID";
+            cmd.Parameters.Add(new SqlParameter("CommentID", id));
+          
+            return cmd;
+        }
+
+
+
+
+        protected void AddPAram(SqlCommand cmd, string paramName, SqlDbType paramValueType, ParameterDirection direction = ParameterDirection.Input, int size = Int32.MaxValue)
+        {
+            var param = new SqlParameter(paramName, paramValueType,size);
+            param.Direction = direction;
+            cmd.Parameters.Add(param);
+
         }
 
         public void Dispose()

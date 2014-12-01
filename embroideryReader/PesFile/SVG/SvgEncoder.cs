@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing.Imaging;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
 using System.Drawing;
+using Svg;
 
 namespace EmbroideryFile
 {
     public class SvgEncoder :ISvgEncode
     {
-        private const int Width = 600;
-        private const int Height = 600;
+        private const int Width = 480;
+        private const int Height = 480;
         XmlTextWriter _xWrite;
-        Stream stream;
+        Stream _stream;
         EmbroideryData embro;
 
         public SvgEncoder()
@@ -33,7 +37,7 @@ namespace EmbroideryFile
         public SvgEncoder(Stream svgStream, EmbroideryData embroData)
         {
             _xWrite = null;
-            stream = svgStream;
+            _stream = svgStream;
             embro = embroData;
         }
 
@@ -50,20 +54,25 @@ namespace EmbroideryFile
             
           
             WriteSvgStartWithAttr();
-           
-            WriteWidth(Width);
-            WriteHeight(Height);            
+            var width = embro.ScaledWidth;
+            var height = embro.ScaledHeight;
+            var size = width > height ? width : height;
+            WriteWidth(size);
+            WriteHeight(size);            
 
 
-            WriteViewBox(0 , 0 , embro.Width , embro.Height );
+            WriteViewBox(0 , 0 , width ,height  );
             //double shiftX = (embro.Xmax - embro.Xmin) / 2;
             double shiftX = - embro.Xmin;
             //double shiftY = (embro.Ymax - embro.Ymin) / 2;
             double shiftY = - embro.Ymin;
+            WriteFilter();
             _xWrite.WriteStartElement("g");
        
             xScale = 1.0; yScale = 1.0;
             _xWrite.WriteAttributeString("transform", string.Format("scale({0},{1})",  xScale, yScale));
+            _xWrite.WriteAttributeString("filter", "url(#ShaderFilter)");
+           
             // polylines
             WriteStitchBlocks(embro);
 
@@ -76,9 +85,9 @@ namespace EmbroideryFile
 
         void WriteSvgStartWithAttr()
         {
-            if (stream == null) stream = new MemoryStream();
+            if (_stream == null) _stream = new MemoryStream();
             if (_xWrite != null) _xWrite.Close();
-            _xWrite = new XmlTextWriter(stream, Encoding.UTF8);
+            _xWrite = new XmlTextWriter(_stream, Encoding.UTF8);
             _xWrite.Formatting = Formatting.Indented;
           
             _xWrite.WriteStartElement("svg");
@@ -152,10 +161,10 @@ namespace EmbroideryFile
         /// <returns></returns>
         public string ReadSvgString()
         {
-            if (stream != null)
+            if (_stream != null)
             {
-                StreamReader reader = new StreamReader(stream);
-                stream.Position = 0;
+                StreamReader reader = new StreamReader(_stream);
+                _stream.Position = 0;
                 return reader.ReadToEnd();
             }
             return string.Empty;
@@ -163,7 +172,7 @@ namespace EmbroideryFile
 
         public void FillStreamWithSvgFromCoordsLists(Stream strm, int size, List<CoordsBlock> blocks)
         {
-            stream = strm;
+            _stream = strm;
 
             WriteSvgForCoordList((double)size, blocks);
         
@@ -175,25 +184,102 @@ namespace EmbroideryFile
             return ReadSvgString();
         }
 
+
+        public void SaveSvgToPngStream(System.IO.Stream stream, Stream pngStream)
+        {
+            try
+            {
+                stream.Position = 0;
+                var svgDocument = SvgDocument.Open<SvgDocument>(stream);
+                var bitmap = svgDocument.Draw();
+                bitmap.Save(pngStream, ImageFormat.Png);
+            }
+            catch (Exception ex)
+            {
+                Trace.Write(ex.Message);
+                throw;
+            }
+               
+           
+
+        }
+
         #endregion [Public]
+
+
         void WriteWidth(double width)
         {
-            _xWrite.WriteAttributeString("width", width.ToString());
+            _xWrite.WriteAttributeString("width", width.ToString(CultureInfo.InvariantCulture));
           
 
         }
 
         void WriteHeight(double height)
         {
-            _xWrite.WriteAttributeString("height", height.ToString());        
+            _xWrite.WriteAttributeString("height", height.ToString(CultureInfo.InvariantCulture));        
 
         }
 
 
-     
-      
+        private void WriteFilter()
+        {
+             _xWrite.WriteRaw(@"<defs namespace='svg'>
+        <filter id='ShaderFilter' filterUnits='userSpaceOnUse' x='-10%' y='-10%' width='110%' height='110%'>
+          <feGaussianBlur in='SourceAlpha' stdDeviation='4' result='blur'/>
+          <feOffset in='blur' dx='4' dy='4' result='offsetBlur' id='feOffset3043'/>
+          <feSpecularLighting in='blur' surfaceScale='5' specularConstant='.75' specularExponent='20' lighting-color='#bbbbbb' result='specOut'>
+            <fePointLight x='-500' y='-1000' z='2000'/>
+          </feSpecularLighting>
+          <feComposite in='specOut' in2='SourceAlpha' operator='in' result='specOut'/>
+          <feComposite in='SourceGraphic' in2='specOut' operator='arithmetic' k1='0' k2='1' k3='1' k4='0' result='litPaint'/>
+          <feMerge>
+            <feMergeNode in='offsetBlur'/>
+            <feMergeNode in='litPaint'/>
+          </feMerge>        
+        </filter>
+      </defs>");
+            /*
+            WriteStartElement("defs","http://www.w3.org/2000/svg");// <xsl:element name="defs" namespace="svg">
+                _xWrite.WriteStartElement("filter");
+              _xWrite.WriteAttributeString("id","Shader");
+              _xWrite.WriteAttributeString("filterUnits","userSpaceOnUse");
+              _xWrite.WriteAttributeString("x","-10%");
+             _xWrite.WriteAttributeString("y","-10%");
+             _xWrite.WriteAttributeString("width","110%");
+             _xWrite.WriteAttributeString("height","110%");   //<filter id="MyFilter" filterUnits="userSpaceOnUse" x="-10%" y="-10%" width="110%"height="110%">
+              _xWrite.WriteStartElement("feGaussianBlur");
+             _xWrite.WriteAttributeString("in","SourceAlpha");
+             _xWrite.WriteAttributeString("stdDeviation","4");
+             _xWrite.WriteAttributeString("result","blur");
+                _xWrite.WriteEndElement();// <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur" id="feGaussianBlur3041"/>
+            _xWrite.WriteStartElement("feOffset");
+             _xWrite.WriteAttributeString("in","blur");
+             _xWrite.WriteAttributeString("dx","4");
+            _xWrite.WriteAttributeString("dy","4");
+             _xWrite.WriteAttributeString("result","offsetBlur");
+                _xWrite.WriteEndElement();// <feOffset in="blur" dx="4" dy="4" result="offsetBlur" id="feOffset3043"/>
+             _xWrite.WriteStartElement("feSpecularLighting");
+             _xWrite.WriteAttributeString("in","blur");
+             _xWrite.WriteAttributeString("surfaceScale","5");
+            _xWrite.WriteAttributeString("specularConstant",".75");
+            _xWrite.WriteAttributeString("specularConstant",".75");
+             _xWrite.WriteAttributeString("result","offsetBlur");
+                _xWrite.WriteEndElement();//<feSpecularLighting in="blur" surfaceScale="5" specularConstant=".75"specularExponent="20" lighting-color="#bbbbbb" result="specOut"id="feSpecularLighting3045">
+            <fePointLight x="-500" y="-1000" z="2000" id="fePointLight3047"/>
+          </feSpecularLighting>
+          <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+          <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1"k4="0" result="litPaint"/>
+          <feMerge>
+            <feMergeNode in="offsetBlur"/>
+            <feMergeNode in="litPaint"/>
+          </feMerge>        
+        </filter>
+      </xsl:element>   
+    
+         _xWrite.WriteEndElement();*/
+        }
 
-      
+
 
         void WriteViewBox(float minX, float minY, float width, float height)
         {
@@ -289,7 +375,7 @@ namespace EmbroideryFile
 
         public  void Dispose()
         {
-            if (stream != null) stream.Close();
+            if (_stream != null) _stream.Close();
             if (_xWrite != null) _xWrite.Close();
         }
     }

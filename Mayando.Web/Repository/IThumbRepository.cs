@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Mayando.Web.Infrastructure;
+using Myembro.Infrastructure;
+using Myembro.Interfaces;
+using Myembro.Models;
 
-namespace Mayando.Web.Repository
+namespace Myembro.Repository
 {
     public interface IThumbRepository
     {
         EmbroNavigationContext GetNavigationContextByCountPage(EmbroNavigationContext context);
+        IWritePng2Stream GetEmbroByID(int embroID);
     }
 }

@@ -2,92 +2,25 @@
 using System.Reflection;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 using CaptchaMvc.Infrastructure;
 
 using JelleDruyts.Web.Mvc;
-using Mayando.Web.Controllers;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
+using Myembro.Controllers;
+using Myembro.Enumerations;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
 
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
 using NinjectAdapter;
 
-namespace Mayando.Web
+namespace Myembro
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        #region Constants
 
-        internal const string RouteNameDefault = "Default";
-
-        #endregion
-
-        #region Register Routes
-
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-           
-            
-
-
-            routes.MapRoute(
-                "embro/details/id/by/context/criteria",
-                string.Format(CultureInfo.InvariantCulture, "{0}/{1}", EmbroController.ControllerName, ActionName.Details.ToActionString()) + "/{id}/by/{context}/{criteria}",
-                new { controller = EmbroController.ControllerName, action = ActionName.Details.ToActionString(), criteria = UrlParameter.Optional }
-            );
-
-
-            routes.MapRoute(
-              "embro/index/page/count/criteria",
-              string.Format(CultureInfo.InvariantCulture, "{0}/{1}", EmbroController.ControllerName, ActionName.Index.ToActionString()) + "/{page}/{count}/{criteria}",
-              new { controller = EmbroController.ControllerName, action = ActionName.Index.ToActionString(), page = 1, count = 5, criteria = UrlParameter.Optional }
-          );
-
-            routes.MapRoute(
-                          "embro/index/id",
-                          url: "embro/index/{id}",
-                        defaults: new { controller = "embro", action = "index", page = 1, count = 7 }
-                    );
-
-
-   routes.MapRoute("comment/viewforeditcomment/embroid", "comment/viewforeditcomment/{id}/{embroid}", new { controller = "comment", action = "viewforeditcomment", id = "", embroid = "" });
-            routes.MapRoute("comment/delete/id/embroid", "comment/delete/{id}/{embroid}", new { controller = "comment", action = "delete", id = "", embroid = "" });
-            routes.MapRoute("comment/addcomment", "comment/addcomment", new { controller = "comment", action = "addcomment" });
-            routes.MapRoute("comment/index", "comment/index/{embroid}", new { controller = "comment", action = "index",embroid="" });
-
-            routes.MapRoute(
-                     "contour/contoursvg/countryname/size",
-                     "contour/contoursvg/{countryname}/{size}",
-                     new { controller = ContourController.ControllerName, action = ActionName.ContourSvg.ToActionString(), countryName = "Russia", size = 400 }
-                 );
-
-            routes.MapRoute(
-                          "embro/index/page/count",
-                          url: "embro/index/{page}/{count}",
-                        defaults: new { controller = "embro", action = "index", page = 1, count = 7 }
-                    );
-
-       
-
-            routes.MapRoute(
-     RouteNameDefault,
-     url: "{controller}/{action}/{page}/{count}",
-   defaults: new { controller = "embro", action = "index", page = 1, count = 7 });
-            routes.MapRoute("embro/detailsbyid","embro/detailsbyid/{id}",new { controller = "embro", action = "detailsbyid", id = UrlParameter.Optional }
-       );
-
-            routes.MapRoute(
-                "Root",
-                "",
-                new { controller = EmbroController.ControllerName, action = ActionName.Index.ToActionString() }
-            );
-        }
-
-        #endregion
 
         #region Application Start & End
 
@@ -106,16 +39,16 @@ namespace Mayando.Web
              //RegisterMyDependencyResolver();    
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
-          
-            
-            RegisterRoutes(RouteTable.Routes);
+
+
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             // Replace the Default WebFormViewEngine with our custom ThemedWebFormViewEngine
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new WebFormViewEngine());
             ViewEngines.Engines.Add(new RazorViewEngine());              
             //ViewEngines.Engines.Add(new ThemedWebFormViewEngine());
-            
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
            
         }
 

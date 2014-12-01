@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<JelleDruyts.Web.Mvc.Paging.IPagedList<Mayando.Web.Models.Log>>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<JelleDruyts.Web.Mvc.Paging.IPagedList<Myembro.Models.Log>>" MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="TitleContent" runat="server">
     Event Log

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Mayando.Web.Models;
+using Myembro.Models;
 using System.Xml.Linq;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Contains conversion operations.

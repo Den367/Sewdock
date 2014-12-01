@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Properties;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
+using Myembro.Properties;
 
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     public partial class Page : IDataErrorInfo
     {

@@ -1,11 +1,7 @@
-﻿@using Mayando.Web.Infrastructure
-@using Mayando.Web.Properties
-@model Mayando.Web.Models.SiteData
+﻿@using Myembro.Infrastructure
+@using Myembro.Properties
+@model Myembro.Models.SiteData
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/SiteLayout.cshtml";
-}
 
 @section TitleContent
 {
@@ -14,9 +10,9 @@
 }
 @section MainContent
 {
-  <div id="contactindexpage">
-    <h2>@Html.Encode(Resources.AccountLogOn) </h2>
-    @{Html.RenderPartial("LogOn", new  Mayando.Web.Models.LogOnModel()); }
+  <div id="accountindexpage">
+    <h3>@Html.Encode(Resources.AccountLogOn) </h3>
+    @{Html.RenderPartial("LogOn", new  Myembro.Models.LogOnModel()); }
 </div>  
 
 }

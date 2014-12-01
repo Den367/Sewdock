@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace Mayando.Web.DataAccess
+namespace Myembro.DataAccess
 {
     public class DataTablesFormer
     {
@@ -59,7 +59,7 @@ namespace Mayando.Web.DataAccess
             new DataColumn("Tags", typeof(string)),
             new DataColumn("Html", typeof(string)),
             new DataColumn("Summary", typeof(string)),
-            new DataColumn("UserID", typeof(Guid)),
+            new DataColumn("UserID", typeof(string)),
             new DataColumn("TypeID", typeof(int)),
             new DataColumn("Json", typeof(string)),
             new DataColumn("Png", typeof(string))

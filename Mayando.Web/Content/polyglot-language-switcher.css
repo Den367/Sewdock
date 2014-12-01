@@ -24,11 +24,14 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 /* ---------------------------------------------------------------------- */
 /* Generic
 /* ---------------------------------------------------------------------- */
+
 #polyglotLanguageSwitcher, #polyglotLanguageSwitcher * {
-	margin-right: 5%;
+	/*margin-right: 3%;*/
 	padding: 0; 
 	outline: none;
 }
+
+
 
 #polyglotLanguageSwitcher ul {
 	list-style: none;	
@@ -41,6 +44,8 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 	line-height: normal;
 	position: relative; /* sets the initial position for the drop-down menu */	
 	z-index: 100;
+    width: 8%;
+    float: right;
 }
 
 #polyglotLanguageSwitcher form {

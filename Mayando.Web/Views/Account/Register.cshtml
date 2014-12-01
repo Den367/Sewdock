@@ -1,87 +1,52 @@
-﻿@using CaptchaMvc.HtmlHelpers
-@using Mayando.Web.Properties
-@model Mayando.Web.ViewModels.RegisterViewModel
+﻿@using System.Web.Optimization
+@using Myembro.Properties
+@model Myembro.ViewModels.RegisterViewModel
 @{
-    Layout = "~/Views/Shared/SiteLayout.cshtml";
+    ViewBag.Title = "Register";
 }
-<link rel="stylesheet" href="@Url.Content("~/Content/styles/font-face.css")" type="text/css"  />
-           @Html.ValidationSummary(true, Resources.LogOnFailed)
-<style>
-    #register-form
-    {
-        position: relative;
-        min-height:640px;
-    }
-    #register-form-fieldset {
-        padding: 5%;
-        width: 50%;
-        position: absolute;
-        display: block;
-        left: 0%;
-    }
-</style>
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal",id="register-form" }))
-{
-   <fieldset id="register-form-fieldset">
-        
-        <div class="control-group">
-            <label class="control-label" for="UserName">
-                @Resources.AccountRegisterUserName
-            </label>
-            <div class="controls">
-                @Html.ValidationMessage("UserName")
-                @Html.TextBox("UserName", Model.UserName)
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="Email">
-                @Resources.AccountRegisterEmail
-            </label>
-            <div class="controls">
-                @Html.ValidationMessage("Email")
-                @Html.TextBox("Email", Model.Email)
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="Password">
-                @Resources.AccountRegisterPassword
-            </label>
-            <div class="controls">
-                @Html.ValidationMessage("Password")
-                @Html.Password("Password", Model.Password)
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="ConfirmPassword">
-                @Resources.AccountRegisterConfirmPassword
-            </label>
-            <div class="controls">
-                @Html.ValidationMessage("ConfirmPassword")
-                @Html.Password("ConfirmPassword", Model.ConfirmPassword)
-            </div>
-            <div>
-             @Html.MathCaptcha(Resources.ButtonRefreshText, Resources.FieldInput, Resources.RequiredFieldValidationMessage, false)
-                </div>
-        </div>
-       
-       
-        <div class="control-group">
-            <label class="control-label" for="CaptchaPicture" id="captcha">
-                @Html.TextBox("Captcha", Model.Captcha, new {@readonly="readonly",@overflow="scroll"})
-            </label>
-            <div class="controls" >
-               @Html.ValidationMessage("UserInputCaptcha", "*")
-                @Html.TextBox("UserInputCaptcha", Model.UserInputCaptcha)
-            </div>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">
-                @Resources.AccountLogonRegister
-            </button>
-            @Html.ActionLink(@Resources.CancelButtonText, "Index", null, null, new { @class = "btn" })
-        </div>
-  </fieldset>
-}
-<style media="screen" type="text/css">
 
-    </style>
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+        </div>
+         <div class="form-group">
+        @Html.LabelFor(m => m.Email,  Resources.AccountRegisterEmail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+              @Html.ValidationMessage("Email")
+        </div>
+    </div>
+     
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="@Resources.AccountLogonRegister" />
+        </div>
+    </div>
+}
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

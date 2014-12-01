@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Specifies the version milestone of the assembly (e.g. Beta 1, Release Candidate, RTM, Service Pack 1).

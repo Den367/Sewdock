@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 namespace EmbroideryFile
 
 {
+    [Serializable]
     public class Coords
     {
         public int X { get; set; }

@@ -4,10 +4,10 @@ using System.Globalization;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Mayando.Web.Extensions;
-using Mayando.Web.Models;
+using Myembro.Extensions;
+using Myembro.Models;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Allows logging of events.

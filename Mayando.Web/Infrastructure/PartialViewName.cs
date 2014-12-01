@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Defines the available partial view names.
@@ -55,6 +55,8 @@ namespace Mayando.Web.Infrastructure
         ToolButtons,
         WorldGlobe,
         Loading,
-        Design
+        Design,
+        DesignCanvas,
+        VKLike
     }
 }

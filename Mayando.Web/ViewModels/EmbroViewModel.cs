@@ -1,6 +1,6 @@
-﻿using Mayando.Web.Infrastructure;
+﻿using Myembro.Infrastructure;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class EmbroNavigationViewModel
     {

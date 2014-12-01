@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace Mayando.Web.DataAccess
+namespace Myembro.DataAccess
 {
      [CLSCompliant(false)]
     public class EmbroCommandFormer:CommandFormer
@@ -79,7 +79,7 @@ namespace Mayando.Web.DataAccess
             return cmd;
         }
 
-        public SqlCommand GetReadEmbroPagingInfoCommand(int embroID, int pageSize, string criteria, Guid? userID = null)
+        public SqlCommand GetReadEmbroPagingInfoCommand(int embroID, int pageSize, string criteria, string userID = null)
         {
             var cmd = GetCommand();
             cmd.Parameters.Add(new SqlParameter("EmbroID", embroID));

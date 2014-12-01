@@ -8,15 +8,15 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
-using JelleDruyts.Web.Mvc;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
-using Mayando.Web.Properties;
-using Mayando.Web.ViewModels;
-using Mayando.Web.DataAccess;
+using Microsoft.AspNet.Identity;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
+using Myembro.Models;
 
-namespace Mayando.Web.Controllers
+using Myembro.ViewModels;
+
+
+namespace Myembro.Controllers
 {
 
 
@@ -32,7 +32,7 @@ namespace Mayando.Web.Controllers
     {
         protected override bool DisableAsyncSupport
         {
-            get { return true; }
+            get { return false; }
         }
 
         protected readonly IEmbroRepository Repo;
@@ -146,7 +146,8 @@ namespace Mayando.Web.Controllers
         {
             try
             {
-
+                // Execute the actual request.
+                base.Initialize(requestContext);
               
                 // Initialize culture.
                 SetCultureForHttpRequest(requestContext.HttpContext.Request);
@@ -154,7 +155,22 @@ namespace Mayando.Web.Controllers
                 // Ensure that initial settings are created.
                 //CheckFirstTimeInitialization();
 
-                // Get settings and menus.
+                LoadSiteData(requestContext);
+
+            }
+            catch (Exception exc)
+            {
+                Logger.LogException(exc);
+              //  throw;
+            }
+        }
+
+        #endregion
+
+        #region Helper Methods
+        public  void LoadSiteData(RequestContext requestContext) 
+    {
+           // Get settings and menus.
                 IDictionary<string, string> applicationSettings;
                 IDictionary<string, string> userSettings;
                 IEnumerable<Menu> menus;
@@ -169,21 +185,7 @@ namespace Mayando.Web.Controllers
                     // Create and store SiteData.
                     this.SiteData = new SiteData(applicationSettings, viewMenus, requestContext, userSettings);
 
-                    //// Check if a photo provider synchronization should occur.
-                    //if (this.SiteData.Settings.PhotoProviderAutoSyncEnabled && this.SiteData.Settings.PhotoProviderAutoSyncIntervalMinutes.HasValue)
-                    //{
-                    //    if (!this.SiteData.Settings.PhotoProviderLastSyncTime.HasValue || (DateTimeOffset.UtcNow - this.SiteData.Settings.PhotoProviderLastSyncTime.Value).TotalMinutes >= this.SiteData.Settings.PhotoProviderAutoSyncIntervalMinutes.Value)
-                    //    {
-                    //        // Synchronization has not yet occurred or it was more than the configured number of minutes ago.
-                    //        var start = (this.SiteData.Settings.PhotoProviderLastSyncTime.HasValue ? this.SiteData.Settings.PhotoProviderLastSyncTime.Value : DateTimeOffsetExtensions.MinValue);
-
-                    //        // Start synchronization on a background thread.
-                    //        ThreadPool.QueueUserWorkItem(state =>
-                    //        {
-                    //            Tasks.SynchronizePhotoProvider(start, this.SiteData.Settings.PhotoProviderAutoSyncTags, false, RequestOrigin.Timer);
-                    //        });
-                    //    }
-                    //}
+                   
                     try
                     {
                         // Make the timezone globally available.
@@ -223,34 +225,28 @@ namespace Mayando.Web.Controllers
                     SetViewDataFromCookie(requestContext, "RememberMe");
 
                     // Execute the actual request.
-                    base.Initialize(requestContext);
-               
-            }
-            catch (Exception exc)
-            {
-                Logger.LogException(exc);
-              //  throw;
-            }
-        }
+                    //base.Initialize(requestContext);
+    }
 
-        #endregion
-
-        #region Helper Methods
-        protected Guid? GetUserProviderKey()
+        protected string GetUserProviderKey()
         {
+
+
+
             if (User == null) return null;
-            var membershipUser = Membership.GetUser(User.Identity.Name);
-            if (membershipUser != null)
-            {
-                var providerUserKey = membershipUser.ProviderUserKey;
-                if (providerUserKey != null)
-                    return (Guid)providerUserKey;
-            }
-            return null;
+            return User.Identity.GetUserId() ;
+            //var membershipUser = Membership.GetUser(User.Identity.Name);
+            //if (membershipUser != null)
+            //{
+            //    var providerUserKey = membershipUser.ProviderUserKey;
+            //    if (providerUserKey != null)
+            //        return (Guid)providerUserKey;
+            //}
+            //return null;
         }
 
         /// <summary>
-        /// GeD:\workshop\Mayando.Web\Controllers\FeedsController.csts the menu view model.
+        /// GeD:\workshop\Myembro\Controllers\FeedsController.csts the menu view model.
         /// </summary>
         /// <param name="requestContext">The request context.</param>
         /// <param name="menus">The menus.</param>
@@ -759,7 +755,7 @@ namespace Mayando.Web.Controllers
         /// </summary>
         /// <param name="requestContext">The request context.</param>
         /// <param name="viewDataKey">The view data key in which to store the cookie value.</param>
-        private void SetViewDataFromCookie(RequestContext requestContext, string viewDataKey)
+        private  void SetViewDataFromCookie(RequestContext requestContext, string viewDataKey)
         {
             string cookieValue = GetCookieValue(requestContext, viewDataKey);
             if (!string.IsNullOrEmpty(cookieValue))
@@ -813,9 +809,13 @@ namespace Mayando.Web.Controllers
             HttpCookie cultureCookie = request.Cookies["_culture"];
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
-            else
-                cultureName = request.UserLanguages[0]; // obtain it from HTTP header AcceptLanguages
-
+            //else
+            //{
+            //    cultureName = request.UserLanguages[0].Split('-')[0]; // obtain it from HTTP header AcceptLanguages
+            //    HttpCookie cookie = new HttpCookie("_culture");
+            //    cookie.Value = cultureName;
+            //    request.Cookies.Set( cookie);
+            //}
             // Validate culture name
             cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
 

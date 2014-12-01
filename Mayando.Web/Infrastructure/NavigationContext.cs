@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Defines a navigation context for photos.

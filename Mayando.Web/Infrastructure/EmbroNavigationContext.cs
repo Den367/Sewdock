@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Security;
-using Mayando.Web.Models;
-using Mayando.Web.ViewModels;
+using Myembro.Models;
+using Myembro.ViewModels;
+using Microsoft.AspNet.Identity;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Defines a navigation context for photos.
@@ -96,7 +97,7 @@ namespace Mayando.Web.Infrastructure
         /// </summary>
         public int CurrentEmbroID { get; set; }
 
-        public Guid UserID { get; set; }
+        public string UserID { get; set; }
 
         #endregion
 
@@ -131,13 +132,20 @@ namespace Mayando.Web.Infrastructure
           
         }
 
+        public EmbroNavigationContext(string userId)
+        {
+            PageSize = 7;
+            PageNumber = 1;
+            //var user = User.Membership.GetUser();
+            //if (null != user )
+            UserID = userId;
+        }
+
         public EmbroNavigationContext()
         {
             PageSize = 7;
             PageNumber = 1;
-            var user = Membership.GetUser();
-            if (null != user )
-            UserID = (Guid) user.ProviderUserKey;
+          
         }
 
         #endregion

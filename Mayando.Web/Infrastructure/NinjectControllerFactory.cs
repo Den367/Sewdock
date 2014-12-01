@@ -5,11 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using EmbroideryFile;
-using Mayando.Web.Models;
-using Mayando.Web.Repository;
+using Myembro.Models;
+using Myembro.Repository;
 using Ninject;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     public class NinjectControllerFactory : DefaultControllerFactory
     {

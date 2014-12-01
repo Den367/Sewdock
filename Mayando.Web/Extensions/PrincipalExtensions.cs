@@ -1,7 +1,7 @@
 ﻿using System.Security.Principal;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="IPrincipal"/> instances.

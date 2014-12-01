@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using Mayando.Web.Extensions;
-using Mayando.Web.ViewModels;
+using Myembro.Extensions;
+using Myembro.ViewModels;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Provides a base class for master pages.

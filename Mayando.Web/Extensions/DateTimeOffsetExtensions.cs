@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using Mayando.Web.Properties;
+using Myembro.Properties;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="DateTimeOffset"/> instances.
@@ -42,22 +42,22 @@ namespace Mayando.Web.Extensions
             if (adjusted.Date == today.Date)
             {
                 // Today.
-                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeTodayAtTime, adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Myembro.Properties.Resources.TimeTodayAtTime, adjusted.ToShortTimeString());
             }
             else if (adjusted.Date == today.Date.AddDays(-1))
             {
                 // Yesterday.
-                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeYesterdayAtTime, adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Myembro.Properties.Resources.TimeYesterdayAtTime, adjusted.ToShortTimeString());
             }
             else if (adjusted > today.AddMonths(-10))
             {
                 // In the last 10 months, show only the day and month.
-                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeOnDateAtTime, adjusted.ToMonthDateString(), adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Myembro.Properties.Resources.TimeOnDateAtTime, adjusted.ToMonthDateString(), adjusted.ToShortTimeString());
             }
             else
             {
                 // Older, use the full date.
-                return string.Format(CultureInfo.CurrentCulture, Mayando.Web.Properties.Resources.TimeOnDateAtTime, adjusted.ToShortDateString(), adjusted.ToShortTimeString());
+                return string.Format(CultureInfo.CurrentCulture, Myembro.Properties.Resources.TimeOnDateAtTime, adjusted.ToShortDateString(), adjusted.ToShortTimeString());
             }
         }
 

@@ -1,13 +1,15 @@
-﻿@model Mayando.Web.Infrastructure.EmbroNavigationContext
-@using Mayando.Web.Extensions
-@using Mayando.Web.Infrastructure
+﻿@model Myembro.Infrastructure.EmbroNavigationContext
+@using Myembro.Extensions
+@using Myembro.Infrastructure
 
 @{ Layout = null;}
 @if (null != Model.Embros && Model.TotalItemCount > 0)
 {     	    
     <div class="navigation-filmstrip slider">
         @foreach (var embro in Model.Embros)
-        {                                       
+        {
+            embro.PageNo = Model.PageNumber;
+            embro.PageSize = Model.PageSize;                                  
             <ins>
                 @{ Html.RenderPartial(PartialViewName.EmbroThumbnail, embro); }
             </ins>

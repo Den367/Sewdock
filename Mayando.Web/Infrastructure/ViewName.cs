@@ -1,5 +1,5 @@
 ﻿
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Defines the available view names.

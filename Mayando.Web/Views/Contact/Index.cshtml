@@ -1,5 +1,5 @@
 ﻿
-@using Mayando.Web.Properties
+@using Myembro.Properties
 @{
     Layout = "~/Views/Shared/SiteLayout.cshtml";
 }
@@ -10,7 +10,7 @@
 
 @section MainContent{
   <div id="contactindexpage">
-    <h2>@Html.Encode(Resources.ContactTitle) </h2>
+  
     @{ Html.RenderPartial("ContactForm", null); }
 </div>  
 }

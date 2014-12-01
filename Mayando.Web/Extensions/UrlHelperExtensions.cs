@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using JelleDruyts.Web.Mvc.Discovery;
-using Mayando.Web.Controllers;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
+using Myembro.Controllers;
+using Myembro.Infrastructure;
+using Myembro.Models;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="UrlHelper"/> instances.

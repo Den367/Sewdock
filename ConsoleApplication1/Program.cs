@@ -22,7 +22,7 @@ namespace ConsoleApplication1
         {
 
 
-            SaveCountryNames(@"D:\WEB_PRJ\Mayando.Web\Content\Xml\country-contours.xml", @"d:\SVG\country-names.asc");
+            SaveCountryNames(@"D:\WEB_PRJ\Myembro\Content\Xml\country-contours.xml", @"d:\SVG\country-names.asc");
 
             //var derive = new WorldGlobeContourDerive();
             //var contour = derive.GetZigzagVerticesByCountryName("Burundi", @"d:\SVG\globe\world-110m.json");
@@ -78,7 +78,7 @@ namespace ConsoleApplication1
             //ContourSearchInfo searchInfo = new ContourSearchInfo()
             //{
             //    Delimiter = ',',
-            //    FilePath = @"D:\WEB_PRJ\Mayando.Web\Content\Xml\country-contours.xml"
+            //    FilePath = @"D:\WEB_PRJ\Myembro\Content\Xml\country-contours.xml"
             //    ,
             //    IteratedElementName = "trk",
             //    PolygonElementName = "poly",

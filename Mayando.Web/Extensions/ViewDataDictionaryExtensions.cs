@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Mayando.Web.Controllers;
-using Mayando.Web.ViewModels;
+using Myembro.Controllers;
+using Myembro.ViewModels;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="ViewDataDictionary"/> instances.

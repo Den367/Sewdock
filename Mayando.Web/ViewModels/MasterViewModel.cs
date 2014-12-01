@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class MasterViewModel
     {

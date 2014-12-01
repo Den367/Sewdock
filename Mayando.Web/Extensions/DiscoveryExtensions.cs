@@ -6,7 +6,7 @@ using JelleDruyts.Web.Mvc;
 using System.Collections.Generic;
 using System.Web;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for discovery types.

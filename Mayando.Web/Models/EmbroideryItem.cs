@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using Mayando.Web.Extensions;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Properties;
+using Myembro.Extensions;
+using Myembro.Infrastructure;
+using Myembro.Properties;
 using System.Web;
 using System.Web.Mvc;
 using System.Runtime.Serialization;
@@ -13,7 +13,7 @@ using EmbroideryFile;
 using System.Xml.Linq;
 using System.Linq;
 
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     public class EmbroideryItem : IDataErrorInfo
     {
@@ -93,7 +93,7 @@ namespace Mayando.Web.Models
 
         public string XmlTags { set { tagList = Converter.FromTagXmled(value); } }
 
-        public Guid? UserID { get; set; }
+        public string UserID { get; set; }
 
         public int TypeID
         {

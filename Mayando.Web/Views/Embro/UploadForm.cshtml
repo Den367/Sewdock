@@ -1,9 +1,9 @@
 ﻿@using CaptchaMvc.HtmlHelpers
 @using CaptchaMvc.Interface
-@using Mayando.Web.Extensions
-@using Mayando.Web.Infrastructure
-@using Mayando.Web.Properties
-@model Mayando.Web.ViewModels.UploadFormViewModel
+@using Myembro.Extensions
+@using Myembro.Infrastructure
+@using Myembro.Properties
+@model Myembro.ViewModels.UploadFormViewModel
 @{
 
     ICaptcha captcha = Html.Captcha(Resources.ButtonRefreshText, Resources.FieldInput, 4, Resources.RequiredFieldValidationMessage, false);
@@ -39,6 +39,11 @@
             width: 100%;
             position: relative;
         }
+
+        #upload-preview-image {
+            background-image: url(/embro/content/images/bg.png);
+            background-repeat:  no-repeat;
+        }
     </style>
     <fieldset>
         <h3>@Resources.UploadTitleText</h3>
@@ -69,7 +74,7 @@
                                 @Html.ValidationMessage("Title", "*")
                             </td>
                             <td id="td-embro-preview" rowspan="2">
-                                <img id="upload-preview-image" alt="Embroidery preview" src="@Model.Base64Png" />
+                                <img id="upload-preview-image" onerror="this.onerror=null;this.src='@Url.Content("~/Content/images/bg.png")';"  src='@Html.Raw(Model.Base64Png ?? Url.Content("~/Content/images/bg.png")) ' />
                             </td>
                         </tr>
                         <tr>
@@ -80,14 +85,14 @@
                         </tr>
                     </table>
                 </div>
-                                  if (User.Identity.IsAuthenticated)
-                                  {
-                <div>
-                    <label for="Hidden" class="required">@Resources.EmbroIsHiddenText</label>
-                    @Html.CheckBox("Hidden", Model.Hidden, new { @class = "same-row" })
-                    @Html.ValidationMessage("Hidden", "*")
-                </div>
-                                  }
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div>
+                        <label for="Hidden" class="required">@Resources.EmbroIsHiddenText</label>
+                        @Html.CheckBox("Hidden", Model.Hidden, new { @class = "same-row" })
+                        @Html.ValidationMessage("Hidden", "*")
+                    </div>
+                }
  
                 <div class="required hidden hide" hidden="hidden">
                     <label for="DatePublished" class="required hidden">Date Published:</label>
@@ -97,131 +102,143 @@
                 <br />
                 <div>
                     <label for="Article" class="optional left-field">@Resources.UploadArticleCaptionText</label>
-                    @Html.ValidationMessage("Text", "*")
+                    @Html.ValidationMessage("Article", "*")
                     @{ Html.RenderPartialHtmlEditor("Article", Model.Article); }
                 </div>               
                 <div>
-                    <input type="submit" value="@Resources.UploadButtonText" class="submit btn"/>
+                    <input type="submit" value="@Resources.UploadButtonText" class="submit btn" onclick="uploadEmbro(event);"/>
                 </div>
             }
         </div>
-
     </fieldset>
 
     <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
     <script>
-      
+        function uploadEmbro(e) {
+            e.preventDefault();
+            if (tinyMCE.activeEditor != null) {
+                var article = tinyMCE.activeEditor.getContent();                
+                $('textarea#Article').html(article);
+            }
+            $('#upload-embro-fields-container').submit();
+        }
         function splitNameAndExt(path) {
             var name = path.replace(/^.*[\\\/]/, '');
             name = name.substr(0, name.lastIndexOf('.')) || name;
             var ext = path.split('.').pop();
             return { 'name': name, 'ext':ext };
         }
-            tinymce.init({ selector: 'textarea.text-editor-html' });
-            $("#fileUpload").change(function () {
-                
-                var path = this.value;
-                if (path === null) return;
-                var nameInfo = splitNameAndExt(path);                
-                document.getElementById('file_fake').value = path;                        
-                document.getElementById('tagList-textbox').value = "tagme;" + nameInfo.name + ";" + nameInfo.ext;               
-                $("#upload-embro-fields-container").submit();
-              
-            });
-            function getDoc(frame) {
-                var doc = null;
-                // IE8 cascading access check
-                try {
-                    if (frame.contentWindow) {
-                        doc = frame.contentWindow.document;
-                    }
-                } catch (err) {
+           
+        $("#fileUpload").change(function () {
+            document.getElementById('title-textbox').value = '';
+            var path = this.value;
+            if (path === null) return;
+            var nameInfo = splitNameAndExt(path);                
+            document.getElementById('file_fake').value = path;                        
+            document.getElementById('tagList-textbox').value = "tagme;" + nameInfo.name + ";" + nameInfo.ext;               
+            $("#upload-embro-fields-container").submit();
+            
+        });
+        $('textarea.text-editor-html').focus(function () {
+            initTinyMCE(); });
+        function getDoc(frame) {
+            var doc = null;
+            // IE8 cascading access check
+            try {
+                if (frame.contentWindow) {
+                    doc = frame.contentWindow.document;
                 }
-                if (doc) { // successful getting content
-                    return doc;
-                }
-                try { // simply checking may throw in ie8 under ssl or mismatched protocol
-                    doc = frame.contentDocument ? frame.contentDocument : frame.document;
-                } catch (err) {
-                    // last attempt
-                    doc = frame.document;
-                }
+            } catch (err) {
+            }
+            if (doc) { // successful getting content
                 return doc;
             }
+            try { // simply checking may throw in ie8 under ssl or mismatched protocol
+                doc = frame.contentDocument ? frame.contentDocument : frame.document;
+            } catch (err) {
+                // last attempt
+                doc = frame.document;
+            }
+            return doc;
+        }
 
-          //  window.onload(function() {
-                $("#upload-embro-fields-container").submit(function(e) {
-                    if (e.defaultPrevented) {
-                        e.unbind();
-                        return;
-                    }
-                    var formObj = $(this);
-                    var formURL = formObj.attr("action");
+        //  window.onload(function() {
+        $("#upload-embro-fields-container").submit(function(e) {
+            if (e.defaultPrevented) {
+                e.unbind();
+                return;
+            }
+            var formObj = $(this);
+            var formURL = formObj.attr("action");
 
-                    if (window.FormData !== undefined)  // for HTML5 browsers
-                    {
+            if (window.FormData !== undefined)  // for HTML5 browsers
+            {
 
-                        var formData = new FormData(this);
-                        // var title = formData.elements["Title"];
-                        //console.log(title);
-                        $.ajax({
-                            url: formURL,
-                            type: 'POST',
-                            data: formData,
-                            enctype: "multipart/form-data",
-                            // mimeType: "multipart/form-data",
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data, textStatus, jqXHR) {
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                            },
-                            complete: function(jqXHR, textStatus) {
-                                var name = document.getElementById('title-textbox').value;
-                                if (name.length == 0) {
-                                    var img = $("td#td-embro-preview");
-                                    img.html(jqXHR.responseText);
-                                    var path = document.getElementById('file_fake').value;
-                                    var nameInfo = splitNameAndExt(path);
-                                    document.getElementById('title-textbox').value = nameInfo.name;
-                                } else {
-                                    window.location.reload();
-                                }
-
-                            }
-                        });
-                        e.preventDefault();
-                        //e.unbind();
-                    } else  //for olden browsers
-                    {
-                        //generate a random id
-                        var iframeId = 'unique' + (new Date().getTime());
-
-                        //create an empty iframe
-                        var iframe = $('<iframe src="javascript:false;" name="' + iframeId + '" />');
-
-                        //hide it
-                        iframe.hide();
-
-                        //set form target to iframe
-                        formObj.attr('target', iframeId);
-
-                        //Add iframe to body
-                        iframe.appendTo('body');
-                        iframe.load(function(e) {
-                            var doc = getDoc(iframe[0]);
-                            var docRoot = doc.body ? doc.body : doc.documentElement;
-                            var data = docRoot.innerHTML;
-                            //data is returned from server.
-
-                        });
+                var formData = new FormData(this);
+                // var title = formData.elements["Title"];
+                //console.log(title);
+                $.ajax({
+                    url: formURL,
+                    type: 'POST',
+                    data: formData,
+                    enctype: "multipart/form-data",
+                    // mimeType: "multipart/form-data",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data, textStatus, jqXHR) {
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                    },
+                    complete: function(jqXHR, textStatus) {
+                        var name = document.getElementById('title-textbox').value;
+                        if (name.length == 0) {
+                            var img = $("td#td-embro-preview");
+                            img.html(jqXHR.responseText);
+                            var path = document.getElementById('file_fake').value;
+                            var nameInfo = splitNameAndExt(path);
+                            document.getElementById('title-textbox').value = nameInfo.name;
+                        } else {
+                            window.location.reload();
+                        }
 
                     }
                 });
-        //    });
+                e.preventDefault();
+                //e.unbind();
+            } else  //for olden browsers
+            {
+                //generate a random id
+                var iframeId = 'unique' + (new Date().getTime());
+
+                //create an empty iframe
+                var iframe = $('<iframe src="javascript:false;" name="' + iframeId + '" />');
+
+                //hide it
+                iframe.hide();
+
+                //set form target to iframe
+                formObj.attr('target', iframeId);
+
+                //Add iframe to body
+                iframe.appendTo('body');
+                iframe.load(function(e) {
+                    var doc = getDoc(iframe[0]);
+                    var docRoot = doc.body ? doc.body : doc.documentElement;
+                    var data = docRoot.innerHTML;
+                    //data is returned from server.
+
+                });
+
+            }
+        });
+        function initTinyMCE() {   
+            if (tinymce != null) tinymce.init({ selector: 'textarea.text-editor-html' });
+        }
+               
     </script>
+@*            <script type="text/javascript" src="@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/Scripts/tiny_mce_init.js")" ></script>  *@
 </div>
-@*<script type="text/javascript" src="@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")" ></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/tiny_mce_init.js")" ></script>     
-   *@
+
+   

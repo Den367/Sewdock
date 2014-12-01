@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using EmbroideryFile;
 using EmbroideryFile.QRCode;
-using Mayando.Web.Interfaces;
+using Myembro.Interfaces;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
 
 
@@ -40,9 +40,10 @@ namespace Mayando.Web.Infrastructure
                 {
                     try
                     {
-                        _png.FillStreamWithPng(mStream);
+                        if(_png != null) _png.FillStreamWithPng(mStream);
                         mStream.Seek(0, SeekOrigin.Begin);
                         mStream.CopyTo(response.OutputStream);
+                        
                     }
                     catch (Exception ex)
                     {

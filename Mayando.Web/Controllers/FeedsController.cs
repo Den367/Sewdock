@@ -5,10 +5,10 @@ using System.Globalization;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using JelleDruyts.Web.Mvc.Syndication;
-using Mayando.Web.Extensions;
-using Mayando.Web.Models;
+using Myembro.Extensions;
+using Myembro.Models;
 
-namespace Mayando.Web.Controllers
+namespace Myembro.Controllers
 {
     [Description("Handles actions that have to do with syndication feeds.")]
     public class FeedsController : SiteControllerBase

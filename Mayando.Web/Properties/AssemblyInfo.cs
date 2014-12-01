@@ -3,17 +3,17 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Security;
-using Mayando.Web.Infrastructure;
+using Myembro.Infrastructure;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Mayando.Web")]
+[assembly: AssemblyTitle("Myembro")]
 [assembly: AssemblyDescription("The actual implementation for the Mayando website.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Jelle Druyts")]
-[assembly: AssemblyProduct("Mayando")]
-[assembly: AssemblyCopyright("Copyright © Jelle Druyts 2010")]
+[assembly: AssemblyCompany("Sew-dock")]
+[assembly: AssemblyProduct("Embro")]
+[assembly: AssemblyCopyright("Copyright © Mandrykin 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace Mayando.Web.DataAccess
+namespace Myembro.DataAccess
 {
      [CLSCompliant(false)]
     public class ThumbCommandFormer:CommandFormer
@@ -14,7 +14,7 @@ namespace Mayando.Web.DataAccess
     {
     }
 
-        public SqlCommand GetReadThumbsByCountPageCommand(int size, int page, string criteria, Guid userID)
+        public SqlCommand GetReadThumbsByCountPageCommand(int size, int page, string criteria, string userID)
         {
             var cmd = GetCommand();
             cmd.Parameters.Add(new SqlParameter("PageNo", page));
@@ -29,5 +29,17 @@ namespace Mayando.Web.DataAccess
             cmd.CommandText = "emb.GetThumbsByPage";
             return cmd;
         }
+
+        public SqlCommand GetReadThumbByIDCommand(int embroID)
+        {
+            var cmd = GetCommand();
+            cmd.Parameters.Add(new SqlParameter("EmbroID", embroID));
+            AddPAram(cmd, "ThumbPng", SqlDbType.NVarChar,ParameterDirection.Output);            
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "emb.GetEmbroPngById";
+            return cmd;
+        }
+
+         
     }
 }

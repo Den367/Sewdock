@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Mayando.Web.Properties;
+using Myembro.Properties;
 
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     public partial class Menu : IDataErrorInfo, ISupportSequence
     {

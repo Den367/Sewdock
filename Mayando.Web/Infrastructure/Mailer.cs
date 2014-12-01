@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Mail;
 using System.Threading;
-using Mayando.Web.Models;
+using Myembro.Models;
 
-namespace Mayando.Web.Infrastructure
+namespace Myembro.Infrastructure
 {
     /// <summary>
     /// Sends notification emails.

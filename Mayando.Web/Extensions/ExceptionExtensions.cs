@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Mayando.Web.Extensions
+namespace Myembro.Extensions
 {
     /// <summary>
     /// Provides extension methods for <see cref="Exception"/> instances.

@@ -1,6 +1,6 @@
-﻿@model Mayando.Web.ViewModels.EmbroNavigationViewModel
+﻿@model Myembro.ViewModels.EmbroNavigationViewModel
 @using JelleDruyts.Web.Mvc.Paging
-
+@{ Layout = null;}
 
 @* <div id="searchcontainer">
                 @using (Html.BeginPhotosSearchForm()) { 
@@ -16,7 +16,7 @@
                       @Html.Pager(nav.PageSize, nav.PageNumber, nav.TotalItemCount, new { criteria = nav.Criteria }); 
 </div>*@
 <div class="navigation-filmstrip">
-    @{Html.RenderPartial("ListEmbros", Model.NavigationContext);}
+    @if (Model != null && Model.NavigationContext != null){Html.RenderPartial("ListEmbros", Model.NavigationContext);}
 
 </div>
 

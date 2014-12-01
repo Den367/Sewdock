@@ -15,7 +15,7 @@ namespace UnitTestContourLibrary
             ContourSearchInfo searchInfo = new ContourSearchInfo()
                 {
                     Delimiter = ',',
-                    FilePath = @"D:\WEB_PRJ\Mayando.Web\Content\Xml\country-contours.xml"
+                    FilePath = @"D:\WEB_PRJ\Myembro\Content\Xml\country-contours.xml"
                     ,
                     IteratedElementName = "trk",
                     PolygonElementName = "poly",

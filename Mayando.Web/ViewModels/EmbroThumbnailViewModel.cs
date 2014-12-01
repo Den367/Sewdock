@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Mayando.Web.Infrastructure;
-using Mayando.Web.Models;
+using Myembro.Infrastructure;
+using Myembro.Models;
 
-namespace Mayando.Web.ViewModels
+namespace Myembro.ViewModels
 {
     public class EmbroThumbnailViewModel
     {
@@ -13,5 +13,7 @@ namespace Mayando.Web.ViewModels
         public long DownloadCount { get; set; }
         public IEnumerable<string> TagList { get; set; }
         public string Criteria { get; set; }
+        public int PageNo { get; set; }
+        public int PageSize { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
-using Mayando.Web.Infrastructure;
+using Myembro.Infrastructure;
 
-namespace Mayando.Web.Models
+namespace Myembro.Models
 {
     public partial class Log
     {

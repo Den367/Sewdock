@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Mayando.Web.Models.Gallery>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Myembro.Models.Gallery>" %>
         <%= Html.ValidationSummary("The item could not be saved. Please correct any errors and try again.") %>
         <%= Html.Hidden("Sequence") %>    
         <fieldset>
