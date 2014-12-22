@@ -1,7 +1,8 @@
 ﻿@using Myembro.Infrastructure
+@using Myembro.Models
 @using Myembro.Properties
 @model Myembro.Models.SiteData
-
+@{ Layout = "~/Views/Account/SiteLayout.cshtml";}
 
 @section TitleContent
 {
@@ -12,7 +13,7 @@
 {
   <div id="accountindexpage">
     <h3>@Html.Encode(Resources.AccountLogOn) </h3>
-    @{Html.RenderPartial("LogOn", new  Myembro.Models.LogOnModel()); }
+    @{Html.RenderPartial("LogOn", new  LoginViewModel()); }
 </div>  
 
 }

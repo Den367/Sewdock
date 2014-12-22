@@ -16,7 +16,7 @@ namespace Myembro.Models
         /// <summary>
         /// The number of photos with the current tag.
         /// </summary>
-        public int NumberOfPhotos { get; set; }
+        public int NumberOfEmbros { get; set; }
 
         /// <summary>
         /// The relative size (in percent from 1 to 100) of this tag, based on the number of photos that have the tag.
@@ -31,12 +31,12 @@ namespace Myembro.Models
         /// Initializes a new instance of the <see cref="TagInfo"/> class.
         /// </summary>
         /// <param name="tag">The tag for which additional information is given.</param>
-        /// <param name="numberOfPhotos">The number of photos with the current tag.</param>
+        /// <param name="qty">The number of photos with the current tag.</param>
         /// <param name="relativeSizePercent">The relative size (in percent from 1 to 100) of this tag, based on the number of photos that have the tag.</param>
-        public TagInfo(string tag, int numberOfPhotos, int relativeSizePercent)
+        public TagInfo(string tag, int qty, int relativeSizePercent)
         {
             this.Tag = tag;
-            this.NumberOfPhotos = numberOfPhotos;
+            this.NumberOfEmbros = qty;
             this.RelativeSizePercent = relativeSizePercent;
         }
 

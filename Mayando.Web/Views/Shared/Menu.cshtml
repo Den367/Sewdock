@@ -5,11 +5,7 @@
         @foreach (var menu in Model)
         {
             
-        <li class="@if (menu.Selected)
-                   {
-                       @Html.Raw("selected")
-                   }
-                       ">
+        <li class="@if (menu.Selected){@Html.Raw("selected")}">
                 @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip))
             </li>
         } 

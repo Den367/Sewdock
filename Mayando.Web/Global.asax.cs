@@ -1,12 +1,14 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using System.Web.Hosting;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using CaptchaMvc.Infrastructure;
-
+using IdentitySample;
 using JelleDruyts.Web.Mvc;
+using Myembro.App_Start;
 using Myembro.Controllers;
 using Myembro.Enumerations;
 using Myembro.Extensions;
@@ -42,7 +44,9 @@ namespace Myembro
 
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
+            // Manually installed WebAPI 2.2 after making an MVC project.
+            GlobalConfiguration.Configure(WebApiConfig.Register); // NEW way
+            //WebApiConfig.Register(GlobalConfiguration.Configuration); // DEPRECATED
             // Replace the Default WebFormViewEngine with our custom ThemedWebFormViewEngine
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new WebFormViewEngine());

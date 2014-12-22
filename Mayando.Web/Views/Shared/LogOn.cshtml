@@ -3,7 +3,7 @@
 @using Myembro.Infrastructure
 @using Myembro.Properties
 @using Myembro.ViewModels
-@model  Myembro.Models.LogOnModel
+@model  Myembro.Models.LoginViewModel
 
 @{
     ViewBag.Title = @Resources.AccountLogOn;
@@ -24,9 +24,9 @@
     <fieldset id="logon-fieldset">            
         <li>
            
-            @Html.LabelFor(m => m.UserName)
-            @Html.TextBoxFor(m => m.UserName)
-            @Html.ValidationMessageFor(m => m.UserName)
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
         </li>
         <li>
             @Html.LabelFor(m => m.Password)

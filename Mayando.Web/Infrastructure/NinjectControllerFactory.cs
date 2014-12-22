@@ -35,6 +35,7 @@ namespace Myembro.Infrastructure
             ninjectKernel.Bind<ICommentRepository>().To<CommentRepository>().InSingletonScope();
             ninjectKernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
             ninjectKernel.Bind<IContourRepository>().To<ContourRepository>().InSingletonScope();
+            ninjectKernel.Bind<ITagRepository>().To<TagRepository>().InSingletonScope();
            
        
         }

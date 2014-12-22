@@ -1,14 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Security.Policy;
 using System.Web.Mvc;
+using System.Web.Routing;
 using JelleDruyts.Web.Mvc;
 using Myembro.Extensions;
 using Myembro.Infrastructure;
 using Myembro.Models;
 using Myembro.Properties;
+using Myembro.Repository;
 using Myembro.ViewModels;
 
 namespace Myembro.Controllers
@@ -21,24 +25,48 @@ namespace Myembro.Controllers
         public const string ControllerName = "tags";
 
         #endregion
-
+        #region ctor
+         private readonly ITagRepository _repo;
+         public TagsController(ITagRepository repo)
+        {
+            _repo = repo;
+        }
+        #endregion
         #region Actions
 
         [Description("Shows an overview of tags.")]
         public ActionResult Index([Description("The top number of tags to show.")]int? count)
         {
-            var links = new List<LinkListItem>();
-            links.Add(new LinkListItem(this.Url.Action(ActionName.Index), Myembro.Properties.Resources.TagsShowAll, count != null));
-            foreach (var i in new int[] { 100, 50, 25, 10 })
-            {
-                links.Add(new LinkListItem(this.Url.Action(ActionName.Index, new { count = i }), string.Format(CultureInfo.CurrentCulture, Myembro.Properties.Resources.TagsShowTop, i), count != i));
-            }
-            return ViewFor(ViewName.Index, r => new TagsViewModel(GetTagInfos(r.GetTagCounts(count)), count, links));
+            var tags = _repo.GetTags();
+            var tagInfos = GetTagInfos(tags);
+            var links = GetLinks(tagInfos, "Embro", "Index", "criteria");
+            var m = new TagsViewModel(tagInfos, count, links);
+            return View(ViewName.Index,m);
         }
 
         #endregion
 
         #region Helper Methods
+
+        private IDictionary<string, LinkListItem> GetLinks(ICollection<TagInfo> tagsInfo, string controllerName, string actionName, string paramName)
+        {
+            var links = new Dictionary<string, LinkListItem>();
+            foreach (var tagInfo in tagsInfo)
+            {
+                var tagName = tagInfo.Tag;
+                var routeDictionary = new RouteValueDictionary {{paramName, tagName}};
+                var link = new LinkListItem(this.Url.Action(actionName, controllerName, routeDictionary), tagName,
+                                            tagInfo.NumberOfEmbros > 0);
+               
+                links.Add(tagName,link);
+            }
+            //links.Add(new LinkListItem(this.Url.Action(actionName), Resources.TagsShowAll, count != null));
+            //foreach (var i in new int[] { 100, 50, 25, 10 })
+            //{
+            //    links.Add(new LinkListItem(this.Url.Action(ActionName.Index, new { count = i }), string.Format(CultureInfo.CurrentCulture, Myembro.Properties.Resources.TagsShowTop, i), count != i));
+            //}
+            return links;
+        }
 
         private static ICollection<TagInfo> GetTagInfos(IDictionary<string, int> tags)
         {

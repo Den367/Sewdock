@@ -38,7 +38,15 @@ namespace Myembro.DataAccess
 
             //return _sqlConnection.CreateCommand();
         }
-      
+
+
+        public SqlCommand GetSPCommand(string spName)
+        {
+            var cmd = GetCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = spName;
+            return cmd;
+        }
 
         public SqlCommand GetReadMenuCommand()
         {

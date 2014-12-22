@@ -27,7 +27,7 @@ namespace Myembro.Controllers
     /// </summary>
     [LogError]
     [HandleError(View = "Error", Master = "Basic")]    
-    [SessionState(SessionStateBehavior.Disabled)]
+    [SessionState(SessionStateBehavior.Default)]
     public abstract class SiteControllerBase : Controller
     {
         protected override bool DisableAsyncSupport

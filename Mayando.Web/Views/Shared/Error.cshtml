@@ -1,18 +1,10 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
-@using Myembro.Properties
 
-@section TitleContent {
-
-    @Resources.ErrorTitle
-
+@{
+    ViewBag.Title = "Error";
 }
 
-
-<div id="errorpage">
-    <h2>@Resources.ErrorMessage</h2>
-    <p>@Resources.ErrorDescription</p>
-    @if (Model != null && Model.Exception != null) { 
-    <p class="error">@Model.Exception.Message</p>
-     } 
-</div>
-
+<hgroup>
+    <h1 class="text-error">Error.</h1>
+    <h2 class="text-error">An error occurred while processing your request.</h2>
+</hgroup>

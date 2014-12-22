@@ -1,71 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Security.Principal;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
-using System.Web.SessionState;
-using CaptchaMvc.Attributes;
-using Myembro.Extensions;
-using Myembro.Infrastructure;
-using Myembro.Properties;
-using Myembro.ViewModels;
+﻿using System.Globalization;
+using IdentitySample.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-
-
+using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security;
+using Myembro.Controllers;
 using Myembro.Models;
 
-namespace Myembro.Controllers
+namespace IdentitySample.Controllers
 {
-    [Description("Handles actions that have to do with user accounts.")]
-    [SessionState(SessionStateBehavior.Default)]
     [Authorize]
     public class AccountController : SiteControllerBase
-       
     {
-         
-
-
-        //protected override void Initialize(RequestContext requestContext)
-        //{
-
-        //    // Initialize culture.
-        //    SiteControllerBase.SetCultureForHttpRequest(requestContext.HttpContext.Request);
-
-
-        //    // Execute the actual request.
-        //    base.Initialize(requestContext);
-
-
-        //}
-
-        public
-             AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+        public AccountController()
         {
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
-            //to support email address as user name
-            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
+            SignInManager = signInManager;
         }
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
-
-
-
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         //
         // GET: /Account/Index
         [AllowAnonymous]
@@ -76,16 +49,24 @@ namespace Myembro.Controllers
             return View();
         }
 
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            //var requestContext = Request.RequestContext;
-            //SiteControllerBase.SetCultureForHttpRequest(requestContext.HttpContext.Request);
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        private ApplicationSignInManager _signInManager;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set { _signInManager = value; }
         }
 
         //
@@ -95,22 +76,71 @@ namespace Myembro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
-                {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+                return View(model);
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            // This doen't count login failures towards lockout only two factor authentication
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+        }
+
+        //
+        // GET: /Account/VerifyCode
+        [AllowAnonymous]
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl)
+        {
+            // Require that the user has already logged in via username/password or external login
+            if (!await SignInManager.HasBeenVerifiedAsync())
+            {
+                return View("Error");
+            }
+            var user = await UserManager.FindByIdAsync(await SignInManager.GetVerifiedUserIdAsync());
+            if (user != null)
+            {
+                ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
+            }
+            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl });
+        }
+
+        //
+        // POST: /Account/VerifyCode
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: false, rememberBrowser: model.RememberBrowser);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(model.ReturnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid code.");
+                    return View(model);
+            }
         }
 
         //
@@ -126,22 +156,21 @@ namespace Myembro.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(Myembro.Models.RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            await Task.Yield();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    ViewBag.Link = callbackUrl;
+                    return View("DisplayEmail");
                 }
-                else
-                {
-                    AddErrors(result);
-                }
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -149,46 +178,133 @@ namespace Myembro.Controllers
         }
 
         //
+        // GET: /Account/ConfirmEmail
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+        //
+        // GET: /Account/ForgotPassword
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                ViewBag.Link = callbackUrl;
+                return View("ForgotPasswordConfirmation");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        // GET: /Account/ForgotPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPassword
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string code)
+        {
+            return code == null ? View("Error") : View();
+        }
+
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+
+
+        //
         // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
-            ManageMessageId? message = null;
+            ManageController.ManageMessageId? message = null;
             IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
             {
-                message = ManageMessageId.RemoveLoginSuccess;
+                message = ManageController.ManageMessageId.RemoveLoginSuccess;
             }
             else
             {
-                message = ManageMessageId.Error;
+                message = ManageController.ManageMessageId.Error;
             }
             return RedirectToAction("Manage", new { Message = message });
         }
 
-
-        public ActionResult ChangePassword()
-        {
-
-            bool hasPassword = HasPassword();
-            ViewBag.HasLocalPassword = hasPassword;
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            return View("Manage", new ManageUserViewModel());
-            //var model = new ManageUserViewModel();
-            //return RedirectToAction("Manage",model);
-        }
-
-
         //
         // GET: /Account/Manage
-        public ActionResult Manage(ManageMessageId? message)
+        public ActionResult Manage(ManageController.ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageController.ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageController.ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                : message == ManageController.ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
+                : message == ManageController.ManageMessageId.Error ? "An error has occurred."
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -211,7 +327,7 @@ namespace Myembro.Controllers
                     IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                        return RedirectToAction("Manage", new { Message = ManageController.ManageMessageId.ChangePasswordSuccess });
                     }
                     else
                     {
@@ -233,7 +349,7 @@ namespace Myembro.Controllers
                     IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+                        return RedirectToAction("Manage", new { Message = ManageController.ManageMessageId.SetPasswordSuccess });
                     }
                     else
                     {
@@ -246,6 +362,7 @@ namespace Myembro.Controllers
             return View(model);
         }
 
+
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -255,6 +372,41 @@ namespace Myembro.Controllers
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+        }
+
+        //
+        // GET: /Account/SendCode
+        [AllowAnonymous]
+        public async Task<ActionResult> SendCode(string returnUrl)
+        {
+            var userId = await SignInManager.GetVerifiedUserIdAsync();
+            if (userId == null)
+            {
+                return View("Error");
+            }
+            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl });
+        }
+
+        //
+        // POST: /Account/SendCode
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            // Generate the token and send it
+            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            {
+                return View("Error");
+            }
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl });
         }
 
         //
@@ -269,46 +421,22 @@ namespace Myembro.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var user = await UserManager.FindAsync(loginInfo.Login);
-            if (user != null)
+            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            switch (result)
             {
-                await SignInAsync(user, isPersistent: false);
-                return RedirectToLocal(returnUrl);
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
+                case SignInStatus.Failure:
+                default:
+                    // If the user does not have an account, then prompt the user to create an account
+                    ViewBag.ReturnUrl = returnUrl;
+                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
-            else
-            {
-                // If the user does not have an account, then prompt the user to create an account
-                ViewBag.ReturnUrl = returnUrl;
-                ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
-            }
-        }
-
-        //
-        // POST: /Account/LinkLogin
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LinkLogin(string provider)
-        {
-            // Request a redirect to the external login provider to link a login for the current user
-            return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
-        }
-
-        //
-        // GET: /Account/LinkLoginCallback
-        public async Task<ActionResult> LinkLoginCallback()
-        {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
-            if (loginInfo == null)
-            {
-                return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
-            }
-            var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Manage");
-            }
-            return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
 
         //
@@ -320,7 +448,7 @@ namespace Myembro.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Manage");
+                return RedirectToAction("Index", "Manage");
             }
 
             if (ModelState.IsValid)
@@ -331,14 +459,14 @@ namespace Myembro.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInAsync(user, isPersistent: false);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -356,7 +484,7 @@ namespace Myembro.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Embro");
         }
 
         //
@@ -374,17 +502,6 @@ namespace Myembro.Controllers
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && UserManager != null)
-            {
-                UserManager.Dispose();
-                UserManager = null;
-            }
-            base.Dispose(disposing);
-        }
-
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -397,13 +514,6 @@ namespace Myembro.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
-        }
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -412,37 +522,16 @@ namespace Myembro.Controllers
             }
         }
 
-        private bool HasPassword()
-        {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
-        }
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            Error
-        }
-
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", "Embro");
         }
 
-        private class ChallengeResult : HttpUnauthorizedResult
+        internal class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri)
                 : this(provider, redirectUri, null)
@@ -462,330 +551,25 @@ namespace Myembro.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties() { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+
+           
+        }
+        private bool HasPassword()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null)
+            {
+                return user.PasswordHash != null;
+            }
+            return false;
         }
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #region Constants
-
-    //    public const string ControllerName = "account";
-
-        #endregion
-
-        #region Constructors
-
-    //    // This constructor is used by the MVC framework to instantiate the controller using
-    //    // the default forms authentication and membership providers.
-
-    //    //public AccountController()
-    //    //    : this(null, null)
-    //    //{
-    //    //}
-
-    //    // This constructor is not used by the MVC framework but is instead provided for ease
-    //    // of unit testing this type. See the comments at the end of this file for more
-    //    // information.
-    //    public AccountController(IFormsAuthentication formsAuth, IMembershipService service)
-    //    {
-    //        FormsAuth = formsAuth ?? new FormsAuthenticationService();
-    //        MembershipService = service ?? new AccountMembershipService();
-    //    }
-
-        #endregion
-
-    //    public IFormsAuthentication FormsAuth
-    //    {
-    //        get;
-    //        private set;
-    //    }
-
-    //    public IMembershipService MembershipService
-    //    {
-    //        get;
-    //        protected set;
-    //    }
-
-        #region Actions
-    //    [Description("Allows the user to send an email to the website owner.")]
-    //    public ActionResult Index()
-    //    {
-    //        return View(ViewName.Index);
-    //    }
-
-    //    [Description("Allows a user to log on.")]
-    //    public ActionResult LogOn([Description("The URL to which to return.")]string returnUrl)
-    //    {
-    //        this.ViewData[ViewDataKeyReturnUrl] = returnUrl;
-    //        return View(ViewName.Index);
-    //    }
-
-    //    [AcceptVerbs(HttpVerbs.Post)]
-    //    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", Justification = "Needs to take same parameter type as Controller.Redirect()")]  
-    //    public ActionResult LogOn(string userName, string password, bool rememberMe, string returnUrl)
-    //    {
-
-    //        if (!ValidateLogOn(userName, password))
-    //        {
-    //            Logger.Log(LogLevel.Warning, string.Format(CultureInfo.CurrentCulture, "The '{0}' user attempted to log on but failed.", userName));
-    //            return View(ViewName.Index);
-    //        }
-
-    //        FormsAuth.SignIn(userName, rememberMe);
-    //        Logger.Log(LogLevel.Information, string.Format(CultureInfo.CurrentCulture, "The '{0}' user successfully logged on.", userName));
-    //        if (!String.IsNullOrEmpty(returnUrl))
-    //        {
-    //            return Redirect(returnUrl);
-    //        }
-    //        else
-    //        {
-    //            return RedirectToHomepage();
-    //        }
-    //    }
-
-    //    [Description("Allows the current user to log off.")]
-    //    public ActionResult LogOff()
-    //    {
-
-    //        FormsAuth.SignOut();
-
-    //        return RedirectToHomepage();
-    //    }
-
-
-    //    [HttpGet]
-    //    public ActionResult Register()
-    //    {
-    //        var newUserView = new RegisterViewModel();
-    //        newUserView.GenerateCaptcha();
-    //        return View(newUserView);
-    //    }
-
-    //     [HttpPost, CaptchaVerify("Captcha is not valid")]
-    //    public ActionResult Register(Myembro.Models.RegisterViewModel userView)
-    //    {
-    //         if (!ModelState.IsValid)
-    //         {
-    //             TempData["ErrorMessage"] = Myembro.Properties.Resources.CaptchaIsNotValidMessageText;
-    //             return View(userView);
-    //         }
-    //         if (!userView.IsCaptchaMatched())
-    //        {
-    //            ModelState.AddModelError("Captcha", Myembro.Properties.Resources.AccountController_Register_Текст_с_картинки_введен_неверно);
-    //        }
-            
-    //        if (MembershipService.CheckEmailExist( userView.Email))
-    //        {
-    //            ModelState.AddModelError("Email", Myembro.Properties.Resources.AccountController_Register_Пользователь_с_таким_email_уже_зарегистрирован);
-    //        }
-
-    //        if (ModelState.IsValid)
-    //        {
-    //            MembershipService.CreateUser(userView.UserName, userView.Password, userView.Email);
-    //        }
-    //        else return View(userView);
-          
-    //        //TempData["Message"] = Myembro.Properties.Resources.AccountRegisterSuccessfull;
-    //        return RedirectToHomepage();
-    //    }
-
-    //    [Authorize]
-    //    [Description("Allows the current user to change the password.")]
-    //    public ActionResult ChangePassword()
-    //    {
-    //        var model = new AccountViewModel(MembershipService.MinPasswordLength);
-    //        return View(model);
-    //    }
-
-    //    [Authorize]
-    //    [AcceptVerbs(HttpVerbs.Post)]
-    //    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions result in password not being changed.")]
-    //    public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
-    //    {
-    //        var model = new AccountViewModel(MembershipService.MinPasswordLength);
-
-    //        if (!ValidateChangePassword(currentPassword, newPassword, confirmPassword))
-    //        {
-    //            return View(model);
-    //        }
-
-    //        try
-    //        {
-    //            if (MembershipService.ChangePassword(User.Identity.Name, currentPassword, newPassword))
-    //            {
-    //                SetPageFlash("Your password was successfully changed.");
-    //                return RedirectToHomepage();
-    //            }
-    //            else
-    //            {
-    //                ModelState.AddModelError("_FORM", "The current password is incorrect or the new password is invalid.");
-    //                return View(model);
-    //            }
-    //        }
-    //        catch
-    //        {
-    //            ModelState.AddModelError("_FORM", "The current password is incorrect or the new password is invalid.");
-    //            return View(model);
-    //        }
-    //    }
-
-    //    protected override void OnActionExecuting(ActionExecutingContext filterContext)
-    //    {
-    //        if (filterContext.HttpContext.User.Identity is WindowsIdentity)
-    //        {
-    //            throw new InvalidOperationException("Windows authentication is not supported.");
-    //        }
-    //    }
-
-    //    #endregion
-
-    //    #region Validation Methods
-
-    //    private bool ValidateChangePassword(string currentPassword, string newPassword, string confirmPassword)
-    //    {
-    //        if (String.IsNullOrEmpty(currentPassword))
-    //        {
-    //            ModelState.AddModelError("currentPassword", "You must specify a current password.");
-    //        }
-    //        if (newPassword == null || newPassword.Length < MembershipService.MinPasswordLength)
-    //        {
-    //            ModelState.AddModelError("newPassword",
-    //                String.Format(CultureInfo.CurrentCulture,
-    //                     "You must specify a new password of {0} or more characters.",
-    //                     MembershipService.MinPasswordLength));
-    //        }
-
-    //        if (!String.Equals(newPassword, confirmPassword, StringComparison.Ordinal))
-    //        {
-    //            ModelState.AddModelError("_FORM", "The new password and confirmation password do not match.");
-    //        }
-
-    //        return ModelState.IsValid;
-    //    }
-
-    //    private bool ValidateLogOn(string userName, string password)
-    //    {
-    //        if (String.IsNullOrEmpty(userName))
-    //        {
-    //            ModelState.AddModelError("username", "You must specify a username.");
-    //        }
-    //        if (String.IsNullOrEmpty(password))
-    //        {
-    //            ModelState.AddModelError("password", "You must specify a password.");
-    //        }
-    //        if (!MembershipService.ValidateUser(userName, password))
-    //        {
-    //            ModelState.AddModelError("_FORM", "The username or password provided is incorrect.");
-    //        }
-
-    //        return ModelState.IsValid;
-    //    }
-
-    //    #endregion
-    //}
-
-    //// The FormsAuthentication type is sealed and contains static members, so it is difficult to
-    //// unit test code that calls its members. The interface and helper class below demonstrate
-    //// how to create an abstract wrapper around such a type in order to make the AccountController
-    //// code unit testable.
-
-    //public interface IFormsAuthentication
-    //{
-    //    void SignIn(string userName, bool createPersistentCookie);
-    //    void SignOut();
-    //}
-
-    //public class FormsAuthenticationService : IFormsAuthentication
-    //{
-    //    public void SignIn(string userName, bool createPersistentCookie)
-    //    {
-    //        FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
-    //    }
-    //    public void SignOut()
-    //    {
-    //        FormsAuthentication.SignOut();
-    //    }
-    //}
-
-
-    //#region [Membership]
-    //public interface IMembershipService
-    //{
-    //    int MinPasswordLength { get; }
-
-    //    bool ValidateUser(string userName, string password);
-    //    MembershipCreateStatus CreateUser(string userName, string password, string email);
-    //    bool ChangePassword(string userName, string oldPassword, string newPassword);
-    //    bool CheckEmailExist(string eMail);
-    //}
-
-    //public class AccountMembershipService : IMembershipService
-    //{
-    //    protected MembershipProvider _provider;
-
-    //    public AccountMembershipService()
-    //        : this(null)
-    //    {
-    //    }
-
-    //    public AccountMembershipService(MembershipProvider provider)
-    //    {
-    //        _provider = provider ?? Membership.Provider;
-    //    }
-
-    //    public int MinPasswordLength
-    //    {
-    //        get
-    //        {
-    //            return _provider.MinRequiredPasswordLength;
-    //        }
-    //    }
-
-    //    public bool ValidateUser(string userName, string password)
-    //    {
-    //        return _provider.ValidateUser(userName, password);
-
-    //    }
-
-    //    public bool CheckEmailExist(string eMail)
-    //    {
-    //        var userName = _provider.GetUserNameByEmail(eMail);
-    //        if (string.IsNullOrWhiteSpace(userName)) return false;
-    //        return true;
-    //    }
-
-
-    //    public MembershipCreateStatus CreateUser(string userName, string password, string email)
-    //    {
-    //        MembershipCreateStatus status;
-    //        _provider.CreateUser(userName, password, email, null, null, true, null, out status);
-    //        return status;
-    //    }
-
-    //    public bool ChangePassword(string userName, string oldPassword, string newPassword)
-    //    {
-    //        MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
-    //        //return currentUser.ChangePassword(currentUser.ResetPassword()   , newPassword);
-    //        return currentUser.ChangePassword(oldPassword, newPassword);
-    //    }
     }
-    #endregion
-
 }

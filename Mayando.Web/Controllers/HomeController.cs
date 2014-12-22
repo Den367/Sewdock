@@ -1,26 +1,27 @@
-using System.ComponentModel;
-using System.Web.Mvc;
-using Myembro.Infrastructure;
+﻿using System.Web.Mvc;
 
-namespace Myembro.Controllers
+namespace IdentitySample.Controllers
 {
-    [Description("Handles actions that have to do with redirecting to the proper home page.")]
-    public class HomeController : SiteControllerBase
+    public class HomeController : Controller
     {
-        #region Constants
-
-        public const string ControllerName = "home";
-
-        #endregion
-
-        #region Actions
-
-        [Description("Redirects the user to the proper home page.")]
         public ActionResult Index()
         {
             return View();
         }
 
-        #endregion
+        [Authorize]
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }

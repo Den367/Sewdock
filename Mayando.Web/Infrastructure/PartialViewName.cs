@@ -57,6 +57,7 @@ namespace Myembro.Infrastructure
         Loading,
         Design,
         DesignCanvas,
-        VKLike
+        Likes,
+        SocialNetworkPlugins
     }
 }

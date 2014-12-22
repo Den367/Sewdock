@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Web;
 using System.Web.Routing;
+using IdentitySample;
 using JelleDruyts.Web.Mvc;
 using Myembro.Controllers;
 using Myembro.Extensions;
@@ -290,7 +291,7 @@ namespace Myembro.Models
             }
             values["controller"] = controller;
             values["action"] = action.ToActionString();
-            var url = RouteTable.Routes[RouteConfig.RouteNameDefault].GetVirtualPath(requestContext, values).VirtualPath;
+            var url = RouteTable.Routes["Default"].GetVirtualPath(requestContext, values).VirtualPath;
 
             // Prefix it with the relative path identifier so the client URL will be resolved properly.
             url = "~/" + url;

@@ -21,8 +21,8 @@
 
    @* <ul class="nav navbar-nav navbar-right">
         <li>*@
-            @Html.ActionLink(string.Format("{0} {1}{2}",Resources.LabelTextHello , User.Identity.GetUserName() , "!"), "Manage", "Account", routeValues: null, htmlAttributes: new {  @class = "username" ,title = "Manage" })
-       @* </li>
+        @Html.ActionLink(string.Format("{0} {1}!", Resources.LabelTextHello, User.Identity.GetUserName()),  "Manage", "Account",routeValues: null, htmlAttributes: new {@class = "username", title = "Manage"})
+                                                                                                                                                                                                                                      @* </li>
 <li>*@
     <a href="javascript:document.getElementById('logoutForm').submit()">@Resources.AccountLogOff</a>
 @*</li>

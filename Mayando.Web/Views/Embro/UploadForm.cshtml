@@ -120,7 +120,12 @@
                 var article = tinyMCE.activeEditor.getContent();                
                 $('textarea#Article').html(article);
             }
-            $('#upload-embro-fields-container').submit();
+            if ($("input#fileUpload").val() == '')
+            { 
+                alert("empty input file"); 
+                return false; 
+            } 
+            else $('#upload-embro-fields-container').submit();
         }
         function splitNameAndExt(path) {
             var name = path.replace(/^.*[\\\/]/, '');
