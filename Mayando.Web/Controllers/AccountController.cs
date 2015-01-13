@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using IdentitySample.Models;
+using Myembro.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -12,7 +12,7 @@ using System.Web.Mvc;
 using Myembro.Controllers;
 using Myembro.Models;
 
-namespace IdentitySample.Controllers
+namespace Myembro.Controllers
 {
     [Authorize]
     public class AccountController : SiteControllerBase

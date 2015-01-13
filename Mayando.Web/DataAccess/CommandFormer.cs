@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
+
 using Myembro.Models;
 
 namespace Myembro.DataAccess
@@ -24,7 +23,7 @@ namespace Myembro.DataAccess
 
         protected SqlCommand GetCommand()
         {
-            _sqlConnection = new SqlConnection { ConnectionString = ConfigurationManager.AppSettings["connectionString"] };
+            _sqlConnection = new SqlConnection { ConnectionString = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString };
 
             if (null != _sqlConnection)
             {
@@ -48,11 +47,12 @@ namespace Myembro.DataAccess
             return cmd;
         }
 
-        public SqlCommand GetReadMenuCommand()
+        public SqlCommand GetReadMenuCommand(string culture)
         {
             var cmd = GetCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "emb.Menu";
+            cmd.Parameters.Add(new SqlParameter("Culture", culture));
             return cmd;
         }
 

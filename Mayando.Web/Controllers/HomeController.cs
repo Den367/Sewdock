@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IdentitySample.Controllers
+namespace Myembro.Controllers
 {
     public class HomeController : Controller
     {

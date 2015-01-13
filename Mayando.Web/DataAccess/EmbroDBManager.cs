@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -20,7 +19,7 @@ namespace Myembro.DataAccess
         ///Connection to interact with DataBase  <see cref="SqlConnection"/>
         /// </summary>
         public SqlConnection Connection { get {
-            var newConn = new SqlConnection {ConnectionString = ConfigurationManager.AppSettings["connectionString"]};
+            var newConn = new SqlConnection { ConnectionString = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString };
             newConn.Open();
              sqlConnections.Add(newConn);
             sqlConnection = newConn; 

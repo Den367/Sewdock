@@ -58,6 +58,10 @@
       <Project>{916b83fa-98e4-4fd1-9335-6c18293fe044}</Project>
       <Name>ContourLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Coord.CommonType\Coord.CommonType.csproj">
+      <Project>{9ECEBF5F-20CE-4905-865E-F8671D0370F9}</Project>
+      <Name>Coord.CommonType</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

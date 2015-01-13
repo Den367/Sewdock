@@ -1,6 +1,7 @@
 ﻿using System;
 using ContourLibrary;
 using ContourLibrary.Data;
+using Coord.CommonType;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestContourLibrary

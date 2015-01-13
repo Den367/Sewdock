@@ -1,16 +1,18 @@
 ﻿
 @using Myembro.Properties
 @{
-    Layout = "~/Views/Shared/SiteLayout.cshtml";
+    ViewBag.Title = Resources.ContactTitle;
 }
 
-@section TitleContent{@Html.Encode(Resources.ContactTitle)}
+@section TitleContent{@Html.Encode(ViewBag.Title)}
 
 
 
 @section MainContent{
+
   <div id="contactindexpage">
-  
+      <h3>@Html.Encode(ViewBag.Title) </h3>
+        <h2>@Resources.ContactContactMe</h2>
     @{ Html.RenderPartial("ContactForm", null); }
 </div>  
 }

@@ -108,11 +108,14 @@ namespace Myembro.Controllers
 
         #region Properties
 
-     
+        private static string _uiCulture;
+        protected static string UICulture {
+            get { return _uiCulture; } 
+           }
 
-      
 
-       
+
+
 
         /// <summary>
         /// Gets the site data for this request.
@@ -161,7 +164,7 @@ namespace Myembro.Controllers
             catch (Exception exc)
             {
                 Logger.LogException(exc);
-              //  throw;
+                throw;
             }
         }
 
@@ -178,7 +181,7 @@ namespace Myembro.Controllers
                 {
                     applicationSettings = repository.GetSettingValues(SettingsScope.Application);
                     userSettings = repository.GetSettingValues(SettingsScope.User);
-                    menus = repository.GetMenu();
+                    menus = repository.GetMenu(UICulture);
                 }
                 var viewMenus = GetMenuViewModel(requestContext, menus);
 
@@ -818,7 +821,7 @@ namespace Myembro.Controllers
             //}
             // Validate culture name
             cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
-
+            _uiCulture = cultureName;
 
             // Modify current thread's cultures            
             Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureName);

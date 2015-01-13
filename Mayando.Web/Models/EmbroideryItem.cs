@@ -70,6 +70,7 @@ namespace Myembro.Models
         [AllowHtml]
         public string Article { get; set; }
         public bool Hidden { get; set; }
+        [AllowHtml]
         public string Html { get; set; }
         public string Summary { get; set; }
         public long DownloadsCount { get; set; }

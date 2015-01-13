@@ -9,7 +9,7 @@ using Myembro.Infrastructure;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Myembro")]
-[assembly: AssemblyDescription("The actual implementation for the Mayando website.")]
+[assembly: AssemblyDescription("The actual implementation for the Embroidery website.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sew-dock")]
 [assembly: AssemblyProduct("Embro")]

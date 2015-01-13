@@ -4,6 +4,6 @@
 @{
     Layout = null;
 }
- <h3>Delete </h3>
+
 <p>@Resources.EmbroDeleteConfirmText</p>
-@Html.ActionLink(@Resources.EmbroDeleteButtonText,"DeleteConfirmed", new {id = Model.ID, returnUrl = Model.ReturnUrl })
+@Html.ActionLink(Resources.DeletionHeader,"DeleteConfirmed", new {id = Model.ID, returnUrl = Model.ReturnUrl },new {@class="btn btn-primary"})

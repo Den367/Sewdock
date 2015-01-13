@@ -1,5 +1,4 @@
-﻿
-@using Myembro.Extensions
+﻿@using Myembro.Extensions
 @using Myembro.Infrastructure
 @using Myembro.Properties
 @using Myembro.ViewModels
@@ -10,20 +9,24 @@
 }
 
 <hgroup class="title">
-   
+
     <h2>@Resources.LogOnEnterCredentials</h2>
 </hgroup>
 
 <style type="text/css">
-    #logon-fieldset label {display: block}
+    #logon-fieldset label
+    {
+        display: block;
+    }
 </style>
 @Html.ValidationSummary(true, Resources.LogOnFailed)
 
-@using (Html.BeginForm("Login", "Account", new { @returnUrl = Url.Action(ActionName.Index,"Home") })) {
-       @Html.AntiForgeryToken()
-    <fieldset id="logon-fieldset">            
+@using (Html.BeginForm("Login", "Account", new { @returnUrl = Url.Action(ActionName.Index, "Embro") }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset id="logon-fieldset">
         <li>
-           
+
             @Html.LabelFor(m => m.Email)
             @Html.TextBoxFor(m => m.Email)
             @Html.ValidationMessageFor(m => m.Email)
@@ -35,20 +38,20 @@
         </li>
     </fieldset>
     <fieldset>
-            <li>
-                @Html.CheckBoxFor(m => m.RememberMe)                
-                @Html.LabelFor(m => m.RememberMe)
-            </li>
-       
+        <li>
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe)
+        </li>
+
         <input type="submit" value="@Resources.LogOnSubmit" title="Log On" class="btn" />
     </fieldset>
     
 }
-<br/>
-  <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginViewModel{ Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
+<br />
+<div class="col-md-4">
+    <section id="socialLoginForm">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginViewModel { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+</div>
 <h2>@Resources.LogonIfNoAccountSentence </h2>
-<p>@Html.ActionLink(Resources.AccountLogonRegister, "Register",null,null, new {@class="btn"})</p>
+<p>@Html.ActionLink(Resources.AccountLogonRegister, "Register", null, null, new { @class = "btn" })</p>

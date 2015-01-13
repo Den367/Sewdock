@@ -10,25 +10,25 @@
                 @Html.ActionLinkAccountLogOn(Resources.AccountLogOn)
  } *@
 
-    
+
 @if (Request.IsAuthenticated)
 {
-    
-    
-      using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
     {
     @Html.AntiForgeryToken()
 
-   @* <ul class="nav navbar-nav navbar-right">
+@* <ul class="nav navbar-nav navbar-right">
         <li>*@
-        @Html.ActionLink(string.Format("{0} {1}!", Resources.LabelTextHello, User.Identity.GetUserName()),  "Manage", "Account",routeValues: null, htmlAttributes: new {@class = "username", title = "Manage"})
-                                                                                                                                                                                                                                      @* </li>
+    @Html.ActionLink(string.Format("{0} {1}!", Resources.LabelTextHello, User.Identity.GetUserName()), "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+@* </li>
 <li>*@
     <a href="javascript:document.getElementById('logoutForm').submit()">@Resources.AccountLogOff</a>
 @*</li>
     </ul>*@
     }
-    @*
+@*
     <span>  
     @Html.ActionLink(User.Identity.Name, "ChangePassword", "Account", null, new { @class = "username" })</span>
     <span>  @Html.ActionLink(Resources.AccountLogOff, "LogOff", "Account")</span>*@
@@ -41,6 +41,5 @@ else
 @* <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", data_dialog_title = "Registration" })</li>*@
     @Html.ActionLink(Resources.AccountLogOn, "Index", "Account")
    
-     }
+}
 
-       

@@ -6,12 +6,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using CaptchaMvc.Infrastructure;
-using IdentitySample;
-using JelleDruyts.Web.Mvc;
+
 using Myembro.App_Start;
-using Myembro.Controllers;
-using Myembro.Enumerations;
-using Myembro.Extensions;
+
 using Myembro.Infrastructure;
 
 using Microsoft.Practices.ServiceLocation;

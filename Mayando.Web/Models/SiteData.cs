@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Web;
 using System.Web.Routing;
-using IdentitySample;
+using Myembro;
 using JelleDruyts.Web.Mvc;
 using Myembro.Controllers;
 using Myembro.Extensions;
@@ -24,12 +24,12 @@ namespace Myembro.Models
         /// <summary>
         /// The application's name.
         /// </summary>
-        public const string GlobalApplicationName = "Mayando";
+        public const string GlobalApplicationName = "Myembro";
 
         /// <summary>
         /// The application's URL.
         /// </summary>
-        public const string GlobalApplicationUrl = "http://mayando.codeplex.com/";
+        public const string GlobalApplicationUrl = "http://mandrykin.spb.ru/";
 
         /// <summary>
         /// The assembly version.
@@ -54,7 +54,7 @@ namespace Myembro.Models
         /// <summary>
         /// The name of the Administrator role.
         /// </summary>
-        public const string GlobalAdministratorRoleName = "Administrator";
+        public const string GlobalAdministratorRoleName = "Admin";
 
         /// <summary>
         /// Determines if the site is in "demo mode".
