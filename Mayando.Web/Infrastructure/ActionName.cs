@@ -71,6 +71,7 @@ namespace Myembro.Infrastructure
         GetQrPng,
         Download,
         ContourSvg,
-        EditComment
+        EditComment,
+        DesignHtml
     }
 }

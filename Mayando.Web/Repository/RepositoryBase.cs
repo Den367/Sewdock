@@ -14,12 +14,14 @@ namespace Myembro.Repository
         protected DataTablesFormer tableFormer;
         protected EmbroDBManager manager;
         protected SqlConnection _connection;
+         protected object locker = new object();
         public RepositoryBase()
         {
             tableFormer = factory.TablesHolder;
             manager = factory.Manager;
             tableFormer.FillEmbroColumnMapping(manager.BulkCopy);
             _connection = manager.Connection;
+           
         }
 
 
@@ -84,8 +86,7 @@ namespace Myembro.Repository
         protected int GetIntParam(SqlCommand cmd, string paramName)
         {
             var obj = cmd.Parameters[paramName].Value;
-            if (obj != null)
-                return (int)obj;
+            if (obj != null) return (int)obj;
             return 0;
         }
 
@@ -119,24 +120,35 @@ namespace Myembro.Repository
             GC.SuppressFinalize(this);
         }
 
+         ~RepositoryBase()
+         {
+             Dispose(false);
+         }
+
+       
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            lock (locker)
             {
-                if (disposing)
+                if (!disposed)
                 {
-                    if (manager != null)
+                    if (disposing)
                     {
-                        factory.Manager.Dispose();
+                        if (manager != null)
+                        {
+
+                            manager.Dispose();
+                            manager = null;
+                        }
+                        if (_connection != null) _connection.Dispose();
+
                     }
 
+                    // There are no unmanaged resources to release, but
+                    // if we add them, they need to be released here.
                 }
-
-                // There are no unmanaged resources to release, but
-                // if we add them, they need to be released here.
+                disposed = true;
             }
-            disposed = true;
-
 
         }
         #endregion [Disposable]

@@ -122,6 +122,6 @@ namespace Myembro.Extensions
             return new string(chars);
         }
 
-
+        
     }
 }

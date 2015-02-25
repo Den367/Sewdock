@@ -38,10 +38,12 @@ namespace Myembro.Repository
         {
             try
             {
-                var cmd = factory.Commands.GetEditCommentCommand(comment);
-                cmd.ExecuteScalar();
+                using (var cmd = factory.Commands.GetEditCommentCommand(comment))
+                {
+                    cmd.ExecuteScalar();
 
-                return true;
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -57,11 +59,13 @@ namespace Myembro.Repository
 
              try
              {
-                 var cmd = factory.Commands.GetDeleteCommentCommand(id, userID);
-                 cmd.ExecuteScalar();
-                 var result = cmd.Parameters["Result"].Value;
-                 return Convert.ToBoolean(result);
-                
+                 using (var cmd = factory.Commands.GetDeleteCommentCommand(id, userID))
+                 {
+                     cmd.ExecuteScalar();
+                     var result = cmd.Parameters["Result"].Value;
+                     return Convert.ToBoolean(result);
+                 }
+
              }
              catch (Exception ex)
              {
@@ -74,7 +78,7 @@ namespace Myembro.Repository
 
          public Comment GetCommentByID(int id)
          {
-             var cmd = factory.Commands.GetGetCommentCommand(id);
+             using(var cmd = factory.Commands.GetGetCommentCommand(id))
              using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
              {
                  if (!reader.Read()) return null;

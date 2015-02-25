@@ -1,4 +1,5 @@
-﻿@model Myembro.Models.RegisterViewModel
+﻿@using Myembro.Properties
+@model Myembro.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -31,7 +32,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+            <input type="submit" class="btn btn-default" value=" @Resources.AccountLogonRegister" />
         </div>
     </div>
 }

@@ -6,7 +6,7 @@ using System.Web;
 namespace Myembro.DataAccess
 {
      [CLSCompliant(false)]
-    public class StuffFactory
+    public class StuffFactory:IDisposable
     {
         private readonly EmbroDBManager _manager;
         static readonly DataTablesFormer colMapFiller = new DataTablesFormer();
@@ -27,5 +27,9 @@ namespace Myembro.DataAccess
             return commandFormer;
         } }
 
+         public void Dispose()
+         {
+             if (_manager != null) _manager.Dispose();
+         }
     }
 }

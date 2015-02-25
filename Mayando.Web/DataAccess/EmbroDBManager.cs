@@ -18,7 +18,9 @@ namespace Myembro.DataAccess
         /// <summary>
         ///Connection to interact with DataBase  <see cref="SqlConnection"/>
         /// </summary>
-        public SqlConnection Connection { get {
+        public SqlConnection Connection { get
+        {
+            if (sqlConnection != null) return sqlConnection;
             var newConn = new SqlConnection { ConnectionString = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString };
             newConn.Open();
              sqlConnections.Add(newConn);
@@ -159,9 +161,10 @@ namespace Myembro.DataAccess
         /// </summary>
         public void Dispose()
         {
+            lock(this)
             if (!_isDisposed)
             {
-                if (sqlConnections != null) sqlConnections.ForEach(conn => conn.Close());
+                if (sqlConnections != null) sqlConnections.ForEach(conn =>  conn.Close());
                 if (sqlConnection != null) sqlConnection.Close();
                 sqlConnection = null;
                if (bulkCopy != null) bulkCopy.Close();
@@ -170,5 +173,7 @@ namespace Myembro.DataAccess
             }
         }
         #endregion
+
+       
     }
 }

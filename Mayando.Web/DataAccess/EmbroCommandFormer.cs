@@ -41,6 +41,18 @@ namespace Myembro.DataAccess
              return cmd;
          }
 
+         public SqlCommand GetReadEmbroSvgAndJsonByIdCommand(int id)
+         {
+             var cmd = GetCommand();
+             cmd.CommandType = CommandType.StoredProcedure;
+             cmd.CommandText = "emb.GetEmbroSvgAndJsonById";
+             cmd.Parameters.Add(new SqlParameter("Id", id));
+             cmd.Parameters.Add( new SqlParameter("Svg", SqlDbType.Xml)  {Direction = ParameterDirection.Output});
+             cmd.Parameters.Add(new SqlParameter("Json", SqlDbType.NVarChar,-1){Direction = ParameterDirection.Output});
+             
+             return cmd;
+         }
+
          public SqlCommand GetReadEmbroByPageNoSize(int page,int size, string criteria)
          {
              var cmd = GetCommand();

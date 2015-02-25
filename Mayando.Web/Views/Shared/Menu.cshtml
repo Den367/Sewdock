@@ -1,12 +1,12 @@
 ﻿@using JelleDruyts.Web.Mvc
 @model IEnumerable<Myembro.ViewModels.MenuViewModel>
 <div id="menucontainer">
-    <ul id="menu" class="breadcrumbs">
+    <ul id="menu" class="btn">
         @foreach (var menu in Model)
         {
             
         <li class="@if (menu.Selected){@Html.Raw("selected")}">
-                @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip))
+                @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip, "btn"))
             </li>
         } 
     </ul>

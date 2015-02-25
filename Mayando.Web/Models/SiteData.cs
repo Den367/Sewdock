@@ -24,7 +24,7 @@ namespace Myembro.Models
         /// <summary>
         /// The application's name.
         /// </summary>
-        public const string GlobalApplicationName = "Myembro";
+        public const string GlobalApplicationName = "Sew-dock";
 
         /// <summary>
         /// The application's URL.

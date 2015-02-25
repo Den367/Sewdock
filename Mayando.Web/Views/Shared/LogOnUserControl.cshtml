@@ -24,6 +24,7 @@
     @Html.ActionLink(string.Format("{0} {1}!", Resources.LabelTextHello, User.Identity.GetUserName()), "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
 @* </li>
 <li>*@
+    <br />
     <a href="javascript:document.getElementById('logoutForm').submit()">@Resources.AccountLogOff</a>
 @*</li>
     </ul>*@

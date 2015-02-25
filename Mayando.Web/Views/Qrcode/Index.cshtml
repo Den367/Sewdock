@@ -1,4 +1,6 @@
-﻿@using Myembro.Properties
+﻿@using Myembro.Infrastructure
+@using Myembro.Properties
+@using Myembro.ViewModels
 @model Myembro.ViewModels.QrcodeFormViewModel
 
 @{ Layout = "~/Views/Shared/SiteLayout.cshtml"; }
@@ -11,6 +13,8 @@
         <span class="form-qrcode">
             @{ Html.RenderPartial("QrcodeForm", Model); }
         </span>
+        @{ Html.RenderPartial(PartialViewName.Likes.ToString(),
+                     new SocialLikeViewModel { Url = Url.Action("Index", "Qrcode"),Name = "QR-Code"});}
     </div>}
 
 

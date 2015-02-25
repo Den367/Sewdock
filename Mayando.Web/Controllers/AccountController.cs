@@ -78,7 +78,7 @@ namespace Myembro.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("logon",model);
             }
 
             // This doen't count login failures towards lockout only two factor authentication
@@ -95,7 +95,7 @@ namespace Myembro.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View("logon",model);
             }
         }
 
