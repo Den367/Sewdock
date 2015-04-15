@@ -1,44 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using System.IO;
 using EmbroideryFile.QR;
+using EmbroideryFile.QRCodeConverting;
 
 namespace EmbroideryFile.QRCode
 {
-    public class QrcodeSvg
-
+    public class QrcodeSvg:IQRCodeStreamer
     {
-        readonly ISvgEncode _encoder;
-        readonly IQRCodeStitchGeneration _stitchGen;
-       
-
-
+        private readonly ISvgEncode _encoder;
+        private readonly IQRCodeStitchGeneration _stitchGen;
+        private const int Size = 1000;
         #region [Public Properties]
-        public QRCodeStitchInfo QrStitchInfo {
-            set
-            {
-                _stitchGen.Info = value;   
 
-            }
+        public void FillStream(Stream stream)
+        {
+            FillStreamWithSvg(stream, Size);
         }
 
-
+        public QRCodeStitchInfo QrStitchInfo
+        {
+            set { _stitchGen.Info = value; }
+        }
 
         #endregion [Public Properties]
+
         public QrcodeSvg()
         {
             _encoder = new SvgEncoder();
             _stitchGen = new QrCodeStitcher();
-         
+
         }
 
-        #region [Public Methods]       
-        public void FillStreamWithSvg(Stream stream,int size)
-        {
-             _encoder.FillStreamWithSvgFromCoordsLists(stream, size, _stitchGen.GetQRCodeStitchBlocks());
+        #region [Public Methods]
 
+        public void FillStreamWithSvg(Stream stream, int size)
+        {
+            _encoder.FillStreamWithSvgFromCoordsLists(stream, size, _stitchGen.GetQRCodeStitchBlocks());
         }
 
         public string ReadSvgStringFromStream()
@@ -52,10 +48,9 @@ namespace EmbroideryFile.QRCode
         /// <returns></returns>
         public string GetSvg(int size)
         {
-            return _encoder.GetSvgFromCoordsLists(size,_stitchGen.GetQRCodeStitchBlocks());
-        
+            return _encoder.GetSvgFromCoordsLists(size, _stitchGen.GetQRCodeStitchBlocks());
         }
-        #endregion [Public Methods]
 
+        #endregion [Public Methods]
     }
 }

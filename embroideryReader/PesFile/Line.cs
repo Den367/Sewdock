@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmbroideryFile
+﻿namespace EmbroideryFile
 {
-    public struct Lane
+    public struct Line
     {
         public Coords Dot1 { get; set; }
         public Coords Dot2 { get; set; }

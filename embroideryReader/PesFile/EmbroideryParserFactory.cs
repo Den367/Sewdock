@@ -19,17 +19,6 @@ namespace EmbroideryFile
 
         }
 
-        public EmbroideryParserFactory(byte[] data)
-        {
-            this._stream = data.ToStream();
-            typeDetector = new EmbroideryTypeDetector(_stream);
-
-        }
-
-        public EmbroideryParserFactory()
-        {
-            // TODO: Complete member initialization
-        }
 
         public IGetEmbroideryData CreateParser()
         {
@@ -51,8 +40,12 @@ namespace EmbroideryFile
 
         protected virtual void Dispose(bool disposing)
         {
+            if (disposing && _disposed == false)
+            {
+                if (_stream != null) _stream.Close();
+                _disposed = true;
+            }
 
-            if (_stream != null) _stream.Close();
 
         }
 

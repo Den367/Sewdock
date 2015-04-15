@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace EmbroideryFile
 {
+    /// <summary>
+    /// Color numbers for PES file embroidery format
+    /// </summary>
     public static class ColorIndex
     {
        
         public static Color ColorByIndex(int index)
         {
-            Color retval;// = Color.White;
+            Color retval;
             switch (index)
             {
                 case 1:

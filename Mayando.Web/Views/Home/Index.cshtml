@@ -6,7 +6,7 @@
     img#my-photo{ width: 25%;height:25%}
     img#LETI-photo{ width: 75%;height:75%}
     img#personal-page{ width: 55%;height:105%}
-    div#social-links,div#deeds-div{ text-decoration: none;}
+   
     /*div.jumbotron{ border: solid burlywood 2px;}*/
 </style>
 <div class="jumbotron">
@@ -15,20 +15,28 @@
     <span><img id="my-photo" src="@Url.Content("~/content/images/jpg/DenisWithBird-Black-White.jpg")"   /></span>
     <span><img id="personal-page" src="@Url.Content("~/content/images/png/personal-page.png")"   /></span>
     <p>
-        This photo has been taken  during a camel ride in the North Africa.<br/>
-        First of all I am a father of two children: boy and girl. The best combination some body thinks<br/>
-        But this is not the case. They have been fighting since they are can to walk.<br/>
-        My daughter Daria is smart and calm.Son Nikolai is also smart.
-        He is calmless at all - how boy should really be.<br/> 
+      This photo was taken during a camel ride in North Africa, and that is a Falcon on my shoulder.<br/>
+
+First of all, I am a father of two children; I have a son and a daughter. They are still in grade school.<br/>
+
+ They have been fighting with each other since they could walk.:)<br/>
+
+My daughter Daria is smart, calm, striving, and likes dancing.<br/>
+
+Nikolai, my son, has an impulsive character and is absorbed by Legos.<br/>
+
         <br/>
-        Wife has the same education as me. She has graduated with honours a few years erlier me. <br/>
-        We are not humanitarian even in the slightest. We  attended the same university. It is on the folowed picture. <br/>
-        Person on the picture under the pedastrian road sign is not me.
+
+My wife, Galina, has the same education as I do, but she graduated with honours a few years before me.<br/>
+
+We are not humanities majors not even in the slightest way. We attended the same university; it is in the following picture.<br/>
+
+The person in the picture under the pedestrian road sign is not me.:)<br/>
     </p>
     <img id="LETI-photo" src="@Url.Content("~/content/images/jpg/LETI-BLOCK-ONE.jpg")"   />
     <br/>
     <br/>
-    <div id="social-links">
+    <div id="links">
         <a href="http://vk.com/den367" target="_blank" title="VKontakte">
             <img src="@Url.Content("~/Content/Images/Icon/circle-social-vkontakte.svg")"/>        
         </a>
@@ -45,7 +53,8 @@
     </div>
     <br/>
     <div id="deeds-div">
-    <span>@Html.ActionLink("Embroideries", "Index", "Embro", null, new { @class = "btn btn-large navbar-brand" })</span>
+        <span>@Html.ActionLink("Embroideries", "Index", "Embro", null, new { @class = "btn btn-large navbar-brand" })</span>
+            <span>@Html.ActionLink("Retyper", "Index", "Retyper", null, new { @class = "btn btn-large navbar-brand" })</span>
         <span> @Html.ActionLink("CV", "Index", "Profile",  null, new { @class = "btn btn-large navbar-brand" })</span>
         </div>
     <br/>

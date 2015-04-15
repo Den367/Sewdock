@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -131,7 +132,7 @@ namespace EmbroideryFile
                 {
                     designName[i] =Convert.ToByte(name[i - 3]);
                 }
-               // Buffer.BlockCopy(Encoding.ASCII.GetBytes(name.PadRight(20 - name.Length, ' ')), 0, designName, 3, 16);
+               
             }
         }
         /// <summary>
@@ -325,7 +326,7 @@ namespace EmbroideryFile
              }
              set
              {
-                 string my = value.ToString();
+                 string my = value.ToString(CultureInfo.InvariantCulture);
                  Buffer.BlockCopy(my.PadLeft(6, ' ').ToCharArray(), 0, mY, 3, 6);
              }
 
@@ -339,16 +340,6 @@ namespace EmbroideryFile
          public int JumpsBlocksCount { get; set; }
         //'P','D' store this string as-is, it will be saved as-is, 6 characters
 
-
-
-        // Begin extended fields section
-        //'A','U' Author string, arbitrary length
-        //'C','P' Copyright string, arbitrary length
-
-        //('T','C'):Thread Color: #RRGGBB,Description,Catalog Number (1st field RGB hex values, 2nd&3rd fields optional arbitrary length)
-        //rgb=atorgb(val);
-        //description=split_cell_str(val,2);
-        //catalog_number=split_cell_str(val,3);
        
     }
 

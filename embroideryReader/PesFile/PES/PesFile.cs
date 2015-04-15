@@ -24,7 +24,6 @@ You can contact me at http://www.njcrawford.com/contact/.
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.IO;
 
@@ -40,20 +39,20 @@ namespace EmbroideryFile
         public int b;
     }
 
-    public class PesFile :PecFile, IGetEmbroideryData
+    public class PesFile :PecFile
     {
         BinaryReader fileIn;
-        int imageWidth;
-        int imageHeight;
+        //int imageWidth;
+        //int imageHeight;
         string _filename;
-        public List<Int64> pesHeader = new List<Int64>();
-        public List<Int16> embOneHeader = new List<short>();
-        public List<Int16> sewSegHeader = new List<short>();
-        public List<Int16> embPunchHeader = new List<short>();
-        public List<Int16> sewFigSegHeader = new List<short>();
-        internal List<stitchBlock> blocks = new List<stitchBlock>();
-        public List<intPair> colorTable = new List<intPair>();
-        private statusEnum readyStatus = statusEnum.NotOpen;
+        public readonly List<Int64> pesHeader = new List<Int64>();
+        public readonly List<Int16> embOneHeader = new List<short>();
+        //public List<Int16> sewSegHeader = new List<short>();
+        public readonly List<Int16> embPunchHeader = new List<short>();
+        //public List<Int16> sewFigSegHeader = new List<short>();
+        internal readonly List<stitchBlock> blocks = new List<stitchBlock>();
+        public readonly List<intPair> colorTable = new List<intPair>();
+        private statusEnum _readyStatus = statusEnum.NotOpen;
         Int64 startStitches = 0;
         string lastError = "";
         string pesNum = "";
@@ -119,7 +118,7 @@ namespace EmbroideryFile
             }
             if (!startFileSig.StartsWith("#PES"))//this is not a file that we can read
             {
-                readyStatus = statusEnum.ParseError;
+                _readyStatus = statusEnum.ParseError;
                 lastError = "Missing #PES at beginning of file";
                 reader.Close();
                 return;
@@ -129,90 +128,90 @@ namespace EmbroideryFile
 
         }
 
-        void readCSewFigSeg(System.IO.BinaryReader file)
-        {
-            startStitches = fileIn.BaseStream.Position;
+        //void readCSewFigSeg(System.IO.BinaryReader file)
+        //{
+        //    startStitches = fileIn.BaseStream.Position;
 
-            bool doneWithStitches = false;
-            int xValue = -100;
-            int yValue = -100;
-            stitchBlock currentBlock;
-            int blockType; //if this is equal to newColorMarker, it's time to change color
-            int colorIndex = 0;
-            int remainingStitches;
-            List<Point> stitchData;
-            stitchData = new List<Point>();
-            currentBlock = new stitchBlock();
+        //    bool doneWithStitches = false;
+        //    int xValue = -100;
+        //    int yValue = -100;
+        //    stitchBlock currentBlock;
+        //    int blockType; //if this is equal to newColorMarker, it's time to change color
+        //    int colorIndex = 0;
+        //    int remainingStitches;
+        //    List<Point> stitchData;
+        //    stitchData = new List<Point>();
+        //    currentBlock = new stitchBlock();
 
-            while (!doneWithStitches)
-            {
-                //reset variables
-                xValue = 0;
-                yValue = 0;
+        //    while (!doneWithStitches)
+        //    {
+        //        //reset variables
+        //        xValue = 0;
+        //        yValue = 0;
 
-                blockType = file.ReadInt16();
-                if (blockType == 16716)
-                    break;
-                colorIndex = file.ReadInt16();
-                if (colorIndex == 16716)
-                    break;
-                remainingStitches = file.ReadInt16();
-                if (remainingStitches == 16716)
-                    break;
-                while (remainingStitches >= 0)
-                {
-                    xValue = file.ReadInt16();
-                    if (xValue == -32765)
-                    {
-                        break;//drop out before we start eating into the next section 
-                    }
-                    if (remainingStitches == 0)
-                    {
-                        int junk2 = 0;
-                        junk2 = blocks.Count;
+        //        blockType = file.ReadInt16();
+        //        if (blockType == 16716)
+        //            break;
+        //        colorIndex = file.ReadInt16();
+        //        if (colorIndex == 16716)
+        //            break;
+        //        remainingStitches = file.ReadInt16();
+        //        if (remainingStitches == 16716)
+        //            break;
+        //        while (remainingStitches >= 0)
+        //        {
+        //            xValue = file.ReadInt16();
+        //            if (xValue == -32765)
+        //            {
+        //                break;//drop out before we start eating into the next section 
+        //            }
+        //            if (remainingStitches == 0)
+        //            {
+        //                int junk2 = 0;
+        //                junk2 = blocks.Count;
 
-                        file.ReadBytes(24);
-                        if (file.ReadInt16() == -1)
-                            doneWithStitches = true;
+        //                file.ReadBytes(24);
+        //                if (file.ReadInt16() == -1)
+        //                    doneWithStitches = true;
 
-                        currentBlock.stitches = new Point[stitchData.Count];
-                        stitchData.CopyTo(currentBlock.stitches);
-                        currentBlock.colorIndex = colorIndex;
-                        currentBlock.color = ColorIndex.ColorByIndex(colorIndex);
-                        currentBlock.stitchesInBlock = stitchData.Count;
-                        blocks.Add(currentBlock);
-                        stitchData = new List<Point>();
-                        currentBlock = new stitchBlock();
+        //                currentBlock.stitches = new Point[stitchData.Count];
+        //                stitchData.CopyTo(currentBlock.stitches);
+        //                currentBlock.colorIndex = colorIndex;
+        //                currentBlock.color = ColorIndex.ColorByIndex(colorIndex);
+        //                currentBlock.stitchesInBlock = stitchData.Count;
+        //                blocks.Add(currentBlock);
+        //                stitchData = new List<Point>();
+        //                currentBlock = new stitchBlock();
 
-                        file.ReadBytes(48);
+        //                file.ReadBytes(48);
 
-                        break;
-                    }
-                    else if (xValue == 16716 || xValue == 8224)
-                    {
-                        doneWithStitches = true;
-                        break;
-                    }
-                    yValue = fileIn.ReadInt16();
-                    if (yValue == 16716 || yValue == 8224)
-                    {
-                        doneWithStitches = true;
-                        break;
-                    }
-                    stitchData.Add(new Point(xValue - translateStart.X, yValue + imageHeight - translateStart.Y));
-                    remainingStitches--;
-                }
-            }
-            if (stitchData.Count > 1)
-            {
-                currentBlock.stitches = new Point[stitchData.Count];
-                stitchData.CopyTo(currentBlock.stitches);
-                currentBlock.colorIndex = colorIndex;
-                currentBlock.color = ColorIndex.ColorByIndex(colorIndex);
-                currentBlock.stitchesInBlock = stitchData.Count;
-                blocks.Add(currentBlock);
-            }
-        }
+        //                break;
+        //            }
+        //            else if (xValue == 16716 || xValue == 8224)
+        //            {
+        //                doneWithStitches = true;
+        //                break;
+        //            }
+        //            yValue = fileIn.ReadInt16();
+        //            if (yValue == 16716 || yValue == 8224)
+        //            {
+        //                doneWithStitches = true;
+        //                break;
+        //            }
+        //            stitchData.Add(new Point(xValue - translateStart.X, yValue + imageHeight - translateStart.Y));
+        //            remainingStitches--;
+        //        }
+        //    }
+        //    if (stitchData.Count > 1)
+        //    {
+        //        currentBlock.stitches = new Point[stitchData.Count];
+        //        stitchData.CopyTo(currentBlock.stitches);
+        //        currentBlock.colorIndex = colorIndex;
+        //        currentBlock.color = ColorIndex.ColorByIndex(colorIndex);
+        //        currentBlock.stitchesInBlock = stitchData.Count;
+        //        blocks.Add(currentBlock);
+        //    }
+        //}
 
         List<stitchBlock> filterStitches(List<stitchBlock> input, int threshold)
         {
@@ -272,15 +271,15 @@ namespace EmbroideryFile
             return retval;
         }
 
-        public int GetWidth()
-        {
-            return imageWidth;
-        }
+        //public int GetWidth()
+        //{
+        //    return imageWidth;
+        //}
 
-        public int GetHeight()
-        {
-            return imageHeight;
-        }
+        //public int GetHeight()
+        //{
+        //    return imageHeight;
+        //}
 
         public string GetFileName()
         {
@@ -386,7 +385,7 @@ namespace EmbroideryFile
 
         public statusEnum getStatus()
         {
-            return readyStatus;
+            return _readyStatus;
         }
 
         public string getLastError()

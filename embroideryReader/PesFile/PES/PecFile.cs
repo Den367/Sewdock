@@ -24,7 +24,6 @@ You can contact me at http://www.njcrawford.com/contact/.
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.IO;
 
@@ -37,20 +36,7 @@ namespace EmbroideryFile
        
        
       internal protected PecReaderParser parser = new PecReaderParser();
-       // private statusEnum readyStatus = statusEnum.NotOpen;
-       // Int64 startStitches = 0;
-        //string lastError = "";
-       // string pesNum = "";
-       // Point translateStart;
-
-
-        //means we couldn't figure out some or all
-        //of the colors, best guess will be used
-        //private bool colorWarning = false;
-
-        //private bool formatWarning = false;
-
-        //private bool classWarning = false;
+      
         #region [Constructors]
         public PecFile(string filename)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Drawing;
 using EmbroideryFile.QRCode;
@@ -12,9 +13,6 @@ namespace EmbroideryFile.QR
          int _dX;
          int _dY;
          int _cellSize;
-/*
-         string QrCodeText { get; set; }
-*/
 
         QRCodeStitchInfo _info;
         readonly QRCodeCreator _qrcode;
@@ -64,36 +62,39 @@ namespace EmbroideryFile.QR
         {
             var blocks = new List<List<Coords>>();
             int rectSize = GetRectSize();
-            // rectangle left top
+            // the left top rectangle
             blocks.AddRange(GetRectangleSatin(0, 0, rectSize - 1, rectSize - 1));
+            // the left top inner box
             blocks.Add(GenerateBoxStitchBlock(2, 2, rectSize - 4));
+            // area between top and bottom left rectangle
             blocks.AddRange(GetSatinStitches(GetLaneList(0, rectSize + 1, rectSize, _dimension - rectSize - 1)));
+            // the left bottom rectangle
             blocks.AddRange(GetRectangleSatin(0, _dimension - rectSize, rectSize - 1, _dimension - 1));
+            // the left bottom inner box
             blocks.Add(GenerateBoxStitchBlock(2, _dimension - rectSize + 2, rectSize - 4));
-
-
+            // middle area 
             blocks.AddRange(GetSatinStitches(GetLaneList(rectSize + 1, 0, _dimension - rectSize - 1, _dimension - 1)));
-
+            // right left top rectangle
             blocks.AddRange(GetRectangleSatin(_dimension - rectSize, 0, _dimension - 1, rectSize - 1));
+            // the right top inner box
             blocks.Add(GenerateBoxStitchBlock(_dimension - rectSize + 2, 2, rectSize - 4));
+            // area under the right top rectangle
             blocks.AddRange(GetSatinStitches(GetLaneList(_dimension - rectSize, rectSize + 1, _dimension - 1, _dimension - 1)));
             return blocks;
         }
 
 
         /// <summary>
-        /// Create stitches for filled box
+        /// Create stitches for full filled box
         /// </summary>
         /// <param name="cellHorizonPos">Horisontal position of top left cell of box</param>
         /// <param name="cellVerticalPos">Vertical postion of top left cell of box</param>
-        /// <param name="boxSize"></param>
+        /// <param name="boxSize">Size of the box</param>
         /// <returns></returns>
         private List<Coords> GenerateBoxStitchBlock(int cellHorizonPos, int cellVerticalPos, int boxSize)
         {
             var block = new List<Coords>();
-
-            int y = 0;
-            int x = 0;
+            int y = 0; int x = 0;
             int startX = cellHorizonPos * _cellSize;
             int startY = cellVerticalPos * _cellSize;
             block.Add(new Coords { X = startX, Y = startY });
@@ -116,128 +117,127 @@ namespace EmbroideryFile.QR
                 block.Add(new Coords { X = startX + x, Y = startY + y });
                 y = y + _dY;
             }
-
             return block;
         }
 
-        private IEnumerable<Coords> GenerateBoxStitchBlockDir(int cellHorizonPos, int cellVerticalPos, int boxSize, Direction dir)
-        {
-            var block = new List<Coords>();
+        //private IEnumerable<Coords> GenerateBoxStitchBlockDir(int cellHorizonPos, int cellVerticalPos, int boxSize, Direction dir)
+        //{
+        //    var block = new List<Coords>();
 
-            int startX, startY;
-            int y = 0;
-            int x = 0;
+        //    int startX, startY;
+        //    int y = 0;
+        //    int x = 0;
 
-            switch (dir)
-            {
-                case Direction.Down:
-                    startX = cellHorizonPos * _cellSize;
-                    startY = cellVerticalPos * _cellSize;
-                    block.Add(new Coords { X = startX, Y = startY });
-                    while (y < _cellSize * boxSize)
-                    {
-                        while (x < _cellSize * boxSize - _dX)
-                        {
-                            x = x + _dX;
-                            block.Add(new Coords { X = startX + x, Y = startY + y });
-                        }
-                        x = boxSize * _cellSize;
-                        block.Add(new Coords { X = startX + x, Y = startY + y });
-                        y = y + _dY;
-                        while (x > _dX)
-                        {
-                            x = x - _dX;
-                            block.Add(new Coords { X = startX + x, Y = startY + y });
-                        }
-                        x = 0;
-                        block.Add(new Coords { X = startX + x, Y = startY + y });
-                        y = y + _dY;
-                    }
+        //    switch (dir)
+        //    {
+        //        case Direction.Down:
+        //            startX = cellHorizonPos * _cellSize;
+        //            startY = cellVerticalPos * _cellSize;
+        //            block.Add(new Coords { X = startX, Y = startY });
+        //            while (y < _cellSize * boxSize)
+        //            {
+        //                while (x < _cellSize * boxSize - _dX)
+        //                {
+        //                    x = x + _dX;
+        //                    block.Add(new Coords { X = startX + x, Y = startY + y });
+        //                }
+        //                x = boxSize * _cellSize;
+        //                block.Add(new Coords { X = startX + x, Y = startY + y });
+        //                y = y + _dY;
+        //                while (x > _dX)
+        //                {
+        //                    x = x - _dX;
+        //                    block.Add(new Coords { X = startX + x, Y = startY + y });
+        //                }
+        //                x = 0;
+        //                block.Add(new Coords { X = startX + x, Y = startY + y });
+        //                y = y + _dY;
+        //            }
 
-                    break;
+        //            break;
 
-                case Direction.Up:
-                    startX = cellHorizonPos * _cellSize;
-                    startY = (cellVerticalPos + 1) * _cellSize;
-                    block.Add(new Coords { X = startX, Y = startY });
-                    y = _cellSize * boxSize;
-                    while (y > 0)
-                    {
-                        while (x < _cellSize * boxSize - _dX)
-                        {
-                            x = x + _dX;
-                            block.Add(new Coords{ X = startX + x, Y = startY + y });
-                        }
-                        x = boxSize * _cellSize;
-                        block.Add(new Coords { X = startX + x, Y = startY + y });
-                        y = y - _dY;
-                        while (x > _dX)
-                        {
-                            x = x - _dX;
-                            block.Add(new Coords { X = startX + x, Y = startY + y });
-                        }
-                        x = 0;
-                        block.Add(new Coords { X = startX + x, Y = startY + y });
-                        y = y - _dY;
-                    }
-                    break;
-                case Direction.Right:
-                    startX = cellHorizonPos * _cellSize;
-                    startY = cellVerticalPos * _cellSize;
-                    block.Add(new Coords { X = startX, Y = startY });
-                    while (x < _cellSize * boxSize)
-                    {
-                        while (y < _cellSize * boxSize - _dY)
-                        {
-                            y = y + _dY;
-                            block.Add(new Coords { Y = startY + y, X = startX + x });
-                        }
-                        y = boxSize * _cellSize;
-                        block.Add(new Coords { Y = startY + y, X = startX + x });
-                        x = x + _dX;
-                        while (y > _dX)
-                        {
-                            y = y - _dX;
-                            block.Add(new Coords { Y = startY + y, X = startX + x });
-                        }
-                        y = 0;
-                        block.Add(new Coords { Y = startY + y, X = startX + x });
-                        x = x + _dX;
-                    }
+        //        case Direction.Up:
+        //            startX = cellHorizonPos * _cellSize;
+        //            startY = (cellVerticalPos + 1) * _cellSize;
+        //            block.Add(new Coords { X = startX, Y = startY });
+        //            y = _cellSize * boxSize;
+        //            while (y > 0)
+        //            {
+        //                while (x < _cellSize * boxSize - _dX)
+        //                {
+        //                    x = x + _dX;
+        //                    block.Add(new Coords{ X = startX + x, Y = startY + y });
+        //                }
+        //                x = boxSize * _cellSize;
+        //                block.Add(new Coords { X = startX + x, Y = startY + y });
+        //                y = y - _dY;
+        //                while (x > _dX)
+        //                {
+        //                    x = x - _dX;
+        //                    block.Add(new Coords { X = startX + x, Y = startY + y });
+        //                }
+        //                x = 0;
+        //                block.Add(new Coords { X = startX + x, Y = startY + y });
+        //                y = y - _dY;
+        //            }
+        //            break;
+        //        case Direction.Right:
+        //            startX = cellHorizonPos * _cellSize;
+        //            startY = cellVerticalPos * _cellSize;
+        //            block.Add(new Coords { X = startX, Y = startY });
+        //            while (x < _cellSize * boxSize)
+        //            {
+        //                while (y < _cellSize * boxSize - _dY)
+        //                {
+        //                    y = y + _dY;
+        //                    block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                }
+        //                y = boxSize * _cellSize;
+        //                block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                x = x + _dX;
+        //                while (y > _dX)
+        //                {
+        //                    y = y - _dX;
+        //                    block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                }
+        //                y = 0;
+        //                block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                x = x + _dX;
+        //            }
 
-                    break;
+        //            break;
 
-                case Direction.Left:
-                    startX = (cellHorizonPos) * _cellSize;
-                    startY = cellVerticalPos * _cellSize;
-                    block.Add(new Coords { X = startX, Y = startY });
-                    x = _cellSize * boxSize;
-                    int dV = _dY, dW = _dX;
-                    while (x > 0)
-                    {
-                        while (y < _cellSize * boxSize - dW)
-                        {
-                            y = y + dW;
-                            block.Add(new Coords { Y = startY + y, X = startX + x });
-                        }
-                        y = boxSize * _cellSize;
-                        block.Add(new Coords { Y = startY + y, X = startX + x });
-                        x = x - dV;
-                        while (y > dV)
-                        {
-                            y = y - dV;
-                            block.Add(new Coords { Y = startY + y, X = startX + x });
-                        }
-                        y = 0;
-                        block.Add(new Coords { Y = startY + y, X = startX + x });
-                        x = x - dV;
-                    }
-                    break;
-            }
+        //        case Direction.Left:
+        //            startX = (cellHorizonPos) * _cellSize;
+        //            startY = cellVerticalPos * _cellSize;
+        //            block.Add(new Coords { X = startX, Y = startY });
+        //            x = _cellSize * boxSize;
+        //            int dV = _dY, dW = _dX;
+        //            while (x > 0)
+        //            {
+        //                while (y < _cellSize * boxSize - dW)
+        //                {
+        //                    y = y + dW;
+        //                    block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                }
+        //                y = boxSize * _cellSize;
+        //                block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                x = x - dV;
+        //                while (y > dV)
+        //                {
+        //                    y = y - dV;
+        //                    block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                }
+        //                y = 0;
+        //                block.Add(new Coords { Y = startY + y, X = startX + x });
+        //                x = x - dV;
+        //            }
+        //            break;
+        //    }
 
 
-            return block;
-        }
+        //    return block;
+        //}
 
         void Init()
         {
@@ -271,17 +271,16 @@ namespace EmbroideryFile.QR
         #region [Public Methods]
         public List<List<Coords>> GetQRCodeStitches()
         {
-           
-           
                 Init();
                 return GenerateQRCodeStitchesBoxed();
-    
         }
 
-
+        /// <summary>
+        /// Returns QR-code stitches
+        /// </summary>
+        /// <returns></returns>
         public List<CoordsBlock> GetQRCodeStitchBlocks()
         {
-
             return GetListCoordsBlock(GetQRCodeStitches());
         }
 
@@ -310,7 +309,6 @@ namespace EmbroideryFile.QR
             rect.Add(ReverseCoords(GenerateVerticalColumnStitchBlock(RightX, TopY + 1, length)));
             rect.Add(ReverseCoords(GenerateHorizonColumnStitchBlock(LeftX + 1, TopY, length)));
             return rect;
-
         }
 
         List<Coords> ReverseCoords(List<Coords> coords)
@@ -359,20 +357,19 @@ namespace EmbroideryFile.QR
             curX = _cellSize;
             curY = columnLength;
             block.Add(new Coords { X = startX + curX, Y = startY + curY });
-            //block.Add(new Coords { X = startX, Y = startY + curY });
             return block;
         }
-        private List<Coords> GenerateVerticalTiledColumnStitchBlock(int cellHorizonPos, int cellVerticalPos, int length)
-        {
-            var block = new List<Coords>();
-            for (int i = cellVerticalPos; i < cellVerticalPos + length; i++)
-            {
-                block.AddRange((i + cellHorizonPos)%2 == 0
-                                   ? GenerateBoxStitchBlockDir(cellHorizonPos, i, 1, Direction.Down)
-                                   : GenerateBoxStitchBlockDir(cellHorizonPos, i, 1, Direction.Left));
-            }
-            return block;
-        }
+        //private List<Coords> GenerateVerticalTiledColumnStitchBlock(int cellHorizonPos, int cellVerticalPos, int length)
+        //{
+        //    var block = new List<Coords>();
+        //    for (int i = cellVerticalPos; i < cellVerticalPos + length; i++)
+        //    {
+        //        block.AddRange((i + cellHorizonPos)%2 == 0
+        //                           ? GenerateBoxStitchBlockDir(cellHorizonPos, i, 1, Direction.Down)
+        //                           : GenerateBoxStitchBlockDir(cellHorizonPos, i, 1, Direction.Left));
+        //    }
+        //    return block;
+        //}
         private List<Coords> GenerateHorizonColumnStitchBlock(int cellHorizonPos, int cellVerticalPos, int Length)
         {
             var block = new List<Coords>();
@@ -413,21 +410,10 @@ namespace EmbroideryFile.QR
             block.Add(new Coords() { X = startX + curX, Y = startY });       // 
             return block;
         }
-/*
-        private List<Coords> GenerateHorizonTiledColumnStitchBlock(int CellHorizonPos, int CellVerticalPos, int Length)
-        {
-            List<Coords> block = new List<Coords>();
-            for (int i = CellVerticalPos; i < CellVerticalPos + Length; i++)
-            {
-                if (i % 2 == 0) block.AddRange(GenerateBoxStitchBlockDir(CellHorizonPos, i, 1, Direction.Down));
-                else block.AddRange(GenerateBoxStitchBlockDir(CellHorizonPos, i, 1, Direction.Left));
-            }
-            return block;
-        }
-*/
 
-        readonly List<Lane> _lines = new List<Lane>();
-        Lane _curLane;
+
+        readonly List<Line> _lines = new List<Line>();
+        Line _curLane;
         Coords _dot1;
         Coords _dot2;
         bool[][] _cells;
@@ -581,52 +567,61 @@ namespace EmbroideryFile.QR
         /// <summary>
         /// Gets list of vertical string for specified rectangular area
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
+        /// <param name="x1">start X position of a lane</param>
+        /// <param name="y1">start Y position of a lane</param>
+        /// <param name="x2">end X position of a lane</param>
+        /// <param name="y2">end Y position of a lane</param>
         /// <returns></returns>
-        private List<Lane> GetLaneList(int x1, int y1, int x2, int y2)
+        private List<Line> GetLaneList(int x1, int y1, int x2, int y2)
         {
             try
             {
- if (_lines != null) _lines.Clear();
-            if (y1 > y2)
-            {
-                _topY = y2; _bottomY = y1;
-            }
-            else { _topY = y1; _bottomY = y2; }
-            if (x1 > x2)
-            {
-                _leftX = x2; _rightX = x1;
-            }
-            else
-            {
-                _leftX = x1; _rightX = x2;
-            }
+                if (_lines != null) _lines.Clear();
+                if (y1 > y2)
+                {
+                    _topY = y2;
+                    _bottomY = y1;
+                }
+                else
+                {
+                    _topY = y1;
+                    _bottomY = y2;
+                }
+                if (x1 > x2)
+                {
+                    _leftX = x2;
+                    _rightX = x1;
+                }
+                else
+                {
+                    _leftX = x1;
+                    _rightX = x2;
+                }
 
-            for (int j = _leftX; j <= _rightX; j = j + 2)  //X
-            {
-                _state = false;
-                for (int i = _topY; i <= _bottomY; i++) // Y               
+                for (int j = _leftX; j <= _rightX; j = j + 2) //X
                 {
-                    ConsumeRelativeCellDown(j, i);
+                    _state = false;
+                    for (int i = _topY; i <= _bottomY; i++) // Y               
+                    {
+                        ConsumeRelativeCellDown(j, i);
+                    }
+                    if (j >= _rightX) break;
+                    _state = false;
+                    for (int i = _bottomY; i >= _topY; i--) // Y               
+                    {
+                        ConsumeRelativeCellUp(j + 1, i);
+                    }
                 }
-                if (j >= _rightX) break;
-                _state = false;
-                for (int i = _bottomY; i >= _topY; i--) // Y               
-                {
-                    ConsumeRelativeCellUp(j + 1, i);
-                }
-            }
-            return _lines;
+                return _lines;
             }
             catch (Exception ex)
             {
-                {}
+                {
+                    Trace.WriteLine(string.Format("GetLineList(): {0}",ex));
+                }
                 throw;
             }
-           
+
         }
 
 
@@ -636,7 +631,7 @@ namespace EmbroideryFile.QR
         /// </summary>
 
 
-        private List<List<Coords>> GetSatinStitches(List<Lane> lanes)
+        private List<List<Coords>> GetSatinStitches(List<Line> lanes)
         {
             List<List<Coords>> blockList = new List<List<Coords>>();
             int ln = 0;
@@ -661,20 +656,20 @@ namespace EmbroideryFile.QR
         }
 
 
-        private List<List<Coords>> GetLaneCellSatinStitches(List<Lane> lanes)
-        {
-            List<List<Coords>> blockList = new List<List<Coords>>();
-            int ln = 0;
-            foreach (var lane in lanes)
-            {
-                if (lane.Dot2.Y > lane.Dot1.Y)
-                    blockList.Add(GenerateVerticalTiledColumnStitchBlock(lane.Dot1.X, lane.Dot1.Y, lane.Length));
-                else blockList.Add(ReverseCoords(GenerateVerticalTiledColumnStitchBlock(lane.Dot2.X, lane.Dot2.Y, lane.Length)));
-                ln++;
+        //private List<List<Coords>> GetLaneCellSatinStitches(List<Lane> lanes)
+        //{
+        //    List<List<Coords>> blockList = new List<List<Coords>>();
+        //    int ln = 0;
+        //    foreach (var lane in lanes)
+        //    {
+        //        if (lane.Dot2.Y > lane.Dot1.Y)
+        //            blockList.Add(GenerateVerticalTiledColumnStitchBlock(lane.Dot1.X, lane.Dot1.Y, lane.Length));
+        //        else blockList.Add(ReverseCoords(GenerateVerticalTiledColumnStitchBlock(lane.Dot2.X, lane.Dot2.Y, lane.Length)));
+        //        ln++;
 
-            }
-            return blockList;
-        }
+        //    }
+        //    return blockList;
+        //}
   
 
         /// <summary>
@@ -682,47 +677,38 @@ namespace EmbroideryFile.QR
         /// </summary>
         /// <param name="listBlocks"></param>
         /// <returns></returns>
-        List<CoordsBlock> GetListOfCoordsBlock(List<List<Coords>> listBlocks)
-        {
+        //List<CoordsBlock> GetListOfCoordsBlock(List<List<Coords>> listBlocks)
+        //{
 
-            List<CoordsBlock> reslult = new List<CoordsBlock>();
-            CoordsBlock coordsBlock;
-            CoordsBlock prevBlock = null;
-            foreach (var block in listBlocks)
-            {
-                if (prevBlock != null)
-                {
-                    var jumpBlock = new CoordsBlock() { Jumped = true};
-                    jumpBlock.Add(prevBlock.Last());
-                    jumpBlock.Add(block.First());
-                    reslult.Add(jumpBlock);
-                }
-                coordsBlock = new CoordsBlock();
-                foreach (var coords in block)                                  
-                    coordsBlock.Add(coords);
-                reslult.Add(coordsBlock);
-                prevBlock = coordsBlock;
+        //    List<CoordsBlock> reslult = new List<CoordsBlock>();
+        //    CoordsBlock prevBlock = null;
+        //    foreach (var block in listBlocks)
+        //    {
+        //        if (prevBlock != null)
+        //        {
+        //            var jumpBlock = new CoordsBlock() { Jumped = true};
+        //            jumpBlock.Add(prevBlock.Last());
+        //            jumpBlock.Add(block.First());
+        //            reslult.Add(jumpBlock);
+        //        }
+        //        CoordsBlock coordsBlock = new CoordsBlock();
+        //        foreach (var coords in block)                                  
+        //            coordsBlock.Add(coords);
+        //        reslult.Add(coordsBlock);
+        //        prevBlock = coordsBlock;
 
-            }
-            return reslult;
-        }
+        //    }
+        //    return reslult;
+        //}
 
         private List<CoordsBlock> GetNegativatedYListOfCoordsBlock(List<List<Coords>> listBlocks)
         {
               List<CoordsBlock> reslult = new List<CoordsBlock>();
             CoordsBlock coordsBlock;
-            CoordsBlock prevBlock = null;
+           // CoordsBlock prevBlock = null;
             foreach (var block in listBlocks)
             {
-                //  if (prevBlock != null)
-                //{
-                //    var jumpBlock = new CoordsBlock() { Jumped = true };
-                //    jumpBlock.Add(prevBlock.Last());
-                //    var first = block.First();
-                //    first.Y = - first.Y;
-                //    jumpBlock.Add(first);
-                //    reslult.Add(jumpBlock);
-                //}
+                
                 coordsBlock = new CoordsBlock();
                 foreach (var coords in block)
                 {
@@ -731,7 +717,7 @@ namespace EmbroideryFile.QR
                 }
              
                 reslult.Add(coordsBlock);
-                //prevBlock = coordsBlock;
+               
 
             }
             return reslult;

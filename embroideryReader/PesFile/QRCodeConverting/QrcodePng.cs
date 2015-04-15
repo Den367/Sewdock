@@ -1,39 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.Drawing.Imaging;
 using  System.IO;
 using EmbroideryFile.QR;
+using EmbroideryFile.QRCodeConverting;
 
 namespace EmbroideryFile.QRCode
 {
-    public class QrcodePng
+    public class QrcodePng:IQRCodeStreamer
     {
-     
-        private readonly StitchToBmp _bitmapCreator;
-        readonly IQRCodeStitchGeneration _stitchGen;
-        private ImageFormat _format;
 
+        private readonly StitchToBmp _bitmapCreator;
+        private readonly IQRCodeStitchGeneration _stitchGen;
+        private ImageFormat _format;
+        private const int Size = 420;
 
         #region [Public Properties]
-        public QRCodeStitchInfo QrStitchInfo {
-            set
-            {
-                _stitchGen.Info = value;   
 
-            }
+        public void FillStream(Stream stream)
+        {
+            FillStreamWithPng(stream);
         }
 
-       
-        #endregion [Public Properties]
-        public QrcodePng(string qRCodeText, int width, int height)
+        public QRCodeStitchInfo QrStitchInfo
         {
-            _stitchGen = new QrCodeStitcher{Info = new QRCodeStitchInfo {QrCodeText = qRCodeText}};
-            _bitmapCreator = new StitchToBmp(_stitchGen.GetQRCodeInvertedYStitchBlocks(), width);
+            set { _stitchGen.Info = value; }
+        }
 
+
+        #endregion [Public Properties]
+
+        public QrcodePng()
+        {
+            _stitchGen = new QrCodeStitcher();
+            _bitmapCreator = new StitchToBmp(_stitchGen.GetQRCodeInvertedYStitchBlocks(), Size);
+        }
+        public QrcodePng(string qRCodeText, int size)
+        {
+            _stitchGen = new QrCodeStitcher { Info = new QRCodeStitchInfo { QrCodeText = qRCodeText } };
+            _bitmapCreator = new StitchToBmp(_stitchGen.GetQRCodeInvertedYStitchBlocks(), size);
         }
 
         private Dictionary<string, ImageCodecInfo> encoders = null;
+
         /// <summary>
         /// A quick lookup for getting image encoders
         /// </summary>
@@ -62,19 +70,16 @@ namespace EmbroideryFile.QRCode
             return encoders;
 
         }
-        #region [Public Methods]       
+
+        #region [Public Methods]
 
         public void FillStreamWithPng(Stream stream)
         {
             _bitmapCreator.FillStreamWithPng(stream);
 
         }
-
-
-
-
         #endregion [Public Methods]
-       
+
     }
-    }
+}
 

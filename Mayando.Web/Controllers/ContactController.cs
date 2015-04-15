@@ -32,8 +32,9 @@ namespace Myembro.Controllers
             {
                 return Index();
             }
-            var subject = string.Format(CultureInfo.CurrentCulture, "Contact from {0} on your \"{1}\" {2} website.", form.AuthorName, this.SiteData.Settings.Title, this.SiteData.ApplicationName);
-            var body = form.Text;
+            var subject = string.Format(CultureInfo.CurrentCulture, "Contact from {0} on your \"{1}\" {2} website.", 
+                form.AuthorName, this.SiteData.Settings.Title, this.SiteData.ApplicationName);
+            var body = string.Format("Message:\r\n{0}\r\nFrom:\r\n{1}",form.Text,form.AuthorEmail);
             Mailer.SendNotificationMail(this.SiteData.Settings, subject, body, false, false, form.AuthorEmail, form.AuthorName);
             RememberPreferences(form.AuthorName, form.AuthorEmail, null, form.RememberMe);
             //SetPageFlash(Myembro.Properties.Resources.PageFlashMessageSent);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 
 namespace EmbroideryFile
 {
@@ -13,7 +10,6 @@ namespace EmbroideryFile
         public int dY {get;set;}
         public int cellSize { get; set; }
         public string QrCodeText { get; set; }
-        public int QRCodeSize { get; set; }
         public bool[][] Matrix { get; set; }
         public int Dimension { get { if (Matrix != null) return Matrix.GetUpperBound(0) + 1; else return 0; } }
 

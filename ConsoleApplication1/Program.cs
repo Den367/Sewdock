@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using ContourLibrary;
-using ContourLibrary.ContourDeriving;
-using ContourLibrary.Data;
-using ContourLibrary.Plugin;
-using ContourLibrary.Prepare;
-using ContourLibrary.SvgStream;
-using Coord.CommonType;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
 
 namespace ConsoleApplication1
 {

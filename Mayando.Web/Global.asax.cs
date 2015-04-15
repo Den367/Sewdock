@@ -46,7 +46,7 @@ namespace Myembro
             //WebApiConfig.Register(GlobalConfiguration.Configuration); // DEPRECATED
             // Replace the Default WebFormViewEngine with our custom ThemedWebFormViewEngine
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new WebFormViewEngine());
+            //ViewEngines.Engines.Add(new WebFormViewEngine());
             ViewEngines.Engines.Add(new RazorViewEngine());              
             //ViewEngines.Engines.Add(new ThemedWebFormViewEngine());
             BundleConfig.RegisterBundles(BundleTable.Bundles);

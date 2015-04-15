@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 
@@ -8,13 +6,11 @@ namespace EmbroideryFile
 {
     public class EmbroideryTypeDetector
     {
-        Stream stream;
-
-
+        private Stream stream;
 
         public EmbroideryTypeDetector(Stream stream)
-        { 
-         this.stream = stream;
+        {
+            this.stream = stream;
         }
 
         /// <summary>
@@ -26,28 +22,32 @@ namespace EmbroideryFile
             string prefix = ReadPrefix(stream, 4);
             switch (prefix)
             {
-                case "#PES": return EmbroType.Pes;
-                case "#PEC": return EmbroType.Pec;
-               
+                case "#PES":
+                    return EmbroType.Pes;
+                case "#PEC":
+                    return EmbroType.Pec;
+
             }
             prefix = ReadPrefix(stream, 3);
-              switch (prefix)
+            switch (prefix)
             {
-                case "LA:": return EmbroType.Dst;
-                default: throw new Exception("Type of an embroidery has not been detected!");
-               
-            }             
+                case "LA:":
+                    return EmbroType.Dst;
+                default:
+                    throw new Exception("Type of an embroidery has not been detected!");
+
+            }
         }
 
         #region [Aux]
-        string ReadPrefix(Stream stream, int Length)
+
+        private string ReadPrefix(Stream stream, int Length)
         {
             byte[] firstBytes = new byte[Length];
             stream.Read(firstBytes, 0, Length);
             stream.Position = 0;
             return Encoding.ASCII.GetString(firstBytes);
         }
-
 
         #endregion [Aux]
     }

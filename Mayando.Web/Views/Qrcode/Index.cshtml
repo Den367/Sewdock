@@ -13,6 +13,12 @@
         <span class="form-qrcode">
             @{ Html.RenderPartial("QrcodeForm", Model); }
         </span>
+        <div id="links">
+            <a target="_blank" href="http://www.codeproject.com/Articles/493308/QR-Code-Embroidery-DST-File-Creator"><img src="@Url.Content("~/Content/Images/Icon/codeproject-logo.png")"/><sub>Article at codeproject.com</sub></a>
+            <br>
+            <a target="_blank" href="https://github.com/Den367/QRCodeEmbroidery"><img src="@Url.Content("~/Content/Images/Icon/github_circle_color.svg")"/><sub>Source code of QR-Code stitching</sub></a>
+
+        </div>
         @{ Html.RenderPartial(PartialViewName.Likes.ToString(),
                      new SocialLikeViewModel { Url = Url.Action("Index", "Qrcode"),Name = "QR-Code"});}
     </div>}

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Drawing;
 using EmbroideryFile.QR;
 
 namespace EmbroideryFile
 {
+    /// <summary>
+    /// Builds PEC block from <see cref="List<List<Coords>>"/>
+    /// </summary>
     public class PecBuilder
     {
         int _designWidth = 0;
@@ -86,8 +88,6 @@ namespace EmbroideryFile
 
              Stream stream = new MemoryStream();
 
-          // PecPartNoStitches initialFilePart;
-
             stream.Write(new byte[]  { 0x4C,0x41,0x3A},0,3);
             byte[] Name = Enumerable.Repeat((byte)0x20, 16).ToArray();
             Buffer.BlockCopy(Encoding.ASCII.GetBytes(_info.DesignName), 0, Name, 0, _info.DesignName.Length);
@@ -121,8 +121,7 @@ namespace EmbroideryFile
               StitchData.Position = 0;
               StitchData.CopyTo(stream, (int)stitchDataBytesCount);
           }
-          //stream.Write(StitchData, 0, stitchDataBytesCount);
-          //WriteAllStitchesBlocksToStream();
+
              // End of stitch data
            stream.Write(GetEndOfStitches(), 0, 2);
             // PixelGraphics

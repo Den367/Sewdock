@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Drawing;
-using EmbroideryFile.QR;
+
 
 namespace EmbroideryFile
 {
     /// <summary>
-    /// 
+    /// Loads stitches from a <see cref="Stream"/>
+    /// It is supposed what data in a <see cref="Stream"/> are stored in Tajama DST format
     /// </summary>
     public class DstFile : IGetEmbroideryData
     {
         EmbroideryData _design;
         DstHeader _header;
-       
+        private const int positionAfterHeader = 512;
         Stream _inputStream;
         Stream _outputStream;
 
@@ -95,7 +94,7 @@ namespace EmbroideryFile
 
         #region [Loading]
         /// <summary>
-        /// Fill after loading from binary file
+        /// Fills <see cref="EmbroideryData"/> after loading header from a <see cref="Stream"/>
         /// </summary>
         void FillDesignInfo()
    {
@@ -124,20 +123,15 @@ namespace EmbroideryFile
             _inputStream = embroStream;
 
             _header = new DstHeader(embroStream);
-                _inputStream.Position = 512;
+            _inputStream.Position = positionAfterHeader;
                 _design.Blocks = ReadStitches();
-            //_design.ShiftToZero();
 
         }
-       
 
-    
 
-        /// <summary>
-        /// Reads and encode stitches form  <see cref="Stream"/> class
-        /// </summary>
-        /// <param name="stream">Suggested  Position has been specified already</param>
-        /// <returns></returns>
+
+
+        #region [old]
         List<CoordsBlock> ReadStitchesOld()
         {
             List<CoordsBlock> ResultCoordList = new List<CoordsBlock>();
@@ -147,7 +141,7 @@ namespace EmbroideryFile
             int coCo = 0;
             int dX, dY, curAbsX = 0, curAbsY = 0;
             int blockIndex = 0;
-            bool endFileFlag = false, jumpFlag = false;//, endBlockFlag = false, colorChangeFlag = false;
+            bool endFileFlag = false, jumpFlag = false;
             Random rand = new Random();
             _design.ColorMap.Add(blockIndex, coCo);
             _design.ColourInfo.Add(coCo, Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
@@ -176,7 +170,6 @@ namespace EmbroideryFile
                         case DstStitchType.JUMP:
                             if (jumpFlag != true)
                             {
-                                //endBlockFlag = true;
                                 jumpFlag = true;
                                 if (currentCoordList.Count > 0)
                                 {
@@ -188,12 +181,9 @@ namespace EmbroideryFile
 
                             }
                             curAbsX = curAbsX + dX; curAbsY = curAbsY + dY;
-                            //currentCoordList.Add(new Coords { X = curAbsX, Y = curAbsY });
                             break;
                         case DstStitchType.STOP:
                             coCo++;
-                            //endBlockFlag = true;
-                            //colorChangeFlag = true;
                             if (currentCoordList.Count > 0)
                             {
                                 ResultCoordList.Add(currentCoordList);
@@ -206,8 +196,7 @@ namespace EmbroideryFile
                             blockIndex++;
                             break;
                         case DstStitchType.END:
-                            //endBlockFlag = true;
-                            endFileFlag = true;
+             endFileFlag = true;
                             break;
                         case DstStitchType.UNKNOWN:
                             endFileFlag = true;
@@ -221,7 +210,13 @@ namespace EmbroideryFile
             }
             return ResultCoordList;
         }
+        #endregion [old]
 
+        /// <summary>
+        /// Reads and encode stitches form  <see cref="Stream"/> class
+        /// </summary>
+        /// <param name="stream">Suggested  position has been specified already</param>
+        /// <returns></returns>
         List<CoordsBlock> ReadStitches()
         {
             List<CoordsBlock> ResultCoordList = new List<CoordsBlock>();
@@ -231,7 +226,7 @@ namespace EmbroideryFile
             int coCo = 0;
             int dX, dY, curAbsX = 0, curAbsY = 0;
             int blockIndex = 0;
-            bool endFileFlag = false, jumpFlag = false;//, endBlockFlag = false, colorChangeFlag = false;
+            bool endFileFlag = false, jumpFlag = false;
             Color color;
             Random rand = new Random();
             _design.ColorMap.Add(blockIndex, coCo);
@@ -262,7 +257,7 @@ namespace EmbroideryFile
                         case DstStitchType.JUMP:
                             if (jumpFlag != true)
                             {
-                                //endBlockFlag = true;
+
                                 jumpFlag = true;
                                 if (currentCoordList.Count > 0)
                                 {
@@ -272,12 +267,11 @@ namespace EmbroideryFile
                                 currentCoordList = new CoordsBlock(color) {Jumped = true};
                             }
                             curAbsX = curAbsX + dX; curAbsY = curAbsY - dY;
-                            //currentCoordList.Add(new Coords { X = curAbsX, Y = curAbsY });
+
                             break;
                         case DstStitchType.STOP:
                             coCo++;
-                            //endBlockFlag = true;
-                            //colorChangeFlag = true;
+
                             if (currentCoordList.Count > 0)
                             {
                                 ResultCoordList.Add(currentCoordList);
@@ -291,7 +285,6 @@ namespace EmbroideryFile
                             blockIndex++;
                             break;
                         case DstStitchType.END:
-                            //endBlockFlag = true;
                             endFileFlag = true;
                             break;
                         case DstStitchType.UNKNOWN:
@@ -316,7 +309,7 @@ namespace EmbroideryFile
             int stitchCount;
             List<CoordsBlock> Blocks = _design.Blocks;
             Coords coords = new Coords() { X = 0, Y = 0 };
-            //Dictionary<int, int> colors = _design.ColorMap;
+
             //first point
             Coords prevCoords = coords;
             CoordsBlock prevBlock = null;
@@ -338,19 +331,10 @@ namespace EmbroideryFile
                     WriteDstStitch(coords.X, coords.Y, prevCoords.X, prevCoords.Y, _outputStream);
                     prevCoords = coords;
                 }
-                //foreach (Coords point in stitches)
-                //    {
-                //        coords = point;
-                //        WriteDstStitch(coords.X, coords.Y, prevCoords.X, prevCoords.Y, _outputStream);
-                //        prevCoords = coords;
-                //    }
+               
                 blockIndex++;
                 WriteTrimStitch();
-                // after each block place a STOP stitch if it has not been jumped
-                // _outputStream.Write(encode_record(0, 0, DstStitchType.STOP), 0, 3);
-
-                //if (stitches.Count > 0) prevCoords = stitches.Last();
-
+               
             }
             //write 
         }
@@ -414,9 +398,7 @@ namespace EmbroideryFile
 
             int distX = Math.Abs(prevX - X);
             int distY = Math.Abs(prevY - Y);
-            //int kx;
-            
-            //if (distX > 0) kx = distY / distX;
+ 
             int lastX = distX % 121;
             int lastY = distY % 121;
 
@@ -620,7 +602,6 @@ namespace EmbroideryFile
                     break;
                 default:
                     b2 += 3;
-                    //fprintf(fout,"Unknown\n");
                     break;
             };
             b[0] = b0; b[1] = b1; b[2] = b2;
