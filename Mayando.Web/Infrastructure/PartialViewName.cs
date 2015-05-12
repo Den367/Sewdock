@@ -58,6 +58,7 @@ namespace Myembro.Infrastructure
         Design,
         DesignCanvas,
         Likes,
-        SocialNetworkPlugins
+        SocialNetworkPlugins,
+        OSM
     }
 }
