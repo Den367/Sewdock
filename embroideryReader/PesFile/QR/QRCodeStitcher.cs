@@ -242,7 +242,7 @@ namespace EmbroideryFile.QR
         void Init()
         {
             _lines.Clear();
-         _cells = _info.Matrix;
+        if (_info != null) _cells = _info.Matrix;
          _state = true;
          _endLaneFlag = false;
          _laneLen = 1;

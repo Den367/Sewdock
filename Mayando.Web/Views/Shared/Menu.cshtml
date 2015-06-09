@@ -1,15 +1,41 @@
 ﻿@using JelleDruyts.Web.Mvc
-@model IEnumerable<Myembro.ViewModels.MenuViewModel>
+@model IEnumerable<Myembro.Models.Menu>
 <style>
-    ul#menu a { color: whitesmoke;}
+    ul#menu li a{
+        height: 20px;            
+      
+    }
+
+       ul#menu li a {
+       padding-bottom: 20px;            
+      
+    }
+
+    
+
+       ul#menu li a span:first-child {
+        font-size: xx-large;  
+         color: #333333;      
+    }
+
+         ul#menu li a  sub {
+         font-size: medium;
+             color:orangered;
+          font-family: Ubuntu;
+    }
+   ul#menu li.selected a{ background-color: darkorange; color: white;}
+    ul#menu li.selected a sub{ color: white;}
 </style>
 <div id="menucontainer">
     <ul id="menu">
         @foreach (var menu in Model)
         {
-            
-        <li class="@if (menu.Selected){@Html.Raw("selected")}">
-                @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip, "btn bg-color-orange color-white"))
+          
+            <li class="@( (menu.Selected)?  Html.Raw("selected"):Html.Raw(""))">
+                <a class="btn" href="@menu.Url" title="@menu.ToolTip">
+                     <span class="@string.Format(" {0}",menu.cssClass)"/><sub> @menu.Title</sub>
+                </a>
+               @* @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip ))*@
             </li>
         } 
     </ul>

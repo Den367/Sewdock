@@ -88,7 +88,7 @@ namespace Myembro.Models
         /// <param name="applicationSettings">The application settings.</param>
         /// <param name="menus">The menus.</param>
         /// <param name="requestContext">The request context.</param>
-        public SiteData(IDictionary<string, string> applicationSettings, IEnumerable<MenuViewModel> menus, RequestContext requestContext)
+        public SiteData(IDictionary<string, string> applicationSettings, IEnumerable<Menu> menus, RequestContext requestContext)
             : this(applicationSettings, menus, requestContext, null)
         {
         }
@@ -100,7 +100,7 @@ namespace Myembro.Models
         /// <param name="menus">The menus.</param>
         /// <param name="requestContext">The request context.</param>
         /// <param name="userSettings">The user-defined settings.</param>
-        public SiteData(IDictionary<string, string> applicationSettings, IEnumerable<MenuViewModel> menus, RequestContext requestContext, IDictionary<string, string> userSettings)
+        public SiteData(IDictionary<string, string> applicationSettings, IEnumerable<Menu> menus, RequestContext requestContext, IDictionary<string, string> userSettings)
         {
             try
             {
@@ -173,7 +173,7 @@ namespace Myembro.Models
         /// <summary>
         /// Gets the available menus.
         /// </summary>
-        public IEnumerable<MenuViewModel> Menus { get; private set; }
+        public IEnumerable<Menu> Menus { get; private set; }
 
         /// <summary>
         /// Gets the absolute URL of the current ASP.NET application.

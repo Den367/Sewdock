@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 using Myembro.Extensions;
 using Myembro.Infrastructure;
 using Myembro.Models;
-
+using Myembro.Repository;
 using Myembro.ViewModels;
 
 
@@ -181,7 +181,8 @@ namespace Myembro.Controllers
                 {
                     applicationSettings = repository.GetSettingValues(SettingsScope.Application);
                     userSettings = repository.GetSettingValues(SettingsScope.User);
-                    menus = repository.GetMenu(UICulture);
+                    IMenuRepository menuRepo = new MenuRepository();
+                    menus = menuRepo.GetMenu(UICulture);
                 }
                 var viewMenus = GetMenuViewModel(requestContext, menus);
 
@@ -254,10 +255,10 @@ namespace Myembro.Controllers
         /// <param name="requestContext">The request context.</param>
         /// <param name="menus">The menus.</param>
         /// <returns>The menu view model.</returns>
-        private static List<MenuViewModel> GetMenuViewModel(RequestContext requestContext, IEnumerable<Menu> menus)
+        private static IEnumerable<Menu> GetMenuViewModel(RequestContext requestContext, IEnumerable<Menu> menus)
         {
-            var viewMenus = new List<MenuViewModel>();
-            MenuViewModel selectedViewMenu = null;
+           // var viewMenus = new List<MenuViewModel>();
+            Menu selectedViewMenu = null;
             foreach (var menu in menus)
             {
                 // Fix up the relative URL if needed.
@@ -292,26 +293,30 @@ namespace Myembro.Controllers
                 if (string.IsNullOrEmpty(url))
                 {
                     // The URL could not be parsed properly, log a warning but use it anyway.
-                    Logger.Log(LogLevel.Warning, string.Format(CultureInfo.CurrentCulture, "The menu with the URL '{0}' could not be parsed. Make sure it is either absolute or relative (i.e. starts with '~/' or '/'). If it is relative, it shouldn't contain a '?'.", menu.Url));
+                    Logger.Log(LogLevel.Warning,
+                               string.Format(CultureInfo.CurrentCulture,
+                                             "The menu with the URL '{0}' could not be parsed. Make sure it is either absolute or relative (i.e. starts with '~/' or '/'). If it is relative, it shouldn't contain a '?'.",
+                                             menu.Url));
                     url = menu.Url;
                 }
-
-                var viewMenu = new MenuViewModel(url, menu.Title, menu.OpenInNewWindow, menu.ToolTip);
+                else menu.Url = url;
+                var viewMenu = new MenuViewModel(menu);
+               
                 // Select the menu with the longest URL that matches the current request URL.
-                if (selectedViewMenu == null || viewMenu.Url.Length > selectedViewMenu.Url.Length)
+                if (selectedViewMenu == null || url.Length > url.Length)
                 {
-                    if (requestContext.HttpContext.Request.Path.StartsWith(viewMenu.Url, StringComparison.OrdinalIgnoreCase))
+                    if (requestContext.HttpContext.Request.Path.StartsWith(url, StringComparison.OrdinalIgnoreCase))
                     {
-                        selectedViewMenu = viewMenu;
+                        selectedViewMenu = menu;
                     }
                 }
-                viewMenus.Add(viewMenu);
+               
             }
             if (selectedViewMenu != null)
             {
                 selectedViewMenu.Selected = true;
             }
-            return viewMenus;
+            return menus;
         }
 
         private void CheckFirstTimeInitialization()

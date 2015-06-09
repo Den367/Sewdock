@@ -36,6 +36,7 @@ namespace Myembro.Infrastructure
             ninjectKernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
             ninjectKernel.Bind<IContourRepository>().To<ContourRepository>().InSingletonScope();
             ninjectKernel.Bind<ITagRepository>().To<TagRepository>().InSingletonScope();
+            ninjectKernel.Bind<IGlyphRepository>().To<GlyphRepository>().InSingletonScope();
            
        
         }

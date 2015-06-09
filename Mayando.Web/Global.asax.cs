@@ -12,6 +12,7 @@ using Myembro.App_Start;
 using Myembro.Infrastructure;
 
 using Microsoft.Practices.ServiceLocation;
+using Myembro.Repository;
 using Ninject;
 using NinjectAdapter;
 
@@ -61,25 +62,25 @@ namespace Myembro
 
         #endregion
         #region [Ninject]
-        public static void RegisterServices(IKernel kernel)
-        {
-            //kernel.Bind<IEmbroRepository>().To<EmbroRepository>().InSingletonScope();
-            //kernel.Bind<ILinksRepository>().To<LinksRepository>().InSingletonScope();
-            //kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
-            //kernel.Bind<IContourRepository>().To<ContourRepository>().InSingletonScope();
+        //public static void RegisterServices(IKernel kernel)
+        //{
+        //    kernel.Bind<IGlyphRepository>().To<GlyphRepository>().InSingletonScope();
+        //    //kernel.Bind<ILinksRepository>().To<LinksRepository>().InSingletonScope();
+        //    //kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
+        //    //kernel.Bind<IContourRepository>().To<ContourRepository>().InSingletonScope();
 
-        }
+        //}
 
 
 
-        private void RegisterMyDependencyResolver()
-        {
-            var standardKernel = new StandardKernel();
-            RegisterServices(standardKernel);
+        //private void RegisterMyDependencyResolver()
+        //{
+        //    var standardKernel = new StandardKernel();
+        //    RegisterServices(standardKernel);
             
-            ServiceLocator.SetLocatorProvider(() => new NinjectServiceLocator(standardKernel));
-            DependencyResolver.SetResolver(new NinjectDependencyResolver());
-        }
+        //    ServiceLocator.SetLocatorProvider(() => new NinjectServiceLocator(standardKernel));
+        //    DependencyResolver.SetResolver(new NinjectDependencyResolver());
+        //}
         #endregion [Ninject]
     }
 }

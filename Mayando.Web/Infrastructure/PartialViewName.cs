@@ -59,6 +59,7 @@ namespace Myembro.Infrastructure
         DesignCanvas,
         Likes,
         SocialNetworkPlugins,
-        OSM
+        OSM,
+        Glyphs
     }
 }

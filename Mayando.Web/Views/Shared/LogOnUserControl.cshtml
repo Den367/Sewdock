@@ -24,8 +24,10 @@
     @Html.ActionLink(string.Format("{0} {1}!", Resources.LabelTextHello, User.Identity.GetUserName()), "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
 @* </li>
 <li>*@
-    <br />
-    <a href="javascript:document.getElementById('logoutForm').submit()">@Resources.AccountLogOff</a>
+        <br />
+      <span class="btn"><span class="icon-logout"/>
+      <a href="javascript:document.getElementById('logoutForm').submit()">@Resources.AccountLogOff</a>
+          </span>
 @*</li>
     </ul>*@
     }
@@ -38,9 +40,9 @@
 }
 else
 {
-
-@* <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", data_dialog_title = "Registration" })</li>*@
+    <span class="btn"><span class="icon-login"/>
     @Html.ActionLink(Resources.AccountLogOn, "Index", "Account")
-   
+    
+   </span>
 }
 

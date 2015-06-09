@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 using EmbroideryFile;
 using Myembro.Models;
 using Myembro.Repository;
 using Ninject;
 using Ninject.Syntax;
-using NuGet;
+
 using IDependencyResolver = System.Web.Mvc.IDependencyResolver;
 
 
@@ -43,8 +42,8 @@ namespace Myembro.Infrastructure
             kernel.Bind<IAboutRepository>().To<AboutRepository>().InSingletonScope();
             kernel.Bind<IEmbroRepository>().To<EmbroRepository>().InSingletonScope();
             kernel.Bind<IThumbRepository>().To<ThumbRepository>().InSingletonScope();
-            kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
-         
+           kernel.Bind<IGlyphRepository>().To<GlyphRepository>().InSingletonScope();
+           kernel.Bind<ISvgEncode>().To<SvgEncoder>().InSingletonScope();
         }
 
       
