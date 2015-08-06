@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using Myembro.Enumerations;
-using Myembro.Infrastructure;
- using Myembro.Properties;
+
 namespace Myembro.ViewModels
 {
     public class QrcodeFormViewModel
