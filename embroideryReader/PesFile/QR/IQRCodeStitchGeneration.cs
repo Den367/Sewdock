@@ -9,5 +9,7 @@ namespace EmbroideryFile
        List<List<Coords>> GetQRCodeStitches();
        List<CoordsBlock> GetQRCodeStitchBlocks();
        List<CoordsBlock> GetQRCodeInvertedYStitchBlocks();
+       int GetDesignXOffset { get; set; }
+       int GetDesignYOffset{ get; set; }
     }
 }

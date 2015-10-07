@@ -21,7 +21,8 @@ namespace Myembro.Infrastructure
         /// <param name="isBodyHtml">Defines if the message body is HTML markup.</param>
         /// <param name="async">Defines if the message should be sent asynchronously.</param>
         /// <returns><see langword="true"/> if the message was sent, <see langword="false"/> otherwise (i.e. if no email address was configured).</returns>
-        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body, bool isBodyHtml, bool async)
+        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body,
+            bool isBodyHtml, bool async)
         {
             return SendNotificationMail(settings, subject, body, isBodyHtml, async, null, null, false);
         }
@@ -36,7 +37,8 @@ namespace Myembro.Infrastructure
         /// <param name="async">Defines if the message should be sent asynchronously.</param>
         /// <param name="ignoreExceptions">Defines if exceptions during sending should be ignored (i.e. not logged).</param>
         /// <returns><see langword="true"/> if the message was sent, <see langword="false"/> otherwise (i.e. if no email address was configured).</returns>
-        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body, bool isBodyHtml, bool async, bool ignoreExceptions)
+        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body,
+            bool isBodyHtml, bool async, bool ignoreExceptions)
         {
             return SendNotificationMail(settings, subject, body, isBodyHtml, async, null, null, ignoreExceptions);
         }
@@ -52,7 +54,8 @@ namespace Myembro.Infrastructure
         /// <param name="senderEmail">The email address of the sender.</param>
         /// <param name="senderName">The name of the sender.</param>
         /// <returns><see langword="true"/> if the message was sent, <see langword="false"/> otherwise (i.e. if no email address was configured).</returns>
-        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body, bool isBodyHtml, bool async, string senderEmail, string senderName)
+        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body,
+            bool isBodyHtml, bool async, string senderEmail, string senderName)
         {
             return SendNotificationMail(settings, subject, body, isBodyHtml, async, senderEmail, senderName, false);
         }
@@ -70,23 +73,34 @@ namespace Myembro.Infrastructure
         /// <param name="ignoreExceptions">Defines if exceptions during sending should be ignored (i.e. not logged).</param>
         /// <returns><see langword="true"/> if the message was sent, <see langword="false"/> otherwise (i.e. if no email address was configured).</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body, bool isBodyHtml, bool async, string senderEmail, string senderName, bool ignoreExceptions)
+        public static bool SendNotificationMail(ApplicationSettings settings, string subject, string body,
+            bool isBodyHtml, bool async, string senderEmail, string senderName, bool ignoreExceptions)
         {
-            if (string.IsNullOrEmpty(settings.OwnerEmail))
+          return  SendNotificationMail(settings.OwnerEmail, settings.OwnerName, subject, body,
+                isBodyHtml, async, senderEmail, senderName, ignoreExceptions, settings.SmtpServer);
+
+          
+        }
+
+        public static bool SendNotificationMail(string ownerEmail, string ownerName, string subject, string body,
+            bool isBodyHtml, bool async, string senderEmail, string senderName, bool ignoreExceptions, string smtpServer)
+        {
+            if (string.IsNullOrEmpty(ownerEmail))
             {
                 return false;
             }
             else
             {
-                var ownerEmail = new MailAddress(settings.OwnerEmail, settings.OwnerName);
-                var fromMail = new MailAddress((string.IsNullOrEmpty(senderEmail) ? settings.OwnerEmail : senderEmail), (string.IsNullOrEmpty(senderName) ? settings.OwnerName : senderName));
-                var message = new MailMessage(fromMail, ownerEmail)
+                var email = new MailAddress(ownerEmail, ownerName);
+                var fromMail = new MailAddress((string.IsNullOrEmpty(senderEmail) ? ownerEmail : senderEmail),
+                    (string.IsNullOrEmpty(senderName) ? ownerName : senderName));
+                var message = new MailMessage(fromMail, email)
                 {
                     Subject = subject,
                     Body = body,
                     IsBodyHtml = isBodyHtml
                 };
-                var client = new SmtpClient(settings.SmtpServer);
+                var client = new SmtpClient(smtpServer);
                 var sent = false;
                 if (async)
                 {

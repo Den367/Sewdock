@@ -29,15 +29,46 @@
 <div id="menucontainer">
     <ul id="menu">
         @foreach (var menu in Model)
-        {
-          
-            <li class="@( (menu.Selected)?  Html.Raw("selected"):Html.Raw(""))">
-                <a class="btn" href="@menu.Url" title="@menu.ToolTip">
-                     <span class="@string.Format(" {0}",menu.cssClass)"/><sub> @menu.Title</sub>
+        {            
+            <li class="@( (menu.Selected) ? Html.Raw("selected") : Html.Raw(""))">
+                <a class="btn" href="@menu.Url" title="@menu.ToolTip"
+ data-ajax-url="@menu.Url"
+               data-ajax-update="#main" data-ajax-mode="replace" data-ajax-method="POST" data-ajax="true"
+                   data-ajax-success="setSelectedMenu('@menu.Title','@menu.Url')"
+                   data-ajax-complete="ajaxOnLoad.fireOnLoad();">
+                    <span class="@string.Format(" {0}", menu.cssClass)"/><sub> @menu.Title</sub>
                 </a>
-               @* @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip ))*@
+                @* @Html.Raw(Html.Link(menu.Url, menu.Title, menu.OpenInNewWindow, menu.ToolTip ))*@
             </li>
-        } 
+        }
     </ul>
 </div>
+<script type="text/javascript">
+    function setSelectedMenu(title, href) {
+        history.pushState('', title, href);
+        var crrntSlctd = $('div#menucontainer li.selected');
+       if (crrntSlctd != undefined) $(crrntSlctd).removeClass('selected');
+       var item = $('div#menucontainer li:has(a[href="'+ href +'"])');
+        console.log(item);
+        if (item != undefined) $(item).addClass('selected');       
+    }
+    var ajaxOnLoad = (function () {
+        var ajaxOnLoad = {};
+        var onLoadQueue = [];
+
+        ajaxOnLoad.onLoad = function (fn) {
+            onLoadQueue.push(fn);
+        }
+
+        ajaxOnLoad.fireOnLoad = function () {
+            while (onLoadQueue.length > 0) {
+                var fn = onLoadQueue.shift();
+                if (fn != undefined) fn();
+            }
+        }
+
+        window.ajaxOnLoad = ajaxOnLoad;
+        return ajaxOnLoad;
+    })();
+</script>
 

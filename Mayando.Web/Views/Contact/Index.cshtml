@@ -10,9 +10,5 @@
 
 @section MainContent{
 
-  <div id="contactindexpage">
-      <h3>@Html.Encode(ViewBag.Title) </h3>
-        <h2>@Resources.ContactContactMe</h2>
-    @{ Html.RenderPartial("ContactForm", null); }
-</div>  
+    @{Html.RenderPartial("Main");}
 }

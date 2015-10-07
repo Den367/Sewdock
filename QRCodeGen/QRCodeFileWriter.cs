@@ -45,6 +45,18 @@ namespace QRCodeGen
 
             switch (args[0].ToLower())
             {
+                case "pes":
+                case "/pes":
+                case "-pes":
+                    qrcodeGen = new QrcodePes();
+                    ext = "pec";
+                    break;
+                case "pec":
+                case "/pec":
+                case "-pec":
+                    qrcodeGen = new QrcodePec();
+                    ext = "pec";
+                    break;
                 case "dst":
                 case "/dst":
                 case "-dst":

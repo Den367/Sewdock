@@ -131,6 +131,8 @@
     <Compile Include="QRCodeConverting\IQRCodeStreamer.cs" />
     <Compile Include="QRCodeConverting\QrcodeCreate.cs" />
     <Compile Include="QRCodeConverting\QrcodeDst.cs" />
+    <Compile Include="QRCodeConverting\QrcodePec.cs" />
+    <Compile Include="QRCodeConverting\QrcodePes.cs" />
     <Compile Include="QRCodeConverting\QrcodePng.cs" />
     <Compile Include="QRCodeConverting\QrcodeSvg.cs" />
     <Compile Include="QR\IQRCodeStitchGeneration.cs" />
@@ -174,6 +176,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="QR\QRCodeGeneratorDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PEC\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

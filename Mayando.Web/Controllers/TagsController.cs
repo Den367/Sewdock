@@ -41,6 +41,7 @@ namespace Myembro.Controllers
             var tagInfos = GetTagInfos(tags);
             var links = GetLinks(tagInfos, "Embro", "Index", "criteria");
             var m = new TagsViewModel(tagInfos, count, links);
+            if (Request.IsAjaxRequest()) return PartialView("Main",m);
             return View(ViewName.Index,m);
         }
 

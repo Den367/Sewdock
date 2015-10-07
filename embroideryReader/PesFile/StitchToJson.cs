@@ -13,19 +13,24 @@ namespace EmbroideryFile
 
         public static string ToJsonCoords(this EmbroideryData design)
         {
+            return ToJsonCoords(design.Blocks);
+        }
+
+        public static string ToJsonCoords(this IEnumerable<CoordsBlock> blocks)
+        {
             //var minX = design.GetXCoordMin();
             //var minY = design.GetYCoordMin();
             //var blocks = design.Blocks;
 
-            var result = from needle in design.Blocks
+            var result = from needle in blocks
                          select
                              new JsonCoordsBlock
-                                 {
-                                     jump = needle.Jumped,
-                                     stop = needle.Stop,
-                                     color = needle.Color.Name,
-                                     needle = needle
-                                 };
+                             {
+                                 jump = needle.Jumped,
+                                 stop = needle.Stop,
+                                 color = needle.Color.Name,
+                                 needle = needle
+                             };
             return Serializer.Serialize(result);
         }
 

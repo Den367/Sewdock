@@ -1,34 +1,107 @@
 ﻿@using Myembro.Extensions           
 @using Myembro.Properties
 
+ <script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : 'your_site_key'
+        });
+      };
+    </script>
+    @using (Html.BeginContactSendMessageForm()) {
 
-    @using (Html.BeginContactSendMessageForm()) { 
-    <div id="contact-form">
-        <style>
-            textarea#Text {margin-left: 10%; width: 200%;}
-           input#AuthorName,input#AuthorEmail {margin-left: 10%; width: 400%;}
-            td input[type="submit"]{ width: 400%;}
-        </style>
-        @Html.ValidationSummary(Resources.ValidationSummaryGenericTitle)
-        <table>
-            <tbody>
-                <tr>
-                    <td><label for="AuthorName" class="required">@Resources.ContactAuthorName</label></td>
-                    <td colspan="5">@Html.TextBox("AuthorName")@Html.ValidationMessage("AuthorName", "*")</td>
-                </tr>
-                <tr>
-                    <td><label for="AuthorEmail" class="required">@Resources.ContactAuthorEmail</label></td>
-                    <td colspan="5">@Html.TextBox("AuthorEmail")@Html.ValidationMessage("AuthorEmail", "*")</td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top"><label for="Text" class="required">@Resources.ContactAuthorMessage</label></td>
-                    <td colspan="2">@Html.TextArea("Text", string.Empty, 8, 40, null)@Html.ValidationMessage("Text", "*")</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><input type="submit" value="@Html.AttributeEncode(Resources.ContactSubmit)" class="btn btn-large bg-color-orange"/></td>
+        <div id="contact-form">
+           @* @Html.ValidationSummary(Resources.ValidationSummaryGenericTitle)*@
+
+            <div id="author-name-field">
+                <label for="AuthorName" class="required">@Resources.ContactAuthorName</label>@Html.TextBox("AuthorName")@Html.ValidationMessage("AuthorName", "*")
+            </div>
+
+
+            <div id="author-email-field">
+                <label for="AuthorEmail" class="required">@Resources.ContactAuthorEmail</label>@Html.TextBox("AuthorEmail")@Html.ValidationMessage("AuthorEmail", "*")
+            </div>
+
+
+            <div id="message-text-field">
+
+                <label for="Text" class="required">@Resources.ContactAuthorMessage</label>
+
+                @Html.TextArea("Text", string.Empty, 8, 1000, null)@Html.ValidationMessage("Text", "*")
+            </div>
+
+            <div id="submit-button">
+                <input type="submit" id="contact-view-submit" value="@Html.AttributeEncode(Resources.ContactSubmit)" class="btn bg-color-orange" />
+            </div>
+<div id="g-recaptcha" class="g-recaptcha" data-sitekey="6LdY4w0TAAAAAEOq1DGOx3jSeRormWr0VwHVfwpx"></div>
+
+        </div>
+} 
+ <script src="https://www.google.com/recaptcha/api.js?hl=ru"
+        async defer>
+    
+ </script>
+            <style>
+                div#contact-form {
+                    position: relative;
+                    left: 10%;
+                    height: 400px;
+                    width: 75%;
+                }
+
+                div#author-name-field {
+                    position: absolute;
+                    top: 5%;
+                    left: 15%;
+width:30%
+                }
+
+                div#author-email-field {
+                    position: absolute;
+                    top: 5%;
+                    left: 47%;
+                    width: 30%;
+                }
+
+                div#message-text-field {
+                    position: absolute;
+                    top: 25%;
+                    left: 15%;
+                    width: 100%;
+                }
+
+ div#message-text-field textarea{
                    
-                </tr>
-            </tbody>
-        </table>
-    </div>
-     } 
+                    width: 100%;
+                }
+
+                textarea#Text {
+                    width: 100%;
+                    margin-left: 0;
+                    margin-top: -0.5%;
+                }
+
+                input#AuthorName, input#AuthorEmail {
+                    width: 100%;
+                }
+
+                input#contact-view-submit {
+                    position: absolute;
+                    top: 100%;
+                    width: 100%;
+                    display: block;
+                }
+
+                div#submit-button {
+                    width: 200%;
+                    position: absolute;
+                    top: 80%;
+                    left: 15%;
+                }
+div#g-recaptcha{
+                    width: 200%;
+                    position: absolute;
+                    top: 70%;
+                    left: 55%;
+                }
+            </style>

@@ -18,11 +18,11 @@ namespace EmbroideryFile
         List<List<Coords>> _blocks;
         readonly Stream _stream;
         int _stitchBlockCount;
-        QrCodeStitcher _stitcher;
+        IQRCodeStitchGeneration _stitcher;
         QRCodeStitchInfo _info;
         Stream _pecStream;
 
-          public PesBuilder(QrCodeStitcher stitcher, Stream strm)
+        public PesBuilder(IQRCodeStitchGeneration stitcher, Stream strm)
         {
             _stream = strm;
             _stitcher = stitcher;

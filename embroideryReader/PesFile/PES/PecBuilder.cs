@@ -16,12 +16,12 @@ namespace EmbroideryFile
         int _designWidth = 0;
         int _designHeight = 0;
         List<List<Coords>> _blocks;
-        readonly Stream _stream;
+        Stream _stream;
         int _stitchBlockCount;
-        QrCodeStitcher _stitcher;
+        IQRCodeStitchGeneration _stitcher;
         QRCodeStitchInfo _info;
 
-        public QrCodeStitcher Stitcher
+        public IQRCodeStitchGeneration Stitcher
         {
             set
             {
@@ -33,7 +33,7 @@ namespace EmbroideryFile
             get { return _stitcher; }
         }
 
-        public PecBuilder(QrCodeStitcher stitcher)
+        public PecBuilder(IQRCodeStitchGeneration stitcher)
         {
         
             _stitcher = stitcher;
@@ -45,7 +45,7 @@ namespace EmbroideryFile
 
 
 
-        public PecBuilder(QrCodeStitcher stitcher, Stream strm)
+        public PecBuilder(IQRCodeStitchGeneration stitcher, Stream strm)
         {
             _stream = strm;
             _stitcher = stitcher;
@@ -66,20 +66,17 @@ namespace EmbroideryFile
         /// Build Pec file structure
         /// </summary>
         /// <param name="lanes"></param>
-       public void WritePecStructureToStream()
-       {
-           if (_stream != null)
+       public void WriteStitchesToPecStream(Stream stream)
+         {
+             if (_stream == null) _stream = stream;
                using (_stream)
                {
-                   _stream.Write(new byte[] { 0x23, 0x50, 0x45, 0x43, 0x30, 0x30, 0x30, 0x31}, 0, 8);
-                   
-
+                   _stream.Write(new byte[] { 0x23, 0x50, 0x45, 0x43, 0x30, 0x30, 0x30, 0x31}, 0, 8);                   
                    using (Stream pecStream = GetPecStream())
                    {
                        pecStream.Position = 0;
                        pecStream.CopyTo(_stream, (int)pecStream.Length);
                    }
-
                }
        }
 
@@ -112,9 +109,11 @@ namespace EmbroideryFile
              stream.Write(new byte[] { 0x31, 0xFF,0xF0 }, 0, 3);
             // Design Size 4 bytes
              stream.Write(GetDesignSizeBytes(),0,4);             
-            // Unknown variable bytes
+            // Unknown variable bytes // first four  are fixed, las four bounding box
              byte[] UnknownVar = new byte[8]{0xE0,0x01,0xB0,0x01,0x91,0x2C,0x91,0x2C};
-             stream.Write(UnknownVar, 0, 8);
+             stream.Write(UnknownVar, 0, 4);
+             stream.Write(GetLeft(), 0, 2);
+             stream.Write(GetTop(), 0, 2);
              stream.Write(Enumerable.Repeat((byte)0x00, 4).ToArray(), 0, 4);
            using( StitchData)         
           {
@@ -260,11 +259,11 @@ namespace EmbroideryFile
 
         public int GetDesignWidth()
          {
-             if (_designWidth == 0) 
-   
+             if (_designWidth == 0)
+
              {
 
-                 int minX = _blocks.SelectMany(block => block.AsEnumerable()).Min(stitch => stitch.X);
+                 int minX = GetMinX();
                  int maxX = _blocks.SelectMany(block => block.AsEnumerable()).Max(stitch => stitch.X);
                  _designWidth = (maxX - minX) ;
              }
@@ -276,12 +275,54 @@ namespace EmbroideryFile
              if (_designHeight == 0)
              {
 
-                 int minY = _blocks.SelectMany(block => block.AsEnumerable()).Min(stitch => stitch.Y);
+                 int minY = GetMinY();
                  int maxY = _blocks.SelectMany(block => block.AsEnumerable()).Max(stitch => stitch.Y);
                  _designHeight = (maxY - minY) ;
              }
              return _designWidth;
          }
+
+        public int GetMinX()
+        {
+            return _blocks.SelectMany(block => block.AsEnumerable()).Min(stitch => stitch.X);
+        }
+
+        public int GetMinY()
+        {
+            return _blocks.SelectMany(block => block.AsEnumerable()).Min(stitch => stitch.Y);
+        }
+
+        byte[] GetLeft2()
+        {
+            byte[] result = new byte[2];
+            result[1] = 0;
+            result[0] = (byte)(((0x9000 | -GetMinX()) >> 8) & 0xFF);
+            return result;
+        }
+
+        byte[] GetTop2()
+        {
+            byte[] result = new byte[2];
+            result[1] = 0;
+            result[0] = (byte)(((0x9000 | -GetMinY()) >> 8) & 0xFF);
+            return result;
+        }
+
+        byte[] GetLeft()
+        {
+            byte[] result = new byte[2];
+            result[0] = 0;
+            result[1] = (byte)(((0x9000 | -GetMinX()) >> 8) & 0xFF);
+            return result;
+        }
+
+        byte[] GetTop()
+        {
+            byte[] result = new byte[2];
+            result[0] = 0;
+            result[1] = (byte)(((0x9000 | -GetMinY()) >> 8) & 0xFF);
+            return result;
+        }
 
          public byte[] GetDesignSizeBytes()
          {

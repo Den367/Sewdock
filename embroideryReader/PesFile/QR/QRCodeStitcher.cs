@@ -289,9 +289,11 @@ namespace EmbroideryFile.QR
             return GetListCoordsBlock(GetNegativatedYListOfCoordsBlock(GetQRCodeStitches()));
         }
 
-        public int GetDesignXOffset { get; private set; }
+  
 
-        public int GetDesignYOffset { get; private set; }
+        public int GetDesignXOffset { get; set; }
+
+        public int GetDesignYOffset { get; set; }
 
         #endregion [Public Methods]
 

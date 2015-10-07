@@ -1,11 +1,9 @@
 ﻿using System.Web.Mvc;
-using Myembro.Filters;
 
-namespace Myembro.Controllers
+namespace IdentitySample.Controllers
 {
-    public class HomeController : SiteControllerBase
+    public class HomeController : Controller
     {
-        [ClientInfoActionFiterAttribute(enableThrottling = false, notifyByEmail = true, eMail = "denis-mandrykin@yandex.ru")]
         public ActionResult Index()
         {
             return View();
@@ -19,7 +17,6 @@ namespace Myembro.Controllers
             return View();
         }
 
-        [ClientInfoActionFiterAttribute(enableThrottling = true, notifyByEmail = true, eMail = "denis-mandrykin@yandex.ru")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
