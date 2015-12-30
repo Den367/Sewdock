@@ -17,16 +17,14 @@ namespace fontChecker
                 Console.WriteLine("family:{0}",family);
                 Console.WriteLine(string.Format("FamilyNames.Count:{0}",family.FamilyNames.Count));
                 foreach (var names in family.FamilyNames)
-                {
-                   
-                        Console.WriteLine("names:{0}",names.Value);
+                {                   
+                    Console.WriteLine("names:{0}",names.Value);
                 }
                 Console.WriteLine(string.Format("{0} {1} {2}",family.BaseUri,family.Baseline,family.FamilyNames));
-                var typefaces = family.GetTypefaces();
+                ICollection<Typeface> typefaces = family.GetTypefaces();
                 Console.WriteLine(string.Format("typefaces.Count:{0}", typefaces.Count));
                 foreach (Typeface typeface in typefaces)
-                {
-                   
+                {                   
                     Console.WriteLine(string.Format("typeface.FaceNames.Count:{0}", typeface.FaceNames.Count));
                     Console.WriteLine(string.Format("typeface.Style:{0} {1} {2}", typeface.Stretch, typeface.Style, typeface.Weight));
                     foreach(var faceName in typeface.FaceNames)
@@ -41,7 +39,6 @@ namespace fontChecker
                         GetGlyphGeometry(glyph, kvp.Value, 100.0, 100.0);
                         //Console.WriteLine(String.Format("{0}:{1}", kvp.Key, kvp.Value));
                     }
-
                 }
             }
             Console.WriteLine("Press enter");

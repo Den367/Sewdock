@@ -15,5 +15,7 @@ namespace Myembro.ViewModels
         public string Criteria { get; set; }
         public int PageNo { get; set; }
         public int PageSize { get; set; }
+        public int PrevEmbroID { get; set; }
+        public int NextEmbroID { get; set; }
     }
 }

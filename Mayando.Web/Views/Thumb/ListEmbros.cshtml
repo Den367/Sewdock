@@ -18,3 +18,20 @@
     </div>
 }
 
+<script type="text/javascript">
+    $(function () {
+        $('div.navigation-filmstrip a.btn').on('click',(function (e) {           
+            $('div#embro-design-block > svg').animate({
+                left: -500 
+            }, 500);           
+            return true;
+        }));
+    });
+    function shiftLeftPreview() {
+        $('div#embro-design-block > svg').css({ left: 500 });
+        //alert('shift');
+        $('div#embro-design-block > svg').animate({
+        left: 0
+    }, 200);
+}
+</script>
